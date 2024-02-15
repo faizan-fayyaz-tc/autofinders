@@ -74,13 +74,16 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
     flexDirection: 'row',
     justifyContent: 'space-around',
-    paddingVertical: 10,
+    paddingVertical: 40,
+    
   },
   button: {
     backgroundColor: '#Ac3803',
-    borderRadius: 20,
+    borderRadius: 50,
     paddingVertical: 10,
-    paddingHorizontal: 25,
+    paddingHorizontal: 30,
+    paddingLeft: 15,
+    paddingRight: 15,
   },
   buttonText: {
     color: 'white',

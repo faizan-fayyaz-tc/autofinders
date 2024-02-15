@@ -7,7 +7,7 @@
 import React, { useState } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, TextInput, FlatList, ScrollView } from 'react-native';
 import FeaturedAd from '../components/featuredAd';
-// import SegmentedSelectionNavigation from '../components/segmentedSelectionNavigation';
+import SegmentedSelectionNavigation from '../components/segmentedSelectionNavigation';
 import AutoFindersOffering from '../components/autoFinderOffering';
 import { useNavigation } from '@react-navigation/native';
 import MainHeader from '../components/mainHeader';
@@ -29,7 +29,7 @@ const home = ({ navigation }) => {
         <FeaturedAd navigation={navigation} />
 
         {/* Carousal */}
-        {/* <SegmentedSelectionNavigation navigation={navigation} style={{ marginBottom: 30 }} /> */}
+        <SegmentedSelectionNavigation navigation={navigation} style={{ marginBottom: 30 }} />
 
         {/* Auto Finders Offering Section */}
         <AutoFindersOffering navigation={navigation} />
