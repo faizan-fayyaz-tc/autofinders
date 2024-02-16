@@ -169,6 +169,8 @@ export default AutoFindersOffering;
 //#Ac3803 ≈ Fire
 //#2884ec ≈ Royal Blue
 
-//color: '#2884ec',
-// #ebedf2
+//color: '#2884ec' blue,
+// #ebedf2 light greey
+
+  //  secure color #9aedd7
 

@@ -10,16 +10,58 @@ import {
 
 } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
+import PaymentDetailModal from '../components/paymentDetailModel';
 // import MarqueeText from 'react-native-marquee';
 
 const CheckoutCarInspection = ({ navigation }) => {
-    
+    const [showModal, setShowModal] = useState(false);
+    const [selectedPaymentMethod, setSelectedPaymentMethod] = useState('');
+
     const handleBack = () => {
         navigation.goBack();
+    };
+    // const handlePaymentOptionPress = (paymentMethod) => {
+    //     setSelectedPaymentMethod(paymentMethod);
+    //     setShowModal(true);
+    // };
+
+    const handleCloseModal = () => {
+        setShowModal(false);
     };
 
     const handlecontinue = () => {
         // Implement logic for handling the 'Next' button
+    };
+    const handlePaymentOptionPress = (paymentMethod) => {
+        switch (paymentMethod) {
+            case "Cheque":
+                // Implement logic for handling cheque payment
+                console.log("Cheque payment selected");
+                setSelectedPaymentMethod(paymentMethod);
+                setShowModal(true);
+                break;
+            case "Cash Deposit":
+                // Implement logic for handling cash deposit payment
+                console.log("Cash deposit payment selected");
+                setSelectedPaymentMethod(paymentMethod);
+                setShowModal(true);
+                break;
+            case "Online Deposit":
+                // Implement logic for handling online deposit payment
+                console.log("Online deposit payment selected");
+                break;
+            case "EasyPaisa":
+                // Implement logic for handling EasyPaisa payment
+                console.log("EasyPaisa payment selected");
+                break;
+            case "JazzCash":
+                // Implement logic for handling JazzCash payment
+                console.log("JazzCash payment selected");
+                break;
+            default:
+                console.log(`Unknown payment method selected: ${paymentMethod}`);
+                break;
+        }
     };
 
     return (
@@ -35,6 +77,56 @@ const CheckoutCarInspection = ({ navigation }) => {
                     <Text style={styles.title}>Checkout</Text>
                 </View>
             </View>
+            <View style={styles.paymentBox}>
+                <View style={styles.paymentContent}>
+                    <Image
+                        source={require('../assets/protected.png')}
+                        style={styles.secureIcon}
+                    />
+                    <Text style={styles.paymentText}>All payment methods are encrypted and secure</Text>
+                </View>
+            </View>
+            <TouchableOpacity style={styles.paymentOption} onPress={() => handlePaymentOptionPress("Cheque")}>
+                <View style={styles.paymentOptionContent}>
+                    <Image source={require('../assets/cheque.png')} style={styles.paymentOptionIcon} />
+                    <Text style={styles.paymentOptionText}>Cheque</Text>
+                </View>
+            </TouchableOpacity>
+            <TouchableOpacity style={styles.paymentOption} onPress={() => handlePaymentOptionPress("Cash Deposit")}>
+                <View style={styles.paymentOptionContent}>
+                    <Image source={require('../assets/money.png')} style={styles.paymentOptionIcon} />
+                    <Text style={styles.paymentOptionText}>Cash Deposit</Text>
+                </View>
+            </TouchableOpacity>
+            <TouchableOpacity style={styles.paymentOption} onPress={() => handlePaymentOptionPress("Online Deposit")}>
+                <View style={styles.paymentOptionContent}>
+                    <Image source={require('../assets/banktransfer.png')} style={styles.paymentOptionIcon} />
+                    <Text style={styles.paymentOptionText}>Online Bank Deposit</Text>
+                </View>
+            </TouchableOpacity>
+            <TouchableOpacity style={styles.paymentOption} onPress={() => handlePaymentOptionPress("EasyPaisa")}>
+                <View style={styles.paymentOptionContent}>
+                    <Image source={require('../assets/money.png')} style={styles.paymentOptionIcon} />
+                    <Text style={styles.paymentOptionText}>EasyPaisa</Text>
+                </View>
+            </TouchableOpacity>
+            <TouchableOpacity style={styles.paymentOption} onPress={() => handlePaymentOptionPress("JazzCash")}>
+                <View style={styles.paymentOptionContent}>
+                    <Image source={require('../assets/money.png')} style={styles.paymentOptionIcon} />
+                    <Text style={styles.paymentOptionText}>JazzCash</Text>
+                </View>
+            </TouchableOpacity>
+
+            <PaymentDetailModal
+                visible={showModal}
+                paymentMethod={selectedPaymentMethod}
+                onClose={handleCloseModal}
+            />
+
+            <View style={styles.totalContainer}>
+                <Text style={styles.totalText}>Total(incl.VAT): </Text>
+                <Text style={styles.totalValue}>PKR 4,800</Text>
+            </View>
         </View>
     );
 };
@@ -44,7 +136,7 @@ const styles = StyleSheet.create({
         flex: 1,
     },
     header: {
-        backgroundColor: 'darkred',
+        backgroundColor: '#Ac3803',
         flexDirection: 'row',
         alignItems: 'center',
         padding: 15,
@@ -67,6 +159,61 @@ const styles = StyleSheet.create({
         color: 'white',
         fontSize: 18,
         fontWeight: 'bold',
+    },
+    paymentContent: {
+        flexDirection: 'row',
+        alignItems: 'center',
+    },
+    paymentBox: {
+        backgroundColor: '#9aedd7',
+        borderRadius: 10,
+        padding: 15,
+        margin: 20,
+    },
+    paymentText: {
+        flex: 1, // Take remaining space
+        fontSize: 12,
+    },
+    secureIcon: {
+        marginRight: 5, // Add some spacing between image and text
+        width: 20,
+        height: 20,
+    },
+    paymentOption: {
+        backgroundColor: '#ebedf2',
+        borderRadius: 10,
+        padding: 15,
+        margin: 10,
+    },
+    paymentOptionText: {
+        fontSize: 16,
+        fontWeight: 'bold',
+        textAlign: 'center',
+        color : '#Ac3803'
+    },
+    paymentOptionContent: {
+        flexDirection: 'row',
+        alignItems: 'center',
+    },
+    paymentOptionIcon: {
+        width: 20,
+        height: 20,
+        marginRight: 10,
+    },
+    totalContainer: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'center',
+        marginVertical: 10,
+    },
+    totalText: {
+        fontSize: 14,
+        fontWeight: 'bold',
+    },
+    totalValue: {
+        fontSize: 22,
+        fontWeight: 'bold',
+        color: '#Ac3803',
     },
 });
 
