@@ -515,8 +515,8 @@ const styles = StyleSheet.create({
 
     selectImageButton: {
         alignItems: 'center',
-        height: 150,
-        width: 370,
+        height: 200,
+        width: 320,
         borderColor: '#Ac3803',
         borderWidth: 1,
         borderRadius: 10,
@@ -535,7 +535,7 @@ const styles = StyleSheet.create({
     selectLocationButton: {
         flexDirection: 'row',
         height: 50,
-        width: 370,
+        width: 300,
         borderColor: '#Ac3803',
         borderWidth: 1,
         borderRadius: 5,
@@ -570,19 +570,19 @@ const styles = StyleSheet.create({
         marginRight: 10,
     },
     subLocationInput: {
-        marginLeft: 20,
+        marginLeft: 30,
         marginRight: 10,
         marginTop: 10,
     },
     areaInput: {
         marginLeft: 10,
-        marginRight: 20,
+        marginRight: 30,
         marginTop: 10,
     },
     selectCarModelButton: {
         flexDirection: 'row',
         height: 50,
-        width: 370,
+        width: 300,
         borderColor: '#Ac3803',
         borderWidth: 1,
         borderRadius: 5,
@@ -604,7 +604,7 @@ const styles = StyleSheet.create({
     selectRegisteredButton: {
         flexDirection: 'row',
         height: 50,
-        width: 370,
+        width: 300,
         borderColor: '#Ac3803',
         borderWidth: 1,
         borderRadius: 5,
@@ -614,7 +614,7 @@ const styles = StyleSheet.create({
     selectBodyColorButton: {
         flexDirection: 'row',
         height: 50,
-        width: 370,
+        width: 300,
         borderColor: '#Ac3803',
         borderWidth: 1,
         borderRadius: 5,
@@ -635,7 +635,7 @@ const styles = StyleSheet.create({
     selectKmDrivenButton: {
         flexDirection: 'row',
         height: 50,
-        width: 370,
+        width: 300,
         borderColor: '#Ac3803',
         borderWidth: 1,
         borderRadius: 5,
@@ -661,7 +661,7 @@ const styles = StyleSheet.create({
     selectPriceButton: {
         flexDirection: 'row',
         height: 50,
-        width: 370,
+        width: 300,
         borderColor: '#Ac3803',
         borderWidth: 1,
         borderRadius: 5,
@@ -679,7 +679,7 @@ const styles = StyleSheet.create({
     selectDescriptionButton: {
         flexDirection: 'row',
         height: 50,
-        width: 370,
+        width: 300,
         borderColor: '#Ac3803',
         borderWidth: 1,
         borderRadius: 5,
@@ -714,7 +714,7 @@ const styles = StyleSheet.create({
     selectFuelTypeButton: {
         flexDirection: 'row',
         height: 50,
-        width: 370,
+        width: 300,
         borderColor: '#Ac3803',
         borderWidth: 1,
         borderRadius: 5,
@@ -852,7 +852,7 @@ const styles = StyleSheet.create({
     },
     Postbutton: {
         backgroundColor: '#Ac3803',
-        width: 380,
+        width: 300,
         padding: 15,
         margin: 5,
         borderRadius: 5,
@@ -882,7 +882,7 @@ const styles = StyleSheet.create({
     },
     PremiumAdButton: {
         backgroundColor: '#Ac3803',
-        width: 380,
+        width: 300,
         padding: 15,
         margin: 5,
         borderRadius: 5,

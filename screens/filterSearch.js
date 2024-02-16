@@ -156,7 +156,7 @@ const FilterSearch = () => {
 
                 <TouchableOpacity style={styles.selectLocationButton} onPress={handleOpenLocationPicker}>
                     <Image source={require('../assets/locationIcon.png')} style={styles.locationIcon} />
-                    <Text style={styles.selectLocationText}>{selectedLocation || 'Location'}</Text>
+                    <Text style={styles.selectLocationText}>{selectedLocation || 'Address'}</Text>
                 </TouchableOpacity>
                 <LocationPicker
                     isVisible={locationModalVisible}
@@ -404,7 +404,8 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         // alignItems: 'center',
-        backgroundColor: 'white'
+        backgroundColor: 'white',
+        // padding: 10
     },
     header: {
         backgroundColor: '#Ac3803',
@@ -436,11 +437,13 @@ const styles = StyleSheet.create({
     selectLocationButton: {
         flexDirection: 'row',
         height: 50,
-        width: 370,
+        width: 300,
         borderColor: '#Ac3803',
         borderWidth: 1,
         borderRadius: 5,
         marginTop: 40,
+        // marginLeft: 20,
+        // marginRight: 20
     },
     locationIcon: {
         width: 20,
@@ -458,7 +461,7 @@ const styles = StyleSheet.create({
     selectCarModelButton: {
         flexDirection: 'row',
         height: 50,
-        width: 370,
+        width: 300,
         borderColor: '#Ac3803',
         borderWidth: 1,
         borderRadius: 5,
@@ -480,7 +483,7 @@ const styles = StyleSheet.create({
     selectRegisteredButton: {
         flexDirection: 'row',
         height: 50,
-        width: 370,
+        width: 300,
         borderColor: '#Ac3803',
         borderWidth: 1,
         borderRadius: 5,
@@ -490,7 +493,7 @@ const styles = StyleSheet.create({
     selectBodyColorButton: {
         flexDirection: 'row',
         height: 50,
-        width: 370,
+        width: 300,
         borderColor: '#Ac3803',
         borderWidth: 1,
         borderRadius: 5,
@@ -511,7 +514,7 @@ const styles = StyleSheet.create({
     selectKmDrivenButton: {
         flexDirection: 'row',
         height: 50,
-        width: 370,
+        width: 300,
         borderColor: '#Ac3803',
         borderWidth: 1,
         borderRadius: 5,
@@ -537,7 +540,7 @@ const styles = StyleSheet.create({
     selectPriceButton: {
         flexDirection: 'row',
         height: 50,
-        width: 370,
+        width: 300,
         borderColor: '#Ac3803',
         borderWidth: 1,
         borderRadius: 5,
@@ -555,7 +558,7 @@ const styles = StyleSheet.create({
     selectDescriptionButton: {
         flexDirection: 'row',
         height: 50,
-        width: 370,
+        width: 300,
         borderColor: '#Ac3803',
         borderWidth: 1,
         borderRadius: 5,
@@ -590,7 +593,7 @@ const styles = StyleSheet.create({
     selectFuelTypeButton: {
         flexDirection: 'row',
         height: 50,
-        width: 370,
+        width: 300,
         borderColor: '#Ac3803',
         borderWidth: 1,
         borderRadius: 5,
@@ -728,7 +731,7 @@ const styles = StyleSheet.create({
     },
     Postbutton: {
         backgroundColor: '#Ac3803',
-        width: 380,
+        width: 300,
         padding: 15,
         margin: 5,
         borderRadius: 5,
