@@ -20,6 +20,7 @@ const CheckoutCarInspection = ({ navigation }) => {
     const handleBack = () => {
         navigation.goBack();
     };
+
     // const handlePaymentOptionPress = (paymentMethod) => {
     //     setSelectedPaymentMethod(paymentMethod);
     //     setShowModal(true);
@@ -27,6 +28,9 @@ const CheckoutCarInspection = ({ navigation }) => {
 
     const handleCloseModal = () => {
         setShowModal(false);
+    };
+    const handleContinue = () => {
+        // Implement logic for handling the 'Continue' button press
     };
 
     const handlecontinue = () => {
@@ -89,7 +93,7 @@ const CheckoutCarInspection = ({ navigation }) => {
             <TouchableOpacity style={styles.paymentOption} onPress={() => handlePaymentOptionPress("Cheque")}>
                 <View style={styles.paymentOptionContent}>
                     <Image source={require('../assets/cheque.png')} style={styles.paymentOptionIcon} />
-                    <Text style={styles.paymentOptionText}>Cheque</Text>
+                    <Text style={styles.paymentOptionText}>Cheque Deposit</Text>
                 </View>
             </TouchableOpacity>
             <TouchableOpacity style={styles.paymentOption} onPress={() => handlePaymentOptionPress("Cash Deposit")}>
@@ -127,6 +131,10 @@ const CheckoutCarInspection = ({ navigation }) => {
                 <Text style={styles.totalText}>Total(incl.VAT): </Text>
                 <Text style={styles.totalValue}>PKR 4,800</Text>
             </View>
+
+            <TouchableOpacity style={styles.continueButton} onPress={handleContinue}>
+                <Text style={styles.continueButtonText}>Continue</Text>
+            </TouchableOpacity>
         </View>
     );
 };
@@ -134,12 +142,13 @@ const CheckoutCarInspection = ({ navigation }) => {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
+        color : 'white'
     },
     header: {
         backgroundColor: '#Ac3803',
         flexDirection: 'row',
         alignItems: 'center',
-        padding: 15,
+        padding: 20,
         elevation: 3,
         zIndex: 2,
     },
@@ -181,7 +190,7 @@ const styles = StyleSheet.create({
     },
     paymentOption: {
         backgroundColor: '#ebedf2',
-        borderRadius: 10,
+        // borderRadius: 10,
         padding: 15,
         margin: 10,
     },
@@ -214,6 +223,19 @@ const styles = StyleSheet.create({
         fontSize: 22,
         fontWeight: 'bold',
         color: '#Ac3803',
+    },
+    continueButton: {
+        backgroundColor: '#Ac3803',
+        borderRadius: 10,
+        paddingVertical: 15,
+        marginHorizontal: 20,
+        marginBottom: 20,
+    },
+    continueButtonText: {
+        color: 'white',
+        fontSize: 16,
+        fontWeight: 'bold',
+        textAlign: 'center',
     },
 });
 
