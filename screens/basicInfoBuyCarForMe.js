@@ -15,18 +15,19 @@ import { useNavigation } from '@react-navigation/native'; // Import navigation h
 import LocationPicker from '../components/locationPicker';
 import CarModelPicker from '../components/carModelPicker';
 import RegisteredPicker from '../components/registeredPicker';
+import BuyCarForMeCharges from '../components/buyCarForMeCharges';
 
 
 const BasicInfoCarBuyCarForMe = ({ navigation }) => {
 
-    const numColumns = 3;
-    const numColumn = 4;
-    const [selectedCity, setSelectedCity] = useState(null);
-    const [isCityModalVisible, setCityModalVisible] = useState(false);
-    const [isYearModalVisible, setYearModalVisible] = useState(false);
-    const [isBrandModalVisible, setBrandModalVisible] = useState(false);
-    const [filteredBrands, setFilteredBrands] = useState(brands);
-    const [carSummary, setCarSummary] = useState('');
+    // const numColumns = 3;
+    // const numColumn = 4;
+    // const [selectedCity, setSelectedCity] = useState(null);
+    // const [isCityModalVisible, setCityModalVisible] = useState(false);
+    // const [isYearModalVisible, setYearModalVisible] = useState(false);
+    // const [isBrandModalVisible, setBrandModalVisible] = useState(false);
+    // const [filteredBrands, setFilteredBrands] = useState(brands);
+    // const [carSummary, setCarSummary] = useState('');
     const [locationModalVisible, setLocationModalVisible] = useState(false);
     const [selectedLocation, setSelectedLocation] = useState('');
     const [carModelModalVisible, setCarModelModalVisible] = useState(false);
@@ -35,74 +36,72 @@ const BasicInfoCarBuyCarForMe = ({ navigation }) => {
     const [selectedVariant, setSelectedVariant] = useState('');
     const [registeredModalVisible, setRegisteredModalVisible] = useState(false);
     const [selectedRegisteredLocation, setSelectedRegisteredLocation] = useState('');
+    const [buyCarForMeModalVisible, setBuyCarForMeModalVisible] = useState(false);
 
 
-    const handleBrandSearch = (text) => {
-        const filtered = brands.filter(brand => brand.toLowerCase().includes(text.toLowerCase()));
-        setFilteredBrands(filtered);
-    };
+    // const handleBrandSearch = (text) => {
+    //     const filtered = brands.filter(brand => brand.toLowerCase().includes(text.toLowerCase()));
+    //     setFilteredBrands(filtered);
+    // };
 
     /// for refreshing page 
-    useEffect(() => {
-        // This block of code will run when the component mounts
-        clearData();
-    }, []); // Empty dependency array means it only runs once on mount
+    // useEffect(() => {
+    //     // This block of code will run when the component mounts
+    //     clearData();
+    // }, []); // Empty dependency array means it only runs once on mount
 
-    const clearData = () => {
-        setSelectedCity(null);
-        setSelectedYear(null);
-        setSelectedBrand(null);
-        setFilteredBrands([]);
-        setCarSummary('');
-    };
+    // const clearData = () => {
+    //     setSelectedCity(null);
+    //     setSelectedYear(null);
+    //     setSelectedBrand(null);
+    //     setFilteredBrands([]);
+    //     setCarSummary('');
+    // };
 
 
     const handleBack = () => {
         // navigation.goBack(); // Go back when the back button is pressed
-        clearData(); //refreshing page
+        // clearData(); //refreshing page
         navigation.goBack();
     };
-    const handleNext = () => {
-        navigation.navigate('bookExpertVisitCarInspection');
-    }
-    const handleCitySelection = (city) => {
-        setSelectedCity(city);
-        setCityModalVisible(false);
-    };
+    // const handleCitySelection = (city) => {
+    //     setSelectedCity(city);
+    //     setCityModalVisible(false);
+    // };
 
-    const openCityModal = () => {
-        setCityModalVisible(true);
-    };
+    // const openCityModal = () => {
+    //     setCityModalVisible(true);
+    // };
 
-    const closeCityModal = () => {
-        setCityModalVisible(false);
-    };
+    // const closeCityModal = () => {
+    //     setCityModalVisible(false);
+    // };
     //
-    const handleYearSelection = (year) => {
-        setSelectedYear(year);
-        setYearModalVisible(false);
-    };
+    // const handleYearSelection = (year) => {
+    //     setSelectedYear(year);
+    //     setYearModalVisible(false);
+    // };
 
-    const openYearModal = () => {
-        setYearModalVisible(true);
-    };
+    // const openYearModal = () => {
+    //     setYearModalVisible(true);
+    // };
 
-    const closeYearModal = () => {
-        setYearModalVisible(false);
-    };
+    // const closeYearModal = () => {
+    //     setYearModalVisible(false);
+    // };
 
-    const handleBrandSelection = (brand) => {
-        setSelectedBrand(brand);
-        setBrandModalVisible(false);
-    };
+    // const handleBrandSelection = (brand) => {
+    //     setSelectedBrand(brand);
+    //     setBrandModalVisible(false);
+    // };
 
-    const openBrandModal = () => {
-        setBrandModalVisible(true);
-    };
+    // const openBrandModal = () => {
+    //     setBrandModalVisible(true);
+    // };
 
-    const closeBrandModal = () => {
-        setBrandModalVisible(false);
-    };
+    // const closeBrandModal = () => {
+    //     setBrandModalVisible(false);
+    // };
 
     const handleOpenLocationPicker = () => {
         setLocationModalVisible(true);
@@ -154,12 +153,27 @@ const BasicInfoCarBuyCarForMe = ({ navigation }) => {
         setSelectedRegisteredLocation(location);
         handleCloseRegisteredPicker();
     };
+    const handleContinue = () => {
+        // Show the buyCarForMeCharges modal
+        setBuyCarForMeModalVisible(true);
+    };
+    
+    const handleCloseBuyCarForMeModal = () => {
+        // Close the buyCarForMeCharges modal
+        setBuyCarForMeModalVisible(false);
+    };
+    
+    const handleContinueBuyCarForMe = () => {
+        // Navigate to the checkout screen
+        setBuyCarForMeModalVisible(false);
+        navigation.navigate('checkoutCarInspection');
+    };
 
 
 
-    const cities = ['Faisalabad', 'Gujranwala', 'Hyderabad', 'Islamabad', 'Karachi', 'Lahore', 'Multan', 'Peshawar', 'Rawalpindi'];
-    const year = ['2024', '2023', '2022', '2021', '2020', '2019', '2018', '2017', '2016', '2015', '2014', '2013', '2012', '2011', '2010', '2009', '2008', '2007', '2006', '2005', '2004', '2003', '2002', '2001', '2000', '1999', '1998', '1997', '1996', '1995', '1994', '1993', '1992', '1991', '1990', '1989'];
-    const brands = ['Toyota', 'Suzuki', 'Honda', 'KIA', 'Nissan', 'Hyndai', 'Daihastsu', 'Mitsubishi', 'Changan', 'Mercedes', 'MG', 'Audi', 'Proton', 'BMW', 'DFSK', 'Haval', 'FAW', 'Lexus', 'Mazda', 'Prince', 'Chevrolet', 'Cherry', 'Jeep', 'Range Rover', 'Tesla'];
+    // const cities = ['Faisalabad', 'Gujranwala', 'Hyderabad', 'Islamabad', 'Karachi', 'Lahore', 'Multan', 'Peshawar', 'Rawalpindi'];
+    // const year = ['2024', '2023', '2022', '2021', '2020', '2019', '2018', '2017', '2016', '2015', '2014', '2013', '2012', '2011', '2010', '2009', '2008', '2007', '2006', '2005', '2004', '2003', '2002', '2001', '2000', '1999', '1998', '1997', '1996', '1995', '1994', '1993', '1992', '1991', '1990', '1989'];
+    // const brands = ['Toyota', 'Suzuki', 'Honda', 'KIA', 'Nissan', 'Hyndai', 'Daihastsu', 'Mitsubishi', 'Changan', 'Mercedes', 'MG', 'Audi', 'Proton', 'BMW', 'DFSK', 'Haval', 'FAW', 'Lexus', 'Mazda', 'Prince', 'Chevrolet', 'Cherry', 'Jeep', 'Range Rover', 'Tesla'];
     return (
         <View style={styles.container}>
             <View style={styles.header}>
@@ -273,7 +287,7 @@ const BasicInfoCarBuyCarForMe = ({ navigation }) => {
                     >
                         <Text style={styles.label}>Registered In</Text>
                         <View style={styles.citySelectionField}>
-                        <Text style={styles.selectLocationText}>{selectedRegisteredLocation || 'Registered In'}</Text>
+                            <Text style={styles.selectLocationText}>{selectedRegisteredLocation || 'Registered In'}</Text>
                             <Image
                                 source={require('../assets/right-arrow.png')}
                                 style={styles.arrowIcon}
@@ -287,7 +301,7 @@ const BasicInfoCarBuyCarForMe = ({ navigation }) => {
                     />
 
                     <View style={styles.inputContainer}>
-                        <Text style={styles.label}>Vehicle Description (100-150 words)</Text>
+                        <Text style={styles.label}>Vehicle description you want to buy </Text>
                         <TextInput
                             style={styles.summaryInput}
                             placeholder="Write a summary about your car..."
@@ -297,16 +311,22 @@ const BasicInfoCarBuyCarForMe = ({ navigation }) => {
                             onChangeText={(text) => setCarSummary(text)}
                         />
                     </View>
-                    <TouchableOpacity style={styles.nextButton} onPress={handleNext}>
-                        <Text style={styles.nextButtonText}>Next</Text>
+                    <TouchableOpacity style={styles.nextButton} onPress={handleContinue}>
+                        <Text style={styles.nextButtonText}>Continue</Text>
                     </TouchableOpacity>
+
+                    <BuyCarForMeCharges
+                        visible={buyCarForMeModalVisible}
+                        onClose={handleCloseBuyCarForMeModal}
+                        onContinue={handleContinueBuyCarForMe} // Call onClose or any other handler here
+                    />
 
 
                 </View>
             </ScrollView>
 
             {/* City Selection Modal */}
-            <Modal
+            {/* <Modal
                 animationType="slide"
                 transparent={true}
                 visible={isCityModalVisible}
@@ -335,10 +355,10 @@ const BasicInfoCarBuyCarForMe = ({ navigation }) => {
                         </TouchableOpacity>
                     </View>
                 </View>
-            </Modal>
+            </Modal> */}
             {/* Tell us about your car  */}
             {/* Tell us about your car year */}
-            <Modal
+            {/* <Modal
                 animationType="slide"
                 transparent={true}
                 visible={isYearModalVisible}
@@ -367,10 +387,10 @@ const BasicInfoCarBuyCarForMe = ({ navigation }) => {
                         </TouchableOpacity>
                     </View>
                 </View>
-            </Modal>
+            </Modal> */}
 
             {/* Tell us about your car brand Modal */}
-            <Modal
+            {/* <Modal
                 animationType="slide"
                 transparent={true}
                 visible={isBrandModalVisible}
@@ -378,14 +398,14 @@ const BasicInfoCarBuyCarForMe = ({ navigation }) => {
             >
                 <View style={styles.modalContainer}>
                     <View style={styles.modalContent}>
-                        {/* Search Bar */}
+                        
                         <TextInput
                             style={styles.searchInput}
                             placeholder="Search brand here!."
                             onChangeText={handleBrandSearch}
                         />
 
-                        {/* Brand List */}
+                        
                         <FlatList
                             data={filteredBrands}
                             keyExtractor={(item, index) => item + index}
@@ -407,7 +427,7 @@ const BasicInfoCarBuyCarForMe = ({ navigation }) => {
                         </TouchableOpacity>
                     </View>
                 </View>
-            </Modal>
+            </Modal> */}
 
         </View>
     );
