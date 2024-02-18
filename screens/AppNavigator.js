@@ -33,6 +33,7 @@ import HomePremiumAds from './homePremiumAds';
 import HomeRentACar from './homeRentACar';
 import RentPostService from './rentPostService';
 import FilterSearch from './filterSearch';
+import PremiumAdsPostService from './premiumAdsPostService';
 
 
 const Stack = createStackNavigator();
@@ -62,6 +63,7 @@ const AppNavigator = () => {
       <Stack.Screen name="homeSellItForMe" component={HomeSellItForMe} /> */}
       <Stack.Screen name="homeFreeAds" component={HomeFreeAds} />
       <Stack.Screen name="freeAdsPostService" component={FreeAdsPostService} />
+      <Stack.Screen name="premiumAdsPostService" component={PremiumAdsPostService} />
       <Stack.Screen name="homeListItForYou" component={HomeListItForYou} />
       {/* <Stack.Screen name="myAds" component={MyAds} />
       <Stack.Screen name="activeAds" component={ActiveAds} />

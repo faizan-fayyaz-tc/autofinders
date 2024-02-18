@@ -29,7 +29,7 @@ const HomePremiumAds = () => {
         // navigation.navigate('dashboard');
     };
     const handlePostAd = () => {
-        navigation.navigate('freeAdsPostServices');
+        navigation.navigate('freeAdsPostService');
     };
     const handleListItForYouPress = () => {
         // Handle Premium Ads press
@@ -38,7 +38,7 @@ const HomePremiumAds = () => {
     
       const handlePremiumAdsPress = () => {
         // Handle Free Ads press
-        console.log('Free Ads pressed');
+        navigation.navigate('premiumAdsPostService');
       };
     
       const handleCarInspectionPress = () => {
@@ -78,7 +78,7 @@ const HomePremiumAds = () => {
                 <Text style={styles.addText}>AutoFinder Premium Ads Service</Text>
                 <TouchableOpacity
                     style={styles.button}
-                    onPress={handlePostAd}
+                    onPress={handlePremiumAdsPress}
                 >
                     <Text style={styles.buttonText}>Post Premium Ad</Text>
                 </TouchableOpacity>
