@@ -82,7 +82,7 @@ const styles = StyleSheet.create({
   },
   closeButton: {
     alignSelf: 'center',
-    padding: 5,
+    padding: 10,
     backgroundColor: '#2884ec',
     borderRadius: 5,
     width: '100%',

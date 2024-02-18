@@ -151,7 +151,7 @@ const PremiumAdsPostService = () => {
 
   const handlePremiumAdService = () => {
     // Handle the logic for navigating to Premium Ad Service or any other action
-    console.log('Navigate to Premium Ad Service');
+    navigation.navigate('premiumAdCharges');
   };
   const handlePostYourAd = () => {
     setModalVisible(true);
@@ -385,20 +385,20 @@ const PremiumAdsPostService = () => {
         </TouchableOpacity>
         <PremiumAdCharges isVisible={modalVisible} onClose={handleCloseModal} />
 
-        <View style={styles.noteContainer}>
+        {/* <View style={styles.noteContainer}>
           <Text style={styles.noteHeading}>Note</Text>
           <Text style={styles.noteText}>
             If you will buy 3rd standard free ad, and then willing to buy Premium ad service, your paid 525/-
             amount will be adjusted in Premium ad service.
           </Text>
-        </View>
+        </View> */}
 
-        <TouchableOpacity
+        {/* <TouchableOpacity
           style={styles.PremiumAdButton}
           onPress={handlePremiumAdService}
         >
           <Text style={styles.PremiumAdButtonText}>Click to go for Premium Ad Service</Text>
-        </TouchableOpacity>
+        </TouchableOpacity> */}
 
       </ScrollView>
     </View>
@@ -452,8 +452,8 @@ const styles = StyleSheet.create({
 
   selectImageButton: {
     alignItems: 'center',
-    height: 150,
-    width: 370,
+    height: 200,
+    width: 320,
     borderColor: '#Ac3803',
     borderWidth: 1,
     borderRadius: 10,
@@ -472,7 +472,7 @@ const styles = StyleSheet.create({
   selectLocationButton: {
     flexDirection: 'row',
     height: 50,
-    width: 370,
+    width: 300,
     borderColor: '#Ac3803',
     borderWidth: 1,
     borderRadius: 5,
@@ -495,7 +495,7 @@ const styles = StyleSheet.create({
   selectCarModelButton: {
     flexDirection: 'row',
     height: 50,
-    width: 370,
+    width: 300,
     borderColor: '#Ac3803',
     borderWidth: 1,
     borderRadius: 5,
@@ -517,7 +517,7 @@ const styles = StyleSheet.create({
   selectRegisteredButton: {
     flexDirection: 'row',
     height: 50,
-    width: 370,
+    width: 300,
     borderColor: '#Ac3803',
     borderWidth: 1,
     borderRadius: 5,
@@ -527,7 +527,7 @@ const styles = StyleSheet.create({
   selectBodyColorButton: {
     flexDirection: 'row',
     height: 50,
-    width: 370,
+    width: 300,
     borderColor: '#Ac3803',
     borderWidth: 1,
     borderRadius: 5,
@@ -548,7 +548,7 @@ const styles = StyleSheet.create({
   selectKmDrivenButton: {
     flexDirection: 'row',
     height: 50,
-    width: 370,
+    width: 300,
     borderColor: '#Ac3803',
     borderWidth: 1,
     borderRadius: 5,
@@ -574,7 +574,7 @@ const styles = StyleSheet.create({
   selectPriceButton: {
     flexDirection: 'row',
     height: 50,
-    width: 370,
+    width: 300,
     borderColor: '#Ac3803',
     borderWidth: 1,
     borderRadius: 5,
@@ -592,7 +592,7 @@ const styles = StyleSheet.create({
   selectDescriptionButton: {
     flexDirection: 'row',
     height: 50,
-    width: 370,
+    width: 300,
     borderColor: '#Ac3803',
     borderWidth: 1,
     borderRadius: 5,
@@ -616,7 +616,7 @@ const styles = StyleSheet.create({
   selectFuelTypeButton: {
     flexDirection: 'row',
     height: 50,
-    width: 370,
+    width: 300,
     borderColor: '#Ac3803',
     borderWidth: 1,
     borderRadius: 5,
@@ -710,7 +710,7 @@ const styles = StyleSheet.create({
   selectFeatureButton: {
     flexDirection: 'row',
     height: 50,
-    width: 370,
+    width: 300,
     borderColor: '#Ac3803',
     borderWidth: 1,
     borderRadius: 5,
@@ -753,7 +753,7 @@ const styles = StyleSheet.create({
   },
   Postbutton: {
     backgroundColor: '#Ac3803',
-    width: 380,
+    width: 300,
     padding: 15,
     margin: 5,
     borderRadius: 5,
@@ -765,36 +765,36 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     fontWeight: 'bold',
   },
-  noteContainer: {
-    backgroundColor: 'white',
-    padding: 10,
-    marginTop: 10,
-  },
-  noteHeading: {
-    color: 'black',
-    fontSize: 16,
-    marginLeft: 10,
-    fontWeight: 'bold',
-  },
-  noteText: {
-    color: 'grey',
-    fontSize: 14,
-    marginLeft: 10
-  },
-  PremiumAdButton: {
-    backgroundColor: '#Ac3803',
-    width: 380,
-    padding: 15,
-    margin: 5,
-    borderRadius: 5,
-    marginTop: 10,
-  },
-  PremiumAdButtonText: {
-    color: 'white',
-    fontSize: 16,
-    textAlign: 'center',
-    fontWeight: 'bold',
-  },
+//   noteContainer: {
+//     backgroundColor: 'white',
+//     padding: 10,
+//     marginTop: 10,
+//   },
+//   noteHeading: {
+//     color: 'black',
+//     fontSize: 16,
+//     marginLeft: 10,
+//     fontWeight: 'bold',
+//   },
+//   noteText: {
+//     color: 'grey',
+//     fontSize: 14,
+//     marginLeft: 10
+//   },
+//   PremiumAdButton: {
+//     backgroundColor: '#Ac3803',
+//     width: 300,
+//     padding: 15,
+//     margin: 5,
+//     borderRadius: 5,
+//     marginTop: 10,
+//   },
+//   PremiumAdButtonText: {
+//     color: 'white',
+//     fontSize: 16,
+//     textAlign: 'center',
+//     fontWeight: 'bold',
+//   },
 });
 
 export default PremiumAdsPostService;

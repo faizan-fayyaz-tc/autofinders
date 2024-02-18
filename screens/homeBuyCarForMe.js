@@ -32,7 +32,7 @@ const homeBuyCarForMe = ({navigation}) => {
     const handleFacilitateMyCarPurchase = () => {
         // handleFacilitateMyCarPurchase
         console.log("handleFacilitateMyCarPurchase");
-        navigation.navigate('basic');
+        navigation.navigate('basicInfoBuyCarForMe');
     };
     const handleHorizontalOfferingItemPress = (itemId) => {
         // Handle the press event for the specific item (optional)

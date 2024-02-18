@@ -34,6 +34,8 @@ import HomeRentACar from './homeRentACar';
 import RentPostService from './rentPostService';
 import FilterSearch from './filterSearch';
 import PremiumAdsPostService from './premiumAdsPostService';
+import BasicInfoBuyCarForMe from './basicInfoBuyCarForMe';
+
 
 
 const Stack = createStackNavigator();
@@ -75,6 +77,7 @@ const AppNavigator = () => {
       <Stack.Screen name="homeRentACar" component={HomeRentACar} />
       <Stack.Screen name="rentPostService" component={RentPostService} />
       <Stack.Screen name="filterSearch" component={FilterSearch} />
+      <Stack.Screen name="basicInfoBuyCarForMe" component={BasicInfoBuyCarForMe} />
     </Stack.Navigator>
 
   );
