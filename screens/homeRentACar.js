@@ -33,7 +33,8 @@ const HomeRentACar = () => {
         navigation.navigate('rentPostService');
     };
     const handleBookACar = () => {
-        navigation.navigate('filterSearch');
+        // navigation.navigate('filterSearch');
+        navigation.navigate('filterSearchCar');
     };
     const handleListItForYouPress = () => {
         // Handle Premium Ads press

@@ -52,7 +52,7 @@ const styles = StyleSheet.create({
         fontSize: 18,
         fontWeight: 'bold',
         marginBottom: 5,
-        color: 'darkred',
+        color: '#Ac3803',
     },
     text: {
         fontSize: 16,
@@ -60,7 +60,7 @@ const styles = StyleSheet.create({
         color: '#333',
     },
     continueButton: {
-        backgroundColor: 'darkred',
+        backgroundColor: '#Ac3803',
         borderRadius: 8,
         padding: 15,
         alignItems: 'center',

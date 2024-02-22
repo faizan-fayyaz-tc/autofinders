@@ -14,7 +14,7 @@ const MainHeader = ({ onPressHome, onPressMyAds, onPressSellNow, onPressMore }) 
 
   const handleMyAdsPress = () => {
     // Replace this with your actual logic for the My Ads button press
-    // navigation.navigate('myAds');
+    navigation.navigate('myAds');
     // navigation.navigate('sellItMyself');
 
   };
@@ -31,7 +31,7 @@ const MainHeader = ({ onPressHome, onPressMyAds, onPressSellNow, onPressMore }) 
   const handleMorePress = () => {
     // Replace this with your actual logic for the More button press
     console.log('More button pressed');
-    // navigation.navigate('more');
+    navigation.navigate('more');
   };
 
   return (

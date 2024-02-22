@@ -8,6 +8,7 @@ import RegisteredPicker from '../components/registeredPicker';
 import BodyColorPicker from '../components/bodyColor';
 import DescribeYourCar from '../components/describeYourCar';
 import FuelTypePicker from '../components/fuelTypePicker';
+import PremiumAdCharges from '../components/premiumAdCharges';
 // import MarqueeText from 'react-native-marquee';
 
 const freeAdsPostService = () => {
@@ -34,6 +35,7 @@ const freeAdsPostService = () => {
   const [selectedAssembly, setSelectedAssembly] = useState('');
   const [isFeaturePickerVisible, setIsFeaturePickerVisible] = useState(false);
   const [selectedFeatures, setSelectedFeatures] = useState([]);
+  const [modalVisible, setModalVisible] = useState(false);
 
 
   const handleBack = () => {
@@ -147,9 +149,18 @@ const freeAdsPostService = () => {
     // Add any additional logic you need for posting the ad
   };
 
+  // const handlePremiumAdService = () => {
+  //   // Handle the logic for navigating to Premium Ad Service or any other action
+  //   navigation.navigate('premiumAdCharges');
+  //   console.log('Navigate to Premium Ad Service');
+
+  // };
   const handlePremiumAdService = () => {
-    // Handle the logic for navigating to Premium Ad Service or any other action
-    console.log('Navigate to Premium Ad Service');
+    setModalVisible(true);
+  };
+
+  const handleCloseModal = () => {
+    setModalVisible(false);
   };
 
 
@@ -387,8 +398,9 @@ const freeAdsPostService = () => {
           style={styles.PremiumAdButton}
           onPress={handlePremiumAdService}
         >
-          <Text style={styles.PremiumAdButtonText}>Click to go for Premium Ad Service</Text>
+          <Text style={styles.PremiumAdButtonText}> Go for Premium Ad Service</Text>
         </TouchableOpacity>
+        <PremiumAdCharges isVisible={modalVisible} onClose={handleCloseModal} />
 
       </ScrollView>
     </View>
@@ -442,8 +454,8 @@ const styles = StyleSheet.create({
 
   selectImageButton: {
     alignItems: 'center',
-    height: 150,
-    width: 370,
+    height: 250,
+    width: 320,
     borderColor: '#Ac3803',
     borderWidth: 1,
     borderRadius: 10,
@@ -462,7 +474,7 @@ const styles = StyleSheet.create({
   selectLocationButton: {
     flexDirection: 'row',
     height: 50,
-    width: 370,
+    width: 300,
     borderColor: '#Ac3803',
     borderWidth: 1,
     borderRadius: 5,
@@ -485,7 +497,7 @@ const styles = StyleSheet.create({
   selectCarModelButton: {
     flexDirection: 'row',
     height: 50,
-    width: 370,
+    width: 300,
     borderColor: '#Ac3803',
     borderWidth: 1,
     borderRadius: 5,
@@ -507,7 +519,7 @@ const styles = StyleSheet.create({
   selectRegisteredButton: {
     flexDirection: 'row',
     height: 50,
-    width: 370,
+    width: 300,
     borderColor: '#Ac3803',
     borderWidth: 1,
     borderRadius: 5,
@@ -517,7 +529,7 @@ const styles = StyleSheet.create({
   selectBodyColorButton: {
     flexDirection: 'row',
     height: 50,
-    width: 370,
+    width: 300,
     borderColor: '#Ac3803',
     borderWidth: 1,
     borderRadius: 5,
@@ -538,7 +550,7 @@ const styles = StyleSheet.create({
   selectKmDrivenButton: {
     flexDirection: 'row',
     height: 50,
-    width: 370,
+    width: 300,
     borderColor: '#Ac3803',
     borderWidth: 1,
     borderRadius: 5,
@@ -564,7 +576,7 @@ const styles = StyleSheet.create({
   selectPriceButton: {
     flexDirection: 'row',
     height: 50,
-    width: 370,
+    width: 300,
     borderColor: '#Ac3803',
     borderWidth: 1,
     borderRadius: 5,
@@ -582,7 +594,7 @@ const styles = StyleSheet.create({
   selectDescriptionButton: {
     flexDirection: 'row',
     height: 50,
-    width: 370,
+    width: 300,
     borderColor: '#Ac3803',
     borderWidth: 1,
     borderRadius: 5,
@@ -606,7 +618,7 @@ const styles = StyleSheet.create({
   selectFuelTypeButton: {
     flexDirection: 'row',
     height: 50,
-    width: 370,
+    width: 300,
     borderColor: '#Ac3803',
     borderWidth: 1,
     borderRadius: 5,
@@ -679,7 +691,7 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
     borderColor: '#Ac3803',
     borderWidth: 1,
-    borderRadius: 5,
+    borderRadius: 30,
     paddingVertical: 5,
     paddingHorizontal: 10,
     marginRight: 20,
@@ -743,7 +755,7 @@ const styles = StyleSheet.create({
   },
   Postbutton: {
     backgroundColor: '#Ac3803',
-    width: 380,
+    width: 300,
     padding: 15,
     margin: 5,
     borderRadius: 5,
@@ -773,7 +785,7 @@ const styles = StyleSheet.create({
   },
   PremiumAdButton: {
     backgroundColor: '#Ac3803',
-    width: 380,
+    width: 300,
     padding: 15,
     margin: 5,
     borderRadius: 5,

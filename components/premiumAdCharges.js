@@ -70,7 +70,7 @@ const styles = StyleSheet.create({
   packageOption: {
     marginBottom: 10,
     padding: 10,
-    backgroundColor: '#Ac3803',
+    backgroundColor: '#2884ec',
     borderRadius: 5,
     width: '100%',
   },
@@ -83,7 +83,7 @@ const styles = StyleSheet.create({
   closeButton: {
     alignSelf: 'center',
     padding: 10,
-    backgroundColor: '#2884ec',
+    backgroundColor: '#Ac3803',
     borderRadius: 5,
     width: '100%',
   },

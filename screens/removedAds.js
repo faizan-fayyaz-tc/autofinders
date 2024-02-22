@@ -1,7 +1,7 @@
 import React from 'react';
-import { View, Text, FlatList, StyleSheet, Image, TouchableOpacity, Alert,Platform  } from 'react-native';
+import { View, Text, FlatList, StyleSheet, Image, TouchableOpacity, Alert, Platform  } from 'react-native';
 
-const ActiveAds = ({ adData, navigation, onRemoveItem }) => {
+const RemovedAds = ({ adData, navigation }) => {
   // Render function for each item in the FlatList
   const renderItem = ({ item }) => (
     <TouchableOpacity onPress={() => handleCellPress(item)}>
@@ -12,14 +12,13 @@ const ActiveAds = ({ adData, navigation, onRemoveItem }) => {
           <Text style={styles.price}>{item.Price}</Text>
           <Text style={styles.city}>{item.City}</Text>
           <Text style={styles.model}>{item.ModelYear}</Text>
-          <Text style={styles.ExpireText}>Expires: {item.expirationTime}</Text> 
         </View>
         <View style={styles.buttonContainer}>
           <TouchableOpacity style={[styles.editButton, styles.buttonShadow]} onPress={() => handleEditPress(item)}>
             <Text style={styles.editButtonText}>Edit</Text>
           </TouchableOpacity>
           <TouchableOpacity style={[styles.removeButton, styles.buttonShadow]} onPress={() => handleRemovePress(item)}>
-            <Text style={styles.removeButtonText}>Remove</Text>
+            <Text style={styles.removeButtonText}>Activate</Text>
           </TouchableOpacity>
         </View>
       </View>
@@ -37,25 +36,7 @@ const ActiveAds = ({ adData, navigation, onRemoveItem }) => {
   const handleRemovePress = (item) => {
     // Handle remove button press
     // For now, let's display an alert as a placeholder
-    Alert.alert(
-      'Remove Ad',
-      `Are you sure you want to remove "${item.Name}"?`,
-      [
-        {
-          text: 'Cancel',
-          style: 'cancel',
-        },
-        {
-          text: 'Remove',
-          onPress: () => {
-            // Call the onRemoveItem function passed from the parent component
-            // Pass the item to be removed as an argument
-            onRemoveItem(item);
-          },
-        },
-      ],
-      { cancelable: false }
-    );
+    
   };
 
   return (
@@ -155,10 +136,6 @@ const styles = StyleSheet.create({
       },
     }),
   },
-  ExpireText: {
-    fontSize: 12,
-    color: 'gray',
-  }
 });
 
-export default ActiveAds;
+export default RemovedAds;

@@ -154,14 +154,33 @@ const CategoriesScreen = ({ navigation }) => {
     },
     Brand: {
       images: {
-        0: require('../assets/toyota.png'),
-        1: require('../assets/Honda.jpeg'),
-        2: require('../assets/Honda.jpeg'),
-        3: require('../assets/Honda.jpeg'),
-        4: require('../assets/nissan.png'),
+        1: require('../assets/toyota.png'),
+        2: require('../assets/suzuki.png'),
+        3: require('../assets/honda.png'),
+        4: require('../assets/honda.png'),
         5: require('../assets/nissan.png'),
-        6: require('../assets/hyandai.png'),
+        // 5: require('../assets/nissan.png'),
+        6: require('../assets/hyndai.png'),
+        7: require('../assets/daihatsu.png'),
+        8: require('../assets/mitsubishi.png'),
+        9: require('../assets/changan.png'),
+        10: require('../assets/mercedes.png'),
+        11: require('../assets/mg.png'),
         // Add more as needed
+        12: require('../assets/audi.png'),
+        13: require('../assets/proton.png'),
+        14: require('../assets/BMW.png'),
+        15: require('../assets/dfsk.png'),
+        16: require('../assets/haval.png'),
+        17: require('../assets/faw.png'),
+
+        18: require('../assets/lexus.png'),
+        19: require('../assets/mazda.png'),
+        20: require('../assets/prince.png'),
+        21: require('../assets/chevrolet.png'),
+        22: require('../assets/chery.png'),
+        23: require('../assets/jeep.png'),
+        24: require('../assets/jeep.png'),
       },
       labels: Array.from({ length: 24 }, (_, index) => {
         if (index === 0) {
@@ -645,11 +664,11 @@ const styles = StyleSheet.create({
   },
   selectedSection: {
     borderBottomWidth: 2,
-    borderColor: 'black',
+    borderColor: '#Ac3803',
   },
   sectionText: {
     fontWeight: 'bold',
-    color: 'black',
+    color: '#Ac3803',
     fontSize:16,
   },
   labelContainer: {
