@@ -5,7 +5,7 @@ import React, { useState } from 'react';
 import { View, Text, TouchableOpacity, ScrollView, StyleSheet, Image } from 'react-native';
 
 import GoogleLogo from "../assets/Googlelogo.jpeg";
-// import manualCars from '../images/manual_cars.png';
+// import manualCars from '../../assets/images/automatic_cars.png';
 // import automaticCars from '../assets/images/automatic_cars.png';
 
 const CategoriesScreen = ({ navigation }) => {
@@ -18,26 +18,26 @@ const CategoriesScreen = ({ navigation }) => {
         1: GoogleLogo,
         2: GoogleLogo,
         // Add more as needed
-        // 3: require('../../assets/images/family_cars.png'),
-        // 4: require('../../assets/images/old_cars.png'),
-        // 5: require('../../assets/images/small_car.png'),
-        // 6: require('../../assets/images/big_cars.png'),
-        // 7: require('../../assets/images/seater.png'),
-        // 8: require('../../assets/images/seater.png'),
-        // 9: require('../../assets/images/2seater.png'),
-        // 10: require('../../assets/images/imported_cars.png'),
-        // 11: require('../../assets/images/cc_cars.png'),
-        // 12: require('../../assets/images/cc_cars.png'),
-        // 13: require('../../assets/images/cc_cars.png'),
-        // 14: require('../../assets/images/japanese_cars.png'),
-        // 15: require('../../assets/images/low_mileage.png'),
-        // 16: require('../../assets/images/low_price.png'),
-        // 17: require('../../assets/images/hybrid_cars.png'),
-        // 18: require('../../assets/images/electric_cars.png'),
-        // 19: require('../../assets/images/commercial_cars.png'),
-        // 20: require('../../assets/images/diesel_cars.png'),
-        // 21: require('../../assets/images/low_price.png'),
-        // 22: require('../../assets/images/seater.png'),
+        // 3: require('../assets/images/family_cars.png'),
+        // 4: require('../assets/images/old_cars.png'),
+        // 5: require('../assets/images/small_car.png'),
+        // 6: require('../assets/images/big_cars.png'),
+        // 7: require('../assets/images/seater.png'),
+        // 8: require('../assets/images/seater.png'),
+        // 9: require('../assets/images/2seater.png'),
+        // 10: require('../assets/images/imported_cars.png'),
+        // 11: require('../assets/images/cc_cars.png'),
+        // 12: require('../assets/images/cc_cars.png'),
+        // 13: require('../assets/images/cc_cars.png'),
+        // 14: require('../assets/images/japanese_cars.png'),
+        // 15: require('../assets/images/low_mileage.png'),
+        // 16: require('../assets/images/low_price.png'),
+        // 17: require('../assets/images/hybrid_cars.png'),
+        // 18: require('../assets/images/electric_cars.png'),
+        // 19: require('../assets/images/commercial_cars.png'),
+        // 20: require('../assets/images/diesel_cars.png'),
+        // 21: require('../assets/images/low_price.png'),
+        // 22: require('../assets/images/seater.png'),
         // 23: require('../../assets/images/modified_cars.png'),
         // 24: require('../../assets/images/auction.png'),
         // 25: require('../../assets/images/duplicate_file.png'),
