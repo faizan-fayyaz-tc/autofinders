@@ -9,7 +9,10 @@ import BodyColorPicker from '../components/bodyColor';
 import DescribeYourCar from '../components/describeYourCar';
 import FuelTypePicker from '../components/fuelTypePicker';
 import PremiumAdCharges from '../components/premiumAdCharges';
-// import MarqueeText from 'react-native-marquee';
+
+import ImagePickerComponent from '../components/imagePicker';
+
+
 
 const freeAdsPostService = () => {
   // let A = '';
@@ -37,15 +40,18 @@ const freeAdsPostService = () => {
   const [selectedFeatures, setSelectedFeatures] = useState([]);
   const [modalVisible, setModalVisible] = useState(false);
 
+  
+
+
 
   const handleBack = () => {
     navigation.goBack();
   };
 
-  const handleSelectImage = () => {
-    // Handle the image selection (to be implemented later)
-    console.log('Image selected');
-  };
+  // const handleSelectImage = () => {
+  //   // Handle the image selection (to be implemented later)
+  //   console.log('Image selected');
+  // };
 
   const handleOpenLocationPicker = () => {
     setLocationModalVisible(true);
@@ -163,7 +169,13 @@ const freeAdsPostService = () => {
     setModalVisible(false);
   };
 
+  const handleImagesSelection = (selectedImages) => {
+    // Do something with the selected images
+    console.log(selectedImages);
+  };
 
+
+   
   return (
     <View style={styles.container}>
       <View style={styles.header}>
@@ -187,11 +199,12 @@ const freeAdsPostService = () => {
       </View> */}
       <ScrollView contentContainerStyle={styles.scrollViewContent}>
 
-        <TouchableOpacity style={styles.selectImageButton} onPress={handleSelectImage}>
-          <Image source={require('../assets/cameraIcon.png')} style={styles.imageIcon} />
-          <Text style={styles.selectImageText}>Select Image</Text>
-        </TouchableOpacity>
+          {/* Button to select images */}
+         
 
+          <View style={styles.Imageborder}>
+          <ImagePickerComponent />
+      </View>
 
         <TouchableOpacity style={styles.selectLocationButton} onPress={handleOpenLocationPicker}>
           <Image source={require('../assets/locationIcon.png')} style={styles.locationIcon} />
@@ -412,7 +425,14 @@ const styles = StyleSheet.create({
     flex: 1,
     // alignItems: 'center',
     backgroundColor: 'white',
+    paddingTop: 20
     
+  },
+  Imageborder: {
+    borderWidth: 1,
+    borderColor: 'black',
+    borderRadius: 10,
+    padding: 20,
   },
   header: {
     backgroundColor: '#Ac3803',
