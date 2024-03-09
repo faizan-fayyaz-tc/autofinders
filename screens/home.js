@@ -13,12 +13,14 @@ import { useNavigation } from '@react-navigation/native';
 import MainHeader from '../components/mainHeader';
 import ManagedByAutoFinder from '../components/managedByAutoFinder';
 import SyncStorage from "sync-storage";
-
+import { useContext } from 'react';
+import { UserContext } from '../context/userContext';
 const home = ({ navigation }) => {
-
+  const {user} = useContext(UserContext)
   useEffect(() => {
     console.log(SyncStorage.get("token"))
-  }, []);
+    console.log(user)
+  }, [user]);
 
   return (
 

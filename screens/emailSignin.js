@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React, { useState , useContext} from "react";
+import { UserContext } from "../context/userContext";
 import { useNavigation } from "@react-navigation/native";
 import {
   View,
@@ -11,7 +12,6 @@ import {
 } from "react-native";
 import axios from "axios";
 import SyncStorage from "sync-storage";
-
 // Function to validate email format
 // const validateEmail = (email) => {
 //   return String(email)
@@ -36,7 +36,7 @@ const EmailSignin = () => {
   const [invalidEmail, setInvalidEmail] = useState(false);
   const [loginError, setLoginError] = useState(false);
   const [emptyFields, setEmptyFields] = useState([]);
-
+  const {user,dispatch} = useContext(UserContext)
   const togglePasswordVisibility = () => {
     setPasswordVisible(!passwordVisible);
   };
@@ -83,11 +83,12 @@ const EmailSignin = () => {
 
       if(response.data.ok){
         SyncStorage.set("token", response.data.token);
+        dispatch({type: "LOGIN" , payload:response.data.data});
         navigation.navigate("home");
       }
 
       // SyncStorage.set("token", response.data.token);
-        console.log(response.data);
+        // console.log(response.data);
       // const result = SyncStorage.get("token");
       // console.log(result); // 'bar'
 
