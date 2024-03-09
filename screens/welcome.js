@@ -11,9 +11,11 @@ import {
   Linking,
 } from 'react-native';
 import GoogleLogo from "../assets/Googlelogo.jpeg";
+import { useNavigation } from '@react-navigation/native';
 
 
 const Welcome = () => {
+  const navigation  = useNavigation();
   const handleTermsPress = () => {
     Linking.openURL('https://example.com/terms');
   };
@@ -21,18 +23,16 @@ const Welcome = () => {
     Linking.openURL('https://example.com/privacy');
   };
   const handleGoogleSignIn = () => {
-    // Handle Google Sign-In logic here
-    // For example: Google sign-in API integration
+    navigation.navigate('googleSignin');
   };
 
   const handleFacebookSignIn = () => {
-    // Handle Facebook Sign-In logic here
-    // For example: Facebook sign-in API integration
+    
   };
 
   const handleEmailSignIn = () => {
-    // Handle Email Sign-In logic here
-    // For example: Custom email sign-in implementation
+    navigation.navigate('emailSignin');
+    
   };
   return (
     <ScrollView contentContainerStyle={styles.scrollContainer}>
@@ -103,6 +103,7 @@ const Welcome = () => {
 const styles = StyleSheet.create({
   scrollContainer: {
     flexGrow: 1,
+    color : "white"
   },
   container: {
     flex: 1,

@@ -9,6 +9,9 @@ import SellNowPopup from './sellNowPopup';
 import { NavigationContainer } from '@react-navigation/native';
 import Profile from './profile';
 import Welcome from './welcome';
+import EmailSignin from './emailSignin';
+import GoogleSignin from './googleSignin';
+import SignUp from './signUp';
 import More from './more';
 // import MyGarage from './myGarage';
 import homeCarInspection from './homeCarInspection';
@@ -39,6 +42,7 @@ import FilterSearchCar from './filterSearchCar';
 
 
 
+
 const Stack = createStackNavigator();
 
 const AppNavigator = () => {
@@ -56,6 +60,10 @@ const AppNavigator = () => {
       <Stack.Screen name="homeCarInspection" component={homeCarInspection} />
       <Stack.Screen name="more" component={More} />
       <Stack.Screen name="profile" component={Profile} />
+      <Stack.Screen name="welcome" component={Welcome} />
+      <Stack.Screen name="emailSignin" component={EmailSignin} />
+      <Stack.Screen name="googleSignin" component={GoogleSignin} />
+      <Stack.Screen name="signUp" component={SignUp} />
       {/* <Stack.Screen name="MyGarage" component={MyGarage} /> */}
       <Stack.Screen name="homeBuyCarForMe" component={homeBuyCarForMe} />
       <Stack.Screen name="basicInfoCarInspection" component={BasicInfoCarInspection} />

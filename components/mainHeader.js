@@ -26,6 +26,7 @@ const MainHeader = ({ onPressHome, onPressMyAds, onPressSellNow, onPressMore }) 
     // console.log('Sell Now button pressed');
     
     setSellNowPopupVisible(true);
+    
   };
 
   const handleMorePress = () => {

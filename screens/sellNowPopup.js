@@ -9,6 +9,7 @@ import { useNavigation } from '@react-navigation/native';
 import carIcon from '../assets/images/car_icon.png';
 import bikeIcon from '../assets/images/bike_icon.png';
 import toolIcon from '../assets/images/tools_icon.png';
+import SyncStorage from "sync-storage";
 
 const SellNowPopup = ({ visible, onClose, onSelectCategory }) => {
   const navigation = useNavigation();
@@ -22,24 +23,22 @@ const SellNowPopup = ({ visible, onClose, onSelectCategory }) => {
     if (onSelectCategory && typeof onSelectCategory === 'function') {
       onSelectCategory(category);
 
-      if (category==='Car'){
-        navigation.navigate('sellNowChoosePlan');
+      if(!SyncStorage.get("token")){
+        navigation.navigate("welcome");
       }
+
+      if(SyncStorage.get("token") && category === "Car"){
+        navigation.navigate("sellNowChoosePlan");}
+      // }else if(SyncStorage.get("token") && category === "Bike"){
+      //   navigation.navigate("")
+      // }else if(SyncStorage.get("token") && category === "parst"){
+      //   navigation.navigate("")
+      // }
     }
   };
 
 
-  // const handleSelectCategory = (category) => {
-  //   if (onSelectCategory && typeof onSelectCategory === 'function') {
-  //     onSelectCategory(category);
-  
-  //     // Check if the selected category is 'Car'
-  //     if (category === 'Car') {
-  //       // Navigate to Screen 1
-  //       navigation.navigate('Screen1'); // Replace 'Screen1' with the actual name of your screen
-  //     }
-  //   }
-  // };
+ 
 
 
 
