@@ -4,7 +4,7 @@
 /* eslint-disable react-native/no-inline-styles */
 
 /* eslint-disable prettier/prettier */
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, TextInput, FlatList, ScrollView } from 'react-native';
 import FeaturedAd from '../components/featuredAd';
 import SegmentedSelectionNavigation from '../components/segmentedSelectionNavigation';
@@ -12,9 +12,13 @@ import AutoFindersOffering from '../components/autoFinderOffering';
 import { useNavigation } from '@react-navigation/native';
 import MainHeader from '../components/mainHeader';
 import ManagedByAutoFinder from '../components/managedByAutoFinder';
-
+import SyncStorage from "sync-storage";
 
 const home = ({ navigation }) => {
+
+  useEffect(() => {
+    console.log(SyncStorage.get("token"))
+  }, []);
 
   return (
 

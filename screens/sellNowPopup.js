@@ -23,18 +23,29 @@ const SellNowPopup = ({ visible, onClose, onSelectCategory }) => {
     if (onSelectCategory && typeof onSelectCategory === 'function') {
       onSelectCategory(category);
 
-      if(!SyncStorage.get("token")){
-        navigation.navigate("welcome");
-      }
+    //   if(!SyncStorage.get("token")){
+    //     navigation.navigate("welcome");
+    //   }
 
-      if(SyncStorage.get("token") && category === "Car"){
-        navigation.navigate("sellNowChoosePlan");}
-      // }else if(SyncStorage.get("token") && category === "Bike"){
-      //   navigation.navigate("")
-      // }else if(SyncStorage.get("token") && category === "parst"){
-      //   navigation.navigate("")
-      // }
+    //   if(SyncStorage.get("token") && category === "Car"){
+    //     navigation.navigate("sellNowChoosePlan");}
+    //   // }else if(SyncStorage.get("token") && category === "Bike"){
+    //   //   navigation.navigate("")
+    //   // }else if(SyncStorage.get("token") && category === "parst"){
+    //   //   navigation.navigate("")
+    //   // }
+    
+    const token = SyncStorage.get("token")
+    if(!token){
+      navigation.navigate("welcome")
     }
+    else{
+      if(category==="Car"){
+        navigation.navigate('sellNowChoosePlan')
+      }
+    }
+  }
+
   };
 
 
@@ -44,7 +55,7 @@ const SellNowPopup = ({ visible, onClose, onSelectCategory }) => {
 
   return (
     <Modal
-      animationType="slide"
+      animationType="fade"
       transparent={true}
       visible={visible}
       onRequestClose={onClose}

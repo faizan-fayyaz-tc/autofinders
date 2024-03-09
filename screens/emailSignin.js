@@ -13,20 +13,20 @@ import axios from "axios";
 import SyncStorage from "sync-storage";
 
 // Function to validate email format
-const validateEmail = (email) => {
-  return String(email)
-    .toLowerCase()
-    .match(
-      /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|.(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
-    );
-};
+// const validateEmail = (email) => {
+//   return String(email)
+//     .toLowerCase()
+//     .match(
+//       /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|.(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+//     );
+// };
 
 // Function to validate password format
-const validatePassword = (password) => {
-  // Password must be minimum 8 characters and include at least 1 digit
-  const passwordRegex = /^(?=.*\d).{8,}$/;
-  return passwordRegex.test(password);
-};
+// const validatePassword = (password) => {
+//   // Password must be minimum 8 characters and include at least 1 digit
+//   const passwordRegex = /^(?=.*\d).{8,}$/;
+//   return passwordRegex.test(password);
+// };
 
 const EmailSignin = () => {
   const navigation = useNavigation();
@@ -34,7 +34,7 @@ const EmailSignin = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [invalidEmail, setInvalidEmail] = useState(false);
-  const [invalidPassword, setInvalidPassword] = useState(false);
+  const [loginError, setLoginError] = useState(false);
   const [emptyFields, setEmptyFields] = useState([]);
 
   const togglePasswordVisibility = () => {
@@ -61,36 +61,45 @@ const EmailSignin = () => {
       return;
     }
 
-    if (!validateEmail(email)) {
-      setInvalidEmail(true);
-      return;
-    }
+    // if (!validateEmail(email)) {
+    //   setInvalidEmail(true);
+    //   return;
+    // }
 
-    if (!validatePassword(password)) {
-      setInvalidPassword(true);
-      return;
-    }
+    // if (!validatePassword(password)) {
+    //   setInvalidPassword(true);
+    //   return;
+    // }
 
     //api
     try {
       const response = await axios.post(
-        "http://192.168.10.12:8000/api/user/login",
+        "http://192.168.18.16:8000/api/user/login",
         {
           email,
           password,
         }
       );
-      SyncStorage.set("token", response.data.token);
 
+      if(response.data.ok){
+        SyncStorage.set("token", response.data.token);
+        navigation.navigate("home");
+      }
+
+      // SyncStorage.set("token", response.data.token);
+        console.log(response.data);
       // const result = SyncStorage.get("token");
       // console.log(result); // 'bar'
 
-      navigation.navigate("home");
+      
     } catch (error) {
       console.error(error.response.data);
+      if(!error.response.data.ok){
+        setLoginError(error.response.data.error)
+      }
     }
 
-    console.log("Signing in...");
+    // console.log("Signing in...");
     // Perform sign-in logic here
   };
 
@@ -115,9 +124,9 @@ const EmailSignin = () => {
           {emptyFields.includes("Email") && (
             <Text style={styles.errorText}>Please enter your email</Text>
           )}
-          {invalidEmail && (
+          {/* {invalidEmail && (
             <Text style={styles.errorText}>Invalid email format</Text>
-          )}
+          )} */}
         </View>
 
         <View style={styles.inputContainer}>
@@ -142,11 +151,12 @@ const EmailSignin = () => {
           {emptyFields.includes("Password") && (
             <Text style={styles.errorText}>Please enter your password</Text>
           )}
-          {invalidPassword && (
+          {/* {invalidPassword && (
             <Text style={styles.errorText}>
               Password must be minimum 8 characters and include at least 1 digit
             </Text>
-          )}
+          )} */}
+          
         </View>
 
         <TouchableOpacity style={styles.signUpButton}>
@@ -164,27 +174,60 @@ const EmailSignin = () => {
         {/* Popup for empty fields */}
         <Modal
           visible={emptyFields.length > 0}
-          animationType="slide"
+          animationType="fade"
           transparent
         >
-          <View style={styles.popup}>
-            <Text style={styles.popupTitle}>Please Enter !</Text>
-            {emptyFields.map((field) => (
-              <Text key={field} style={styles.popupField}>
-                {field}
-              </Text>
-            ))}
-            <TouchableOpacity onPress={() => setEmptyFields([])}>
-              <Text style={styles.popupClose}>Close</Text>
-            </TouchableOpacity>
+          <View style={styles.modalContainer}>
+            <View style={styles.modalContent}>
+              <Text style={styles.popupTitle}>Please Enter!</Text>
+              {emptyFields.map((field) => (
+                <Text key={field} style={styles.popupField}>
+                  {field}
+                </Text>
+              ))}
+              <TouchableOpacity onPress={() => setEmptyFields([])}>
+                <Text style={styles.popupClose}>Close</Text>
+              </TouchableOpacity>
+            </View>
           </View>
         </Modal>
+        
+        
       </View>
     </ScrollView>
   );
 };
 
 const styles = StyleSheet.create({
+
+    modalContainer: {
+      flex: 1,
+      backgroundColor: 'rgba(0, 0, 0, 0.5)',
+      justifyContent: 'center',
+      alignItems: 'center',
+    },
+    modalContent: {
+      backgroundColor: 'white',
+      padding: 20,
+      borderRadius: 10,
+      width: '80%',
+    },
+    popupTitle: {
+      fontSize: 20,
+      fontWeight: 'bold',
+      marginBottom: 10,
+    },
+    popupField: {
+      fontSize: 16,
+      marginBottom: 5,
+    },
+    popupClose: {
+      fontSize: 18,
+      color: 'blue',
+      marginTop: 10,
+    },
+ 
+  
   container: {
     flex: 1,
     padding: 20,
