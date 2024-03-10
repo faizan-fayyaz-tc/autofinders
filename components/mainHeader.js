@@ -47,6 +47,14 @@ const MainHeader = ({
     navigation.navigate("more");
   };
 
+  const handleBuyNowPress = () =>{
+    navigation.navigate("buyNow");
+  };
+
+  const handleFilterPress = () =>{
+
+  };
+
   // return (
   //   <View style={styles.headerContainer}>
   //     {/* Home Button */}
@@ -108,6 +116,12 @@ const MainHeader = ({
         <TouchableOpacity style={styles.buttons} onPress={handleSellNowPress}>
           <Text style={styles.buttonText}>Sell Now</Text>
         </TouchableOpacity>
+        <TouchableOpacity style={styles.buttons} onPress={handleBuyNowPress}>
+          <Text style={styles.buttonText}>Buy Now</Text>
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.buttons} onPress={handleFilterPress}>
+          <Text style={styles.buttonText}>Filter</Text>
+        </TouchableOpacity>
       </View>
       <SellNowPopup
         visible={sellNowPopupVisible}
@@ -123,7 +137,7 @@ const MainHeader = ({
 
 const styles = StyleSheet.create({
   headerContainer: {
-    backgroundColor: "red",
+    backgroundColor: "#fc6f03",
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
@@ -135,7 +149,7 @@ const styles = StyleSheet.create({
   userName: {
     color: "white",
     fontWeight: "900",
-    fontSize: 24,
+    fontSize: 22,
   },
   welcomeText: {
     color: "white",
@@ -154,20 +168,23 @@ const styles = StyleSheet.create({
     justifyContent:"space-between",
     alignItems:"center",
     paddingVertical:10,
-    paddingHorizontal:15,
+    paddingHorizontal:10,
     width:"100%",
   },
   buttons:{
-    backgroundColor:"lightblue",
-    width:"48%",
+    backgroundColor:"white",
+    width:"22%",
     height:40,
     justifyContent:"center",
     alignItems:"center",
     padding:5,
-    borderRadius:7
+    borderRadius:110,
+    elevation: 5,
   },
   buttonText:{
-    textAlign:"center"
+    textAlign:"center",
+    color : '#fc6f03',
+    fontWeight: 'bold'
   }
 
 });

@@ -39,6 +39,7 @@ import FilterSearch from './filterSearch';
 import PremiumAdsPostService from './premiumAdsPostService';
 import BasicInfoBuyCarForMe from './basicInfoBuyCarForMe';
 import FilterSearchCar from './filterSearchCar';
+import BuyNow from './buyNow';
 
 
 
@@ -88,6 +89,7 @@ const AppNavigator = () => {
       <Stack.Screen name="filterSearch" component={FilterSearch} />
       <Stack.Screen name="filterSearchCar" component={FilterSearchCar} />
       <Stack.Screen name="basicInfoBuyCarForMe" component={BasicInfoBuyCarForMe} />
+      <Stack.Screen name="buyNow" component={BuyNow} />
     </Stack.Navigator>
 
   );

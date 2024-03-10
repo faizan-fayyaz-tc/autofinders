@@ -809,7 +809,7 @@ const styles = StyleSheet.create({
   },
   button: {
     flex:1,
-    paddingHorizontal: 10,
+    paddingHorizontal: 8,
     paddingVertical: 5,
     backgroundColor: 'white',
     // borderWidth: 1,
@@ -818,12 +818,14 @@ const styles = StyleSheet.create({
   selectedButton: {
     // backgroundColor: 'white',
     borderBottomWidth: 2, 
-    borderBottomColor: 'red', 
+    borderBottomColor: '#fc6f03', 
     
   },
   buttonText: {
     fontSize: 18,
-    textAlign:"center"
+    textAlign:"center",
+    color: '#fc6f03',
+    fontWeight: 'bold'
   },
   optionContainer: {
     justifyContent: 'center',

@@ -96,7 +96,7 @@ const styles = StyleSheet.create({
     borderBottomRightRadius: 20,
   },
   name: {
-    color: '#Ac3803',
+    color: '#fc6f03',
     fontWeight: 'bold',
     fontSize: 12,
   },

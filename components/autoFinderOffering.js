@@ -160,7 +160,7 @@ const styles = StyleSheet.create({
     fontSize: 20,
     color: 'gray',
     fontWeight: 'bold',
-    color: '#Ac3803',
+    color: '#fc6f03',
   },
 });
 
