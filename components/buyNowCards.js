@@ -1,5 +1,6 @@
 import React from "react";
 import { View, Text, StyleSheet, Image } from "react-native";
+import managedByAutoFinder from "./managedByAutoFinder";
 
 const BuyNowCard = ({
   carImage,
@@ -14,83 +15,102 @@ const BuyNowCard = ({
   isFeatured,
   isManagedByAutoFinder,
 }) => {
-  return (
-    <View style={styles.card}>
-      {isFeatured && (
-        <Image
-          source={require("../assets/featured.png")}
-          style={styles.featuredIcon}
-        />
-      )}
-      <View style={styles.imageContainer}>
-        <Image source={carImage} style={styles.image} />
-      </View>
-      <View style={styles.detailsContainer}>
-        <Text style={styles.name}>{name}</Text>
-        <Text style={styles.variant}>{variant}</Text>
-        <Text style={styles.price}>{price}</Text>
 
-        {/* Upper view */}
-        <View style={styles.upperView}>
-          <View style={styles.infoContainer}>
-            <Image
-              source={require("../assets/modelYear.png")}
-              style={styles.infoImage}
-            />
-            <Text style={styles.infoText}>{year}</Text>
-          </View>
-          <View style={styles.infoContainer}>
-            <Image
-              source={require("../assets/carMeter.png")}
-              style={styles.infoImage}
-            />
-            <Text style={styles.infoText}>{kmReading}</Text>
-          </View>
-        </View>
+  const cardStyle = {
+    ...(isInspected || isManagedByAutoFinder
+      ? { borderTopLeftRadius: 10, borderTopRightRadius: 10, borderBottomLeftRadius : 0, borderBottomRightRadius: 0}
+      : {}), // Apply bottom border radius conditionally
+  }
+  const additionalCard = {
+    ...(isInspected || isManagedByAutoFinder ? {borderTopLeftRadius : 0, borderTopRightRadius : 0, borderBottomLeftRadius : 10, borderBottomRightRadius: 10} : {}),
+  }
 
-        {/* Lower view */}
-        <View style={styles.lowerView}>
-          <View style={styles.infoContainer}>
+  let additionalInfo = null;
+
+  if (isInspected || isManagedByAutoFinder) {
+    additionalInfo = (
+      <View style={[styles.additionalInfoContainer, additionalCard]}>
+        {isInspected && (
+          <View style={styles.additionalInfoItem}>
+            <Image
+              source={require("../assets/inspected.png")}
+              style={styles.additionalInfoIcon}
+            />
+            <Text style={styles.additionalInfoText}>Inspected</Text>
+            <Text style={styles.additionalInfoSubtext}> 8/10</Text>
+          </View>
+        )}
+        {isManagedByAutoFinder && (
+          <View style={styles.additionalInfoItem}>
             <Image
               source={require("../assets/fuelIcon.png")}
-              style={styles.infoImage}
+              style={styles.additionalInfoIcon}
             />
-            <Text style={styles.infoText}>{fuelType}</Text>
+            <Text style={styles.additionalInfoText}>Managed by AutoFinder</Text>
           </View>
-          <View style={styles.infoContainer}>
-            <Image
-              source={require("../assets/locationIcon.png")}
-              style={styles.infoImage}
-            />
-            <Text style={styles.infoText}>{location}</Text>
-          </View>
-        </View>
+        )}
+      </View>
+    );
+  }
 
-        {/* Additional functionality */}
-        <View style={styles.additionalInfoContainer}>
-          {isInspected && (
-            <View style={styles.additionalInfoItem}>
+  
+
+  return (
+    <View>
+      <View style={[styles.card, cardStyle]}>
+        {isFeatured && (
+          <Image
+            source={require("../assets/featured.png")}
+            style={styles.featuredIcon}
+          />
+        )}
+        <View style={styles.imageContainer}>
+          <Image source={carImage} style={styles.image} />
+        </View>
+        <View style={styles.detailsContainer}>
+          <Text style={styles.name}>{name}</Text>
+          <Text style={styles.variant}>{variant}</Text>
+          <Text style={styles.price}>{price}</Text>
+
+          {/* Upper view */}
+          <View style={styles.upperView}>
+            <View style={styles.infoContainer}>
               <Image
-                source={require("../assets/inspected.png")}
-                style={styles.additionalInfoIcon}
+                source={require("../assets/modelYear.png")}
+                style={styles.infoImage}
               />
-              <Text style={styles.additionalInfoText}>Inspected</Text>
-              <Text style={styles.additionalInfoSubtext}> 8/10</Text>
+              <Text style={styles.infoText}>{year}</Text>
             </View>
-          )}
-          {isManagedByAutoFinder && (
-            <View style={styles.additionalInfoItem}>
+            <View style={styles.infoContainer}>
+              <Image
+                source={require("../assets/carMeter.png")}
+                style={styles.infoImage}
+              />
+              <Text style={styles.infoText}>{kmReading}</Text>
+            </View>
+          </View>
+
+          {/* Lower view */}
+          <View style={styles.lowerView}>
+            <View style={styles.infoContainer}>
               <Image
                 source={require("../assets/fuelIcon.png")}
-                style={styles.additionalInfoIcon}
+                style={styles.infoImage}
               />
-              <Text style={styles.additionalInfoText}>
-                Managed by AutoFinder
-              </Text>
+              <Text style={styles.infoText}>{fuelType}</Text>
             </View>
-          )}
+            <View style={styles.infoContainer}>
+              <Image
+                source={require("../assets/locationIcon.png")}
+                style={styles.infoImage}
+              />
+              <Text style={styles.infoText}>{location}</Text>
+            </View>
+          </View>
         </View>
       </View>
+      {/* Render additional info if available */}
+      {additionalInfo}
     </View>
   );
 };
@@ -100,7 +120,8 @@ const styles = StyleSheet.create({
     backgroundColor: "#fff",
     padding: 10,
     margin: 10,
-    borderRadius: 10,
+    borderRadius : 10,
+   
     shadowColor: "#000",
     shadowOffset: {
       width: 0,
@@ -110,18 +131,21 @@ const styles = StyleSheet.create({
     shadowRadius: 3.84,
     elevation: 5,
     flexDirection: "row",
-    position: "relative", 
+    position: "relative",
     marginBottom: 1,
   },
   imageContainer: {
     width: 100,
     marginRight: 10,
+    justifyContent: 'center', // Center vertically
+  alignItems: 'center', // Center horizontally
+  
   },
   image: {
     width: "100%",
     height: 100,
     borderRadius: 5,
-    marginTop: 20
+    // marginTop: 20,
   },
   featuredIcon: {
     position: "absolute",
@@ -175,7 +199,19 @@ const styles = StyleSheet.create({
   additionalInfoContainer: {
     flexDirection: "row",
     flexWrap: "wrap",
-    marginTop: 10,
+    padding: 2,
+    marginLeft: 10,
+    marginRight: 10,
+    backgroundColor: "white",
+    borderRadius: 15,
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
+    elevation: 5,
   },
   additionalInfoItem: {
     flexDirection: "row",
@@ -186,6 +222,7 @@ const styles = StyleSheet.create({
     width: 15,
     height: 15,
     marginRight: 5,
+    marginLeft: 5,
   },
   additionalInfoText: {
     fontSize: 12,
@@ -194,7 +231,7 @@ const styles = StyleSheet.create({
   additionalInfoSubtext: {
     fontSize: 14,
     color: "#fc6f03",
-    fontWeight: 'bold'
+    fontWeight: "bold",
   },
 });
 

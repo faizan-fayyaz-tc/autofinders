@@ -7,27 +7,16 @@ const carModelsData = [
     brands: [
       {
         name: 'Toyota',
-        variants: ['1.5T', '2.5T', '3.5T'],
+        variants: [
+          {
+          name:"1.5t"
+          }
+        ],
       },
-      {
-        name: 'Honda',
-        variants: ['11.VH', '33.5H', '4.fH'],
-      },
+      
     ],
   },
-  {
-    year: '2021',
-    brands: [
-      {
-        name: 'Toyota',
-        variants: ['1.5T', '2.5T', '3.5T'],
-      },
-      {
-        name: 'Honda',
-        variants: ['11.VH', '33.5H', '4.fH'],
-      },
-    ],
-  },
+  
   // Add more years, brands, and variants as needed
 ];
 
@@ -110,9 +99,9 @@ const CarModelPicker = ({ isVisible, onClose, onSelectYear, onSelectBrand, onSel
                   renderItem={({ item }) => (
                     <TouchableOpacity
                       style={styles.itemButton}
-                      onPress={() => handleVariantSelect(item)}
+                      onPress={() => handleVariantSelect(item.name)}
                     >
-                      <Text>{item}</Text>
+                      <Text>{item.name}</Text>
                     </TouchableOpacity>
                   )}
                 />

@@ -97,7 +97,7 @@ const SignUp = () => {
     try {
       // Call the API to sign up
       const response = await axios.post(
-        "http://192.168.10.12:8000/api/user/signup",
+        "http://192.168.18.18:8000/api/user/signup",
         {
           name,
           password,

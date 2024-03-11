@@ -137,13 +137,13 @@ const styles = StyleSheet.create({
         flex: 1,
     },
     header: {
-        backgroundColor: '#Ac3803',
+        backgroundColor: '#fc6f03',
         flexDirection: 'row',
         alignItems: 'center',
         padding: 15,
     },
     backButton: {
-        paddingRight: 20,
+        // paddingRight: 20,
         tintColor: 'white',
     },
     backIcon: {
@@ -158,6 +158,7 @@ const styles = StyleSheet.create({
         color: 'white',
         fontSize: 18,
         fontWeight: 'bold',
+        alignSelf : 'center'
     },
     image: {
         width: '100%',
@@ -173,9 +174,9 @@ const styles = StyleSheet.create({
         marginTop: 10
     },
     button: {
-        backgroundColor: '#Ac3803',
+        backgroundColor: '#fc6f03',
         padding: 15,
-        margin: 10,
+        margin: 20,
         borderRadius: 5,
     },
     buttonText: {
@@ -200,8 +201,8 @@ const styles = StyleSheet.create({
 
     },
     featureImage: {
-        width: 30,
-        height: 30,
+        width: 20,
+        height: 20,
         marginRight: 10,
     },
     featureText: {
@@ -213,7 +214,7 @@ const styles = StyleSheet.create({
         marginLeft: 10,
         padding: 5,
         color: 'black',
-        fontSize: 20,
+        fontSize: 18,
         fontWeight: 'bold',
         marginTop: 10
     },
@@ -226,7 +227,7 @@ const styles = StyleSheet.create({
     NoteText: {
         textAlign: 'center',
         color: 'grey',
-        fontSize: 14,
+        fontSize: 12,
         paddingHorizontal: 10,
         marginTop: 'auto',
         marginBottom: 'auto',
@@ -237,14 +238,14 @@ const styles = StyleSheet.create({
         alignSelf: 'center'
     },
     worksellForItForMeImage: {
-        width: 30,
-        height: 30,
-        marginRight: 10,
-        tintColor: 'darkred'
+        width: 20,
+        height: 20,
+        marginRight: 5,
+        tintColor: '#fc6f03'
     },
     worksellForItForMeText: {
-        fontSize: 16,
-        color: 'grey'
+        fontSize: 14,
+        color: 'grey',
     },
     horizontalScroll: {
         marginTop: 10,
@@ -260,13 +261,13 @@ const styles = StyleSheet.create({
         backgroundColor: 'white',
         borderRadius: 10,
         padding: 10,
-        width: 350,
+        width: 320,
         height: 120,
         margin: 20,
     },
     roundedViewText: {
         fontSize: 16,
-        color: 'firebrick',
+        color: '#fc6f03',
         fontWeight: 'bold',
         marginTop: 1
     },

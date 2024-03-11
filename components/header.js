@@ -38,7 +38,7 @@ const styles = StyleSheet.create({
     tintColor: '#fff',
   },
   title: {
-    fontSize: 22,
+    fontSize: 18,
     fontWeight: 'bold',
     color: '#fff',
     textAlign: 'center',

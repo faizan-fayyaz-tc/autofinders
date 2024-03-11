@@ -74,11 +74,11 @@ const styles = StyleSheet.create({
   },
   title: {
     fontWeight: 'bold',
-    fontSize: 16,
-    color: 'firebrick',
+    fontSize: 14,
+    color: '#fc6f03',
   },
   content: {
-    fontSize: 14,
+    fontSize: 12,
     color: 'grey',
   },
 });

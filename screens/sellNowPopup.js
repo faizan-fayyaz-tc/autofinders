@@ -10,8 +10,13 @@ import carIcon from '../assets/images/car_icon.png';
 import bikeIcon from '../assets/images/bike_icon.png';
 import toolIcon from '../assets/images/tools_icon.png';
 import SyncStorage from "sync-storage";
+import { useContext } from 'react';
+import { UserContext } from '../context/userContext';
+
 
 const SellNowPopup = ({ visible, onClose, onSelectCategory }) => {
+
+  const {user} = useContext(UserContext)
   const navigation = useNavigation();
   const handleClose = () => {
     if (onClose && typeof onClose === 'function') {
@@ -34,9 +39,9 @@ const SellNowPopup = ({ visible, onClose, onSelectCategory }) => {
     //   // }else if(SyncStorage.get("token") && category === "parst"){
     //   //   navigation.navigate("")
     //   // }
-    
+    console.log(user)
     const token = SyncStorage.get("token")
-    if(!token){
+    if(user===null){
       navigation.navigate("welcome")
     }
     else{

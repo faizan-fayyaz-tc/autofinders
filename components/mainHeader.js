@@ -11,7 +11,7 @@ import SellNowPopup from "../screens/sellNowPopup";
 import { useContext } from "react";
 import { UserContext } from "../context/userContext";
 import Icon from "react-native-vector-icons/Entypo";
-
+import SyncStorage from "sync-storage"
 const MainHeader = ({
   onPressHome,
   onPressMyAds,
@@ -52,7 +52,7 @@ const MainHeader = ({
   };
 
   const handleFilterPress = () =>{
-
+    console.log(SyncStorage.get("token"))
   };
 
   // return (

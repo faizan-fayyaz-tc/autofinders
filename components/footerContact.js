@@ -47,7 +47,7 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
     },
     callButton: {
-        backgroundColor: '#2884ec',
+        backgroundColor: '#fc6f03',
         color: 'white',
         fontSize: 14,
         fontWeight: 'bold'

@@ -425,23 +425,23 @@ const styles = StyleSheet.create({
     flex: 1,
     // alignItems: 'center',
     backgroundColor: 'white',
-    paddingTop: 20
+    // paddingTop: 10
     
   },
   Imageborder: {
-    borderWidth: 1,
-    borderColor: 'black',
+    // borderWidth: 1,
+    // borderColor: 'black',
     borderRadius: 10,
     padding: 20,
   },
   header: {
-    backgroundColor: '#Ac3803',
+    backgroundColor: '#fc6f03',
     flexDirection: 'row',
     alignItems: 'center',
     padding: 15,
   },
   backButton: {
-    paddingRight: 20,
+    // paddingRight: 20,
     tintColor: 'white',
   },
   backIcon: {
@@ -456,6 +456,7 @@ const styles = StyleSheet.create({
     color: 'white',
     fontSize: 18,
     fontWeight: 'bold',
+    alignSelf: 'center'
   },
   scrollViewContent: {
     flexGrow: 1,
@@ -495,9 +496,9 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     height: 50,
     width: 300,
-    borderColor: '#Ac3803',
+    borderColor: 'grey',
     borderWidth: 1,
-    borderRadius: 5,
+    // borderRadius: 5,
     marginTop: 40,
 
   },
@@ -506,7 +507,7 @@ const styles = StyleSheet.create({
     height: 20,
     marginLeft: 10,
     marginTop: 15,
-    tintColor: '#Ac3803',
+    tintColor: '#fc6f03',
   },
   selectLocationText: {
     fontSize: 14,
@@ -518,9 +519,9 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     height: 50,
     width: 300,
-    borderColor: '#Ac3803',
+    borderColor: 'grey',
     borderWidth: 1,
-    borderRadius: 5,
+    // borderRadius: 5,
     marginTop: 10,
     alignItems: 'center',
   },
@@ -528,7 +529,7 @@ const styles = StyleSheet.create({
     width: 20,
     height: 20,
     marginLeft: 10,
-    tintColor: '#Ac3803',
+    tintColor: '#fc6f03',
   },
   selectCarModelText: {
     fontSize: 13,
@@ -540,9 +541,9 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     height: 50,
     width: 300,
-    borderColor: '#Ac3803',
+    borderColor: 'grey',
     borderWidth: 1,
-    borderRadius: 5,
+    // borderRadius: 5,
     marginTop: 10,
     // justifyContent: 'center',
   },
@@ -550,9 +551,9 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     height: 50,
     width: 300,
-    borderColor: '#Ac3803',
+    borderColor: 'grey',
     borderWidth: 1,
-    borderRadius: 5,
+    // borderRadius: 5,
     marginTop: 10,
     alignItems: 'center',
   },
@@ -560,7 +561,7 @@ const styles = StyleSheet.create({
     width: 20,
     height: 20,
     marginLeft: 10,
-    tintColor: '#Ac3803',
+    tintColor: '#fc6f03',
   },
   selectBodyColorText: {
     fontSize: 14,
@@ -571,9 +572,9 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     height: 50,
     width: 300,
-    borderColor: '#Ac3803',
+    borderColor: 'grey',
     borderWidth: 1,
-    borderRadius: 5,
+    // borderRadius: 5,
     marginTop: 10,
     alignItems: 'center',
   },
@@ -582,14 +583,14 @@ const styles = StyleSheet.create({
     height: 30,
     marginLeft: 5,
     justifyContent: 'center',
-    tintColor: '#Ac3803',
+    tintColor: '#fc6f03',
   },
   textInput: {
     flex: 1,
     height: '100%',
     borderColor: 'white',
     borderWidth: 1, // Remove the border to make it look like other fields
-    borderRadius: 5,
+    // borderRadius: 5,
     paddingLeft: 10,
     fontSize: 14,
   },
@@ -597,9 +598,9 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     height: 50,
     width: 300,
-    borderColor: '#Ac3803',
+    borderColor: 'grey',
     borderWidth: 1,
-    borderRadius: 5,
+    // borderRadius: 5,
     marginTop: 10,
     alignItems: 'center',
   },
@@ -608,16 +609,16 @@ const styles = StyleSheet.create({
     height: 25,
     marginLeft: 5,
     justifyContent: 'center',
-    tintColor: '#Ac3803',
+    tintColor: '#fc6f03',
   },
 
   selectDescriptionButton: {
     flexDirection: 'row',
     height: 50,
     width: 300,
-    borderColor: '#Ac3803',
+    borderColor: 'grey',
     borderWidth: 1,
-    borderRadius: 5,
+    // borderRadius: 5,
     marginTop: 10,
     alignItems: 'center',
   },
@@ -626,10 +627,10 @@ const styles = StyleSheet.create({
     height: 20,
     marginLeft: 5,
     justifyContent: 'center',
-    tintColor: '#Ac3803',
+    tintColor: '#fc6f03',
   },
   viewSuggestionsText: {
-    color: '#2884ec',
+    color: '#fc6f03',
     fontWeight: 'bold',
     fontSize: 16,
     marginTop: 20,
@@ -639,10 +640,10 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     height: 50,
     width: 300,
-    borderColor: '#Ac3803',
+    borderColor: 'grey',
     borderWidth: 1,
-    borderRadius: 5,
-    marginTop: 10,
+    // borderRadius: 5,
+    marginTop: 15,
     alignItems: 'center',
   },
   fuelTypeIcon: {
@@ -650,7 +651,7 @@ const styles = StyleSheet.create({
     height: 20,
     marginLeft: 5,
     justifyContent: 'center',
-    tintColor: '#Ac3803',
+    tintColor: '#fc6f03',
   },
   selectFuelTypeText: {
     fontSize: 14,
@@ -674,7 +675,7 @@ const styles = StyleSheet.create({
   },
   toggleButton: {
     backgroundColor: 'white',
-    borderColor: '#Ac3803',
+    borderColor: '#fc6f03',
     borderWidth: 1,
     borderRadius: 5,
     paddingVertical: 5,
@@ -684,7 +685,8 @@ const styles = StyleSheet.create({
   toggleButtonText: {
     fontSize: 14,
     color: '#Ac3803',
-    textAlign: 'center'
+    textAlign: 'center',
+    fontWeight: 'bold'
   },
   selectedButton: {
     backgroundColor: '#Ac3803',
@@ -709,7 +711,7 @@ const styles = StyleSheet.create({
   },
   toggleButton: {
     backgroundColor: 'white',
-    borderColor: '#Ac3803',
+    borderColor: '#fc6f03',
     borderWidth: 1,
     borderRadius: 30,
     paddingVertical: 5,
@@ -723,7 +725,7 @@ const styles = StyleSheet.create({
     textAlign: 'center'
   },
   selectedButton: {
-    backgroundColor: '#Ac3803',
+    backgroundColor: '#fc6f03',
   },
   selectedButtonText: {
     color: 'white',
@@ -774,7 +776,7 @@ const styles = StyleSheet.create({
     paddingLeft: 15,
   },
   Postbutton: {
-    backgroundColor: '#Ac3803',
+    backgroundColor: '#fc6f03',
     width: 300,
     padding: 15,
     margin: 5,
@@ -800,11 +802,11 @@ const styles = StyleSheet.create({
   },
   noteText: {
     color: 'grey',
-    fontSize: 14,
+    fontSize: 12,
     marginLeft: 10
   },
   PremiumAdButton: {
-    backgroundColor: '#Ac3803',
+    backgroundColor: '#fc6f03',
     width: 300,
     padding: 15,
     margin: 5,

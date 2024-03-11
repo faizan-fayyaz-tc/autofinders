@@ -32,11 +32,11 @@ const styles = StyleSheet.create({
     margin: 5,
     borderRadius: 5,
     width: 300,
-    borderColor : 'darkred',
+    borderColor : 'black',
     borderWidth: 1
   },
   buttonText: {
-    color: 'firebrick',
+    color: '#fc6f03',
     fontSize: 18,
     textAlign: 'center',
     fontWeight: 'bold',

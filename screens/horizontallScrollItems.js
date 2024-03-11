@@ -30,15 +30,21 @@ const styles = StyleSheet.create({
   },
   title: {
     fontWeight: 'bold',
-    fontSize: 16,
-    margin: 5,
-    color: 'firebrick',
+    fontSize: 14,
+    marginTop: 10,
+    color: '#fc6f03',
+    alignSelf: 'center'
   },
   content: {
     // margin: 5,
     marginBottom: 10,
-    marginTop: 5,
+    marginTop: 15,
+    marginLeft: 10,
+    marginRight: 10,
     color: 'grey',
+    fontSize: 12,
+    alignSelf: 'center'
+
   },
 });
 

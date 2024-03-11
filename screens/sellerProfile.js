@@ -49,14 +49,14 @@ const styles = StyleSheet.create({
         flex: 1,
     },
     header: {
-        backgroundColor: '#Ac3803', // Tomato color
+        backgroundColor: '#fc6f03', // Tomato color
         flexDirection: 'row',
         alignItems: 'center',
         paddingVertical: 15,
         paddingHorizontal: 20,
     },
     backButton: {
-        paddingRight: 20,
+        // paddingRight: 20,
     },
     backIcon: {
         width: 20,
@@ -81,7 +81,7 @@ const styles = StyleSheet.create({
         fontSize: 18,
         fontWeight: 'bold',
         marginBottom: 5,
-        color: '#Ac3803'
+        color: '#fc6f03'
     },
     value: {
         fontSize: 14,

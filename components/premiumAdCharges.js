@@ -62,7 +62,7 @@ const styles = StyleSheet.create({
     fontSize: 20,
     fontWeight: 'bold',
     marginBottom: 20,
-    color : '#Ac3803'
+    color : '#fc6f03'
   },
   packagesContainer: {
     marginBottom: 20,
@@ -82,15 +82,18 @@ const styles = StyleSheet.create({
   },
   closeButton: {
     alignSelf: 'center',
-    padding: 10,
-    backgroundColor: '#Ac3803',
+    paddingVertical: 10,
+    backgroundColor: 'red',
     borderRadius: 5,
-    width: '100%',
+    width: '30%',
+    marginLeft: 30,
+    marginRight: 30
   },
   closeButtonText: {
     fontSize: 16,
     color: 'white',
     textAlign: 'center',
+    fontWeight: 'bold'
   },
 });
 

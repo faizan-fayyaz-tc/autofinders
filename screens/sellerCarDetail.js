@@ -10,7 +10,7 @@ const SellerCarDetail = () => {
 
     const FeatureItem = ({ feature }) => (
         <View style={styles.feature}>
-            <Image source={feature.icon} style={[styles.featureIcon, { tintColor: '#Ac3803' }]} />
+            <Image source={feature.icon} style={[styles.featureIcon, { tintColor: '#fc6f03' }]} />
             <Text style={styles.featureName}>{feature.name}</Text>
         </View>
     );
@@ -240,13 +240,13 @@ const styles = StyleSheet.create({
         backgroundColor: 'white'
     },
     header: {
-        backgroundColor: '#Ac3803',
+        backgroundColor: '#fc6f03',
         flexDirection: 'row',
         alignItems: 'center',
         padding: 15,
     },
     backButton: {
-        paddingRight: 20,
+        // paddingRight: 10,
         tintColor: 'white',
     },
     backIcon: {
@@ -261,6 +261,7 @@ const styles = StyleSheet.create({
         color: 'white',
         fontSize: 18,
         fontWeight: 'bold',
+        alignSelf: 'center'
     },
     imageContainer: {
         // position: 'relative',
@@ -323,7 +324,7 @@ const styles = StyleSheet.create({
     carNameText: {
         marginTop: 10, // Adjust margin top as needed
         marginLeft: 10,
-        color: '#Ac3803',
+        color: '#fc6f03',
         fontSize: 14, // Adjust font size as needed
         // fontWeight: 'bold',
     },
@@ -337,7 +338,7 @@ const styles = StyleSheet.create({
     locationText: {
         marginTop: 5, // Adjust margin top as needed
         marginLeft: 10,
-        color: '#8b8c8c', // Adjust color as needed
+        color: 'grey', // Adjust color as needed
         fontSize: 14, // Adjust font size as needed
     },
     specsContainer: {
@@ -353,14 +354,14 @@ const styles = StyleSheet.create({
         alignItems: 'center',
     },
     specIcon: {
-        width: 30,
-        height: 30,
+        width: 25,
+        height: 25,
         marginBottom: 5,
-        tintColor: '#Ac3803'
+        tintColor: '#fc6f03'
     },
     specName: {
         fontSize: 12,
-        color: '#8b8c8c', // Adjust color as needed
+        color: 'grey', // Adjust color as needed
     },
 
     carDetailContainer: {
@@ -463,7 +464,7 @@ const styles = StyleSheet.create({
         // fontWeight: 'bold',
     },
     sellerMemberText:{
-        color: '#Ac3803',
+        color: '#fc6f03',
         fontSize: 12,
         marginLeft: 20,
         fontWeight: 'bold'

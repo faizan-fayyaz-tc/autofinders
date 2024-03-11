@@ -239,13 +239,13 @@ const styles = StyleSheet.create({
         flex: 1,
     },
     header: {
-        backgroundColor: '#Ac3803',
+        backgroundColor: '#fc6f03',
         flexDirection: 'row',
         alignItems: 'center',
         padding: 15,
     },
     backButton: {
-        paddingRight: 20,
+        // paddingRight: 20,
         tintColor: 'white',
     },
     backIcon: {
@@ -260,6 +260,7 @@ const styles = StyleSheet.create({
         color: 'white',
         fontSize: 18,
         fontWeight: 'bold',
+        alignSelf: 'center'
     },
     image: {
         width: '100%',
@@ -272,12 +273,12 @@ const styles = StyleSheet.create({
         color: 'black',
         fontSize: 18,
         fontWeight: 'bold',
-        marginTop: 10
+        marginTop: 20
     },
     button: {
-        backgroundColor: '#Ac3803',
+        backgroundColor: '#fc6f03',
         padding: 15,
-        margin: 10,
+        margin: 20,
         borderRadius: 5,
     },
     buttonText: {
@@ -302,13 +303,13 @@ const styles = StyleSheet.create({
 
     },
     featureImage: {
-        width: 30,
-        height: 30,
+        width: 20,
+        height: 20,
         marginRight: 10,
-        tintColor : '#Ac3803'
+        tintColor : '#fc6f03'
     },
     featureText: {
-        fontSize: 16,
+        fontSize: 14,
         fontWeight: 'bold',
         color: '#2884ec'
     },
@@ -316,7 +317,7 @@ const styles = StyleSheet.create({
         marginLeft: 10,
         padding: 10,
         color: 'black',
-        fontSize: 20,
+        fontSize: 18,
         fontWeight: 'bold',
         marginTop: 10
     },
@@ -329,7 +330,7 @@ const styles = StyleSheet.create({
     summaryText: {
         textAlign: 'center',
         color: 'grey',
-        fontSize: 14,
+        fontSize: 12,
         marginHorizontal: 25, // Use marginHorizontal instead of marginLeft
     },
     // reportImage: {
@@ -338,13 +339,13 @@ const styles = StyleSheet.create({
     //     alignSelf: 'center'
     // },
     worksellForItForMeImage: {
-        width: 30,
-        height: 30,
+        width: 20,
+        height: 20,
         marginRight: 10,
-        tintColor: '#Ac3803'
+        tintColor: '#fc6f03'
     },
     worksellForItForMeText: {
-        fontSize: 16,
+        fontSize: 14,
         color: 'grey',
         marginRight: 10
     },
@@ -368,7 +369,7 @@ const styles = StyleSheet.create({
     },
     roundedViewText: {
         fontSize: 16,
-        color: 'firebrick',
+        color: '#fc6f03',
         fontWeight: 'bold',
         marginTop: 1
     },
