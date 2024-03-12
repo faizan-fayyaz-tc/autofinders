@@ -172,7 +172,7 @@ const freeAdsPostService = () => {
       name:name,
       phoneNumber:phoneNumber,
     }
-    // console.log(adData)
+    console.log(adData)
     try {
       const response = await axios.post("http://192.168.18.16:8000/api/carAd/upload", adData);
       console.log(response.data)

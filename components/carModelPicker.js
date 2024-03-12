@@ -124,6 +124,8 @@ const CarModelPicker = ({
     setSelectedYear(year);
     setSelectedBrand("");
     setSelectedVariant("");
+    setSelectedBrand("");
+    setSelectedVariant("");
   };
 
   const handleBrandSelect = (brand) => {
@@ -140,6 +142,7 @@ const CarModelPicker = ({
     setSelectedVariant(variant);
     onSelectYear(selectedYear);
     onSelectBrand(selectedBrand);
+    onSelectModel(selectedModel);
     onSelectModel(selectedModel);
     onSelectVariant(variant);
     onClose();
@@ -239,8 +242,10 @@ const styles = StyleSheet.create({
   modalContainer: {
     flex: 1,
     justifyContent: "flex-end",
+    justifyContent: "flex-end",
   },
   modalContent: {
+    backgroundColor: "white",
     backgroundColor: "white",
     borderTopLeftRadius: 20,
     borderTopRightRadius: 20,
@@ -250,14 +255,17 @@ const styles = StyleSheet.create({
   headerText: {
     fontSize: 18,
     fontWeight: "bold",
+    fontWeight: "bold",
     marginBottom: 10,
   },
   itemButton: {
     padding: 10,
     borderBottomWidth: 1,
     borderBottomColor: "#ccc",
+    borderBottomColor: "#ccc",
   },
   closeButton: {
+    alignItems: "center",
     alignItems: "center",
     marginTop: 10,
   },
