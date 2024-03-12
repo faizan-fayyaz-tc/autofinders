@@ -9,10 +9,8 @@ import BodyColorPicker from '../components/bodyColor';
 import DescribeYourCar from '../components/describeYourCar';
 import FuelTypePicker from '../components/fuelTypePicker';
 import PremiumAdCharges from '../components/premiumAdCharges';
-
 import ImagePickerComponent from '../components/imagePicker';
-
-
+import axios from "axios"
 
 const freeAdsPostService = () => {
   // let A = '';
@@ -39,9 +37,10 @@ const freeAdsPostService = () => {
   const [isFeaturePickerVisible, setIsFeaturePickerVisible] = useState(false);
   const [selectedFeatures, setSelectedFeatures] = useState([]);
   const [modalVisible, setModalVisible] = useState(false);
-
-  
-
+  const [selectedEngineCapcity , setEngineCapacity] = useState("") ;
+  const [name,setName]=useState("");
+  const [phoneNumber,setPhoneNumber]=useState("");
+  const [selectedModel , setSelectedModel] = useState("")
 
 
   const handleBack = () => {
@@ -92,6 +91,10 @@ const freeAdsPostService = () => {
     setSelectedVariant(variant);
     handleCloseCarModelPicker();
   };
+  const handleModelSelect = (model)=>{
+    setSelectedModel(model)
+    handleCloseCarModelPicker();
+  }
 
   const handleOpenRegisteredPicker = () => {
     setRegisteredModalVisible(true);
@@ -149,9 +152,34 @@ const freeAdsPostService = () => {
     setSelectedFeatures(selectedFeatures);
     setIsFeaturePickerVisible(false);
   };
-  const handlePostYourAd = () => {
+  const handlePostYourAd = async () => {
     // Handle the logic for posting the ad
     console.log('Ad posted!');
+    const adData = {
+      location:selectedLocation,
+      year:selectedYear,
+      brand:selectedBrand,
+      varient:selectedVariant,
+      regiesteredIn:selectedRegisteredLocation,
+      color:selectedBodyColor,
+      kmDriven:selectedKmDriven,
+      price:selectedPrice,
+      description:selectedDescription,
+      fuelType:selectedFuelType,
+      transimission:selectedTransmission,
+      assembly:selectedAssembly,
+      engineCapacity:selectedEngineCapcity,
+      name:name,
+      phoneNumber:phoneNumber,
+    }
+    // console.log(adData)
+    try {
+      const response = await axios.post("http://192.168.18.16:8000/api/carAd/upload", adData);
+      console.log(response.data)
+    } catch (error) {
+      console.log(error.response.data)
+    }
+
     // Add any additional logic you need for posting the ad
   };
 
@@ -218,10 +246,11 @@ const freeAdsPostService = () => {
 
         <TouchableOpacity style={styles.selectCarModelButton} onPress={handleOpenCarModelPicker}>
           <Image source={require('../assets/carFrontIcon.png')} style={styles.carModelIcon} />
-          <Text style={styles.selectCarModelText}>
+          <Text style={styles.selectCarModelText} placeholder="Car Model">
             {selectedYear ? `${selectedYear} ` : ''}
             {selectedBrand ? `${selectedBrand} ` : ''}
-            {selectedVariant || 'Car Model'}
+            {selectedModel ?  `${selectedModel}` : ""}
+            {selectedVariant? `${selectedVariant}`:""}
           </Text>
         </TouchableOpacity>
 
@@ -231,6 +260,7 @@ const freeAdsPostService = () => {
           onSelectYear={handleYearSelect}
           onSelectBrand={handleBrandSelect}
           onSelectVariant={handleVariantSelect}
+          onSelectModel={handleModelSelect}
         />
 
         <TouchableOpacity style={styles.selectRegisteredButton} onPress={handleOpenRegisteredPicker}>
@@ -365,11 +395,11 @@ const freeAdsPostService = () => {
           <TextInput
             style={styles.textInput}
             placeholder="Engine Capacity"
-            value={selectedPrice ? `${selectedPrice} CC` : ''} // Include "CC" after the entered value if not empty
+            value={selectedEngineCapcity ? `${selectedEngineCapcity} CC` : ''} // Include "CC" after the entered value if not empty
             onChangeText={(text) => {
               const numericValue = text.replace(/[^0-9]/g, '');
               const formattedValue = parseInt(numericValue, 10).toLocaleString('en-IN');
-              setSelectedPrice(formattedValue);
+              setEngineCapacity(formattedValue);
             }}
             keyboardType="numeric"
           />
@@ -382,12 +412,13 @@ const freeAdsPostService = () => {
           <TextInput
             style={styles.contactInput}
             placeholder="Enter your name"
-          // Add any necessary props or event handlers
+            onChangeText={(text)=>setName(text)}
           />
           <TextInput
             style={styles.contactInput}
             placeholder="Enter your phone number"
             keyboardType="numeric"
+            onChangeText={(text)=>setPhoneNumber(text)}
           // Add any necessary props or event handlers
           />
         </View>

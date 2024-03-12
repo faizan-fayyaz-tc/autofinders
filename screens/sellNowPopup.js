@@ -3,60 +3,46 @@
 /* eslint-disable prettier/prettier */
 // Popup.js
 
-import React from 'react';
-import { View, Text, TouchableOpacity, Modal, Image, StyleSheet } from 'react-native';
-import { useNavigation } from '@react-navigation/native';
-import carIcon from '../assets/images/car_icon.png';
-import bikeIcon from '../assets/images/bike_icon.png';
-import toolIcon from '../assets/images/tools_icon.png';
+import React from "react";
+import {
+  View,
+  Text,
+  TouchableOpacity,
+  Modal,
+  Image,
+  StyleSheet,
+} from "react-native";
+import { useNavigation } from "@react-navigation/native";
+import carIcon from "../assets/images/car_icon.png";
+import bikeIcon from "../assets/images/bike_icon.png";
+import toolIcon from "../assets/images/tools_icon.png";
 import SyncStorage from "sync-storage";
-import { useContext } from 'react';
-import { UserContext } from '../context/userContext';
-
+import { useContext } from "react";
+import { UserContext } from "../context/userContext";
 
 const SellNowPopup = ({ visible, onClose, onSelectCategory }) => {
-
-  const {user} = useContext(UserContext)
+  const { user } = useContext(UserContext);
   const navigation = useNavigation();
   const handleClose = () => {
-    if (onClose && typeof onClose === 'function') {
+    if (onClose && typeof onClose === "function") {
       onClose();
     }
   };
 
   const handleSelectCategory = (category) => {
-    if (onSelectCategory && typeof onSelectCategory === 'function') {
+    if (onSelectCategory && typeof onSelectCategory === "function") {
       onSelectCategory(category);
 
-    //   if(!SyncStorage.get("token")){
-    //     navigation.navigate("welcome");
-    //   }
-
-    //   if(SyncStorage.get("token") && category === "Car"){
-    //     navigation.navigate("sellNowChoosePlan");}
-    //   // }else if(SyncStorage.get("token") && category === "Bike"){
-    //   //   navigation.navigate("")
-    //   // }else if(SyncStorage.get("token") && category === "parst"){
-    //   //   navigation.navigate("")
-    //   // }
-    console.log(user)
-    const token = SyncStorage.get("token")
-    if(user===null){
-      navigation.navigate("welcome")
-    }
-    else{
-      if(category==="Car"){
-        navigation.navigate('sellNowChoosePlan')
+      const token = SyncStorage.get("token");
+      if (!token) {
+        navigation.navigate("welcome");
+      } else {
+        if (category === "Car") {
+          navigation.navigate("sellNowChoosePlan");
+        }
       }
     }
-  }
-
   };
-
-
- 
-
-
 
   return (
     <Modal
@@ -71,35 +57,28 @@ const SellNowPopup = ({ visible, onClose, onSelectCategory }) => {
 
           {/* Categories */}
           <View style={styles.categoriesContainer}>
-            <TouchableOpacity onPress={() => handleSelectCategory('Car')}>
+            <TouchableOpacity onPress={() => handleSelectCategory("Car")}>
               <View style={styles.category}>
                 {/* Replace the source with your actual image */}
-                <Image
-                  source={carIcon}
-                  style={styles.categoryImage}
-                />
+                <Image source={carIcon} style={styles.categoryImage} />
                 <Text style={styles.textDecor}>Car</Text>
               </View>
             </TouchableOpacity>
 
-            <TouchableOpacity onPress={() => handleSelectCategory('Bike')}>
+            <TouchableOpacity onPress={() => handleSelectCategory("Bike")}>
               <View style={styles.category}>
                 {/* Replace the source with your actual image */}
-                <Image
-                  source={bikeIcon}
-                  style={styles.categoryImage}
-                />
+                <Image source={bikeIcon} style={styles.categoryImage} />
                 <Text style={styles.textDecor}>Bike</Text>
               </View>
             </TouchableOpacity>
 
-            <TouchableOpacity onPress={() => handleSelectCategory('Auto Parts')}>
+            <TouchableOpacity
+              onPress={() => handleSelectCategory("Auto Parts")}
+            >
               <View style={styles.category}>
                 {/* Replace the source with your actual image */}
-                <Image
-                  source={toolIcon}
-                  style={styles.categoryImage}
-                />
+                <Image source={toolIcon} style={styles.categoryImage} />
                 <Text style={styles.textDecor}>Parts</Text>
               </View>
             </TouchableOpacity>
@@ -118,50 +97,49 @@ const SellNowPopup = ({ visible, onClose, onSelectCategory }) => {
 const styles = StyleSheet.create({
   modalContainer: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: 'rgba(0, 0, 0, 0.5)',
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: "rgba(0, 0, 0, 0.5)",
   },
   innerContainer: {
-    width: '80%',
-    backgroundColor: '#ffffff',
+    width: "80%",
+    backgroundColor: "#ffffff",
     padding: 20,
     borderRadius: 10,
-    width:330,
+    width: 330,
   },
   modalText: {
     fontSize: 24,
     marginBottom: 20,
-    color: '#000000',
-    fontWeight: 'bold',
-    textAlign: 'center',
+    color: "#000000",
+    fontWeight: "bold",
+    textAlign: "center",
   },
   categoriesContainer: {
-    flexDirection: 'row',
-    justifyContent: 'space-around',
+    flexDirection: "row",
+    justifyContent: "space-around",
   },
   category: {
-    alignItems: 'center',
-    paddingLeft:5,
+    alignItems: "center",
+    paddingLeft: 5,
   },
   categoryImage: {
     width: 45,
     height: 45,
     borderRadius: 25,
     marginBottom: 10,
-
   },
   textDecor: {
-    color: '#000000',
+    color: "#000000",
     fontSize: 18,
-    fontWeight: 'bold',
+    fontWeight: "bold",
   },
   closeButton: {
     marginTop: 20,
     fontSize: 14,
-    color: '#8b0000',
-    fontWeight:'bold',
-    alignSelf:'flex-end',
+    color: "#8b0000",
+    fontWeight: "bold",
+    alignSelf: "flex-end",
   },
 });
 

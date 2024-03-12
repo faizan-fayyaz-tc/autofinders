@@ -74,7 +74,7 @@ const EmailSignin = () => {
     //api
     try {
       const response = await axios.post(
-        "http://192.168.18.18:8000/api/user/login",
+        "http://192.168.18.16:8000/api/user/login",
         {
           email,
           password,
