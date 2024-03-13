@@ -7,6 +7,7 @@ import {
     Text,
     TextInput,
     ScrollView,
+    StatusBar,
 
 } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
@@ -23,6 +24,13 @@ const BookExpertVisitCarInspection = ({ navigation }) => {
     };
 
     const handlecontinue = () => {
+        const data = {
+            houseNo,
+            streetNo,
+            area,
+            province
+        };
+        console.log(data); // Log the entered data
         // Implement logic for handling the 'Next' button
         navigation.navigate('checkoutCarInspection');
     };
@@ -106,15 +114,15 @@ const styles = StyleSheet.create({
         flex: 1,
     },
     header: {
-        backgroundColor: 'darkred',
+        backgroundColor: '#fc6f03',
         flexDirection: 'row',
         alignItems: 'center',
-        padding: 15,
+        paddingTop: StatusBar.currentHeight,
         elevation: 3,
         zIndex: 2,
     },
     backButton: {
-        paddingRight: 20,
+        // paddingRight: 20,
         tintColor: 'white',
     },
     backIcon: {
@@ -129,6 +137,7 @@ const styles = StyleSheet.create({
         color: 'white',
         fontSize: 18,
         fontWeight: 'bold',
+        alignSelf: 'center'
     },
     scrollView: {
         flex: 1,
@@ -137,10 +146,10 @@ const styles = StyleSheet.create({
         padding: 20,
     },
     bookExpertVisit: {
-        fontSize: 28,
+        fontSize: 24,
         fontWeight: 'bold',
         marginBottom: 20,
-        color: 'firebrick'
+        color: '#fc6f03'
     },
     MarqueeContainer: {
         marginBottom: 20, // Increased margin for better spacing
@@ -152,7 +161,7 @@ const styles = StyleSheet.create({
     label: {
         fontSize: 14,
         fontWeight: 'bold',
-        color: 'firebrick',
+        color: 'black',
         marginBottom: 8,
     },
     textField: {
@@ -161,12 +170,12 @@ const styles = StyleSheet.create({
         borderWidth: 1,
         padding: 15,
         borderRadius: 8,
-        fontSize: 16,
+        fontSize: 14,
         color: '#333',
         marginBottom: 20,
     },
     nextButton: {
-        backgroundColor: 'darkred',
+        backgroundColor: '#fc6f03',
         borderRadius: 8,
         padding: 15,
         alignItems: 'center',

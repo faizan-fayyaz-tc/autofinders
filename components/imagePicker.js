@@ -1,10 +1,12 @@
 import React, { useState } from "react";
 import { View, Text, TouchableOpacity, Image, StyleSheet, ScrollView, Dimensions } from "react-native";
 import * as ImagePicker from "expo-image-picker";
+import * as FileSystem from "expo-file-system";
 
-const ImagePickerComponent = () => {
+const ImagePickerComponent = ({ onSelectedImagesBase64Change }) => {
   const [selectedImages, setSelectedImages] = useState([]);
   const [currentIndex, setCurrentIndex] = useState(0);
+  const [selectedImagesBase64, setSelectedImagesBase64] = useState([]);
 
   const handleChooseImage = async () => {
     try {
@@ -13,7 +15,7 @@ const ImagePickerComponent = () => {
         console.log("Permission to access photo library was denied");
         return;
       }
-
+////////////////////////////////////////////////////////////////////////
       let result = await ImagePicker.launchImageLibraryAsync({
         mediaTypes: ImagePicker.MediaTypeOptions.Images,
         allowsEditing: true,
@@ -25,8 +27,19 @@ const ImagePickerComponent = () => {
       console.log("Image picker result:", result);
 
       if (!result.cancelled && result.assets.length > 0) {
-        const imageUris = result.assets.map((asset) => asset.uri);
+        const imageUris = [];
+        const base64Images = [];
+        for (const asset of result.assets){
+          const base64 = await FileSystem.readAsStringAsync(asset.uri,{ encoding: FileSystem.EncodingType.Base64});
+          console.log("Base64 representation of image:", base64);
+          const base64Image = `data:image/jpg;base64,${base64}`;
+          imageUris.push(asset.uri);
+          base64Images.push(base64Image);
+        }
+        // const imageUris = result.assets.map((asset) => asset.uri);
         setSelectedImages([...selectedImages, ...imageUris]);
+        setSelectedImagesBase64([...selectedImagesBase64, ...base64Images]); 
+        onSelectedImagesBase64Change([...selectedImagesBase64, ...base64Images]);
       }
     } catch (error) {
       console.error("Error selecting image:", error);

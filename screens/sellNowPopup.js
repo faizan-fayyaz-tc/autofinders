@@ -16,7 +16,7 @@ import { UserContext } from '../context/userContext';
 
 const SellNowPopup = ({ visible, onClose, onSelectCategory }) => {
 
-  const {user} = useContext(UserContext)
+  const { user } = useContext(UserContext);
   const navigation = useNavigation();
   const handleClose = () => {
     if (onClose && typeof onClose === 'function') {
@@ -39,14 +39,16 @@ const SellNowPopup = ({ visible, onClose, onSelectCategory }) => {
     //   // }else if(SyncStorage.get("token") && category === "parst"){
     //   //   navigation.navigate("")
     //   // }
-    console.log(user)
-    const token = SyncStorage.get("token")
-    if(user===null){
+    console.log(user);
+    const token = SyncStorage.get("token");
+    console.log(token);
+    if(!user){
+      console.log("user is not present");
       navigation.navigate("welcome")
     }
     else{
       if(category==="Car"){
-        navigation.navigate('sellNowChoosePlan')
+        navigation.navigate('sellNowChoosePlan');
       }
     }
   }

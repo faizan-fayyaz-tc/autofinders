@@ -7,6 +7,7 @@ import {
     Text,
     TextInput,
     ScrollView,
+    StatusBar,
 
 } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
@@ -145,15 +146,15 @@ const styles = StyleSheet.create({
         color : 'white'
     },
     header: {
-        backgroundColor: '#Ac3803',
+        backgroundColor: '#fc6f03',
         flexDirection: 'row',
         alignItems: 'center',
-        padding: 20,
+        paddingTop: StatusBar.currentHeight,
         elevation: 3,
         zIndex: 2,
     },
     backButton: {
-        paddingRight: 20,
+        // paddingRight: 20,
         tintColor: 'white',
     },
     backIcon: {
@@ -168,6 +169,7 @@ const styles = StyleSheet.create({
         color: 'white',
         fontSize: 18,
         fontWeight: 'bold',
+        alignSelf:'center'
     },
     paymentContent: {
         flexDirection: 'row',
@@ -198,7 +200,7 @@ const styles = StyleSheet.create({
         fontSize: 16,
         fontWeight: 'bold',
         textAlign: 'center',
-        color : '#Ac3803'
+        color : 'black'
     },
     paymentOptionContent: {
         flexDirection: 'row',
@@ -218,14 +220,15 @@ const styles = StyleSheet.create({
     totalText: {
         fontSize: 14,
         fontWeight: 'bold',
+        color: '#2884ec'
     },
     totalValue: {
         fontSize: 22,
         fontWeight: 'bold',
-        color: '#Ac3803',
+        color: '#fc6f03',
     },
     continueButton: {
-        backgroundColor: '#Ac3803',
+        backgroundColor: '#fc6f03',
         borderRadius: 10,
         paddingVertical: 15,
         marginHorizontal: 20,

@@ -7,6 +7,7 @@ import {
   Text,
   ScrollView,
   TextInput,
+  StatusBar
 } from "react-native";
 import { useState } from "react";
 import { useNavigation } from "@react-navigation/native";
@@ -17,6 +18,8 @@ import BodyColorPicker from "../components/bodyColor";
 import DescribeYourCar from "../components/describeYourCar";
 import FuelTypePicker from "../components/fuelTypePicker";
 import InputRange from "../components/inputRange";
+import FilterApply from "../components/filterApply";
+
 // import RangeSlider, { Slider } from 'react-native-range-slider-expo';
 // import { Slider } from '@react-native-community/slider';
 
@@ -48,6 +51,16 @@ const FilterSearchCar = () => {
   const [selectedFeatures, setSelectedFeatures] = useState([]);
   const [selectedDriveOption, setSelectedDriveOption] = useState("");
   const [area, setArea] = useState("");
+
+  const [selectedFilters, setSelectedFilters] = useState({});
+
+  const applyFilters = (filters) => {
+    // Update the selected filters state here
+    setSelectedFilters(filters);
+    // Now you can apply the filters as needed
+    console.log('Selected filters:', filters);
+  };
+
 
   const handleBack = () => {
     navigation.goBack();
@@ -152,6 +165,13 @@ const FilterSearchCar = () => {
     setSelectedAvailability(availability);
   };
 
+  const handleApplyFilter = () => {
+
+  };
+  const handleResetFilter = () => {
+
+  };
+
   return (
     <View style={styles.container}>
       <View style={styles.header}>
@@ -166,6 +186,40 @@ const FilterSearchCar = () => {
         </View>
       </View>
       <ScrollView contentContainerStyle={styles.scrollViewContent}>
+        {/* here there is implementation of slider:: */}
+
+        <InputRange
+          min={1940} // Ensure this is a numeric value
+          max={2022} // Ensure this is a numeric value and greater than min
+          title={"Model Year Range"}
+          steps={1} // Specify the step value
+          onApplyFilters={applyFilters}
+        />
+
+        <InputRange
+          min={0} // Ensure this is a numeric value
+          max={24000000} // Ensure this is a numeric value and greater than min
+          title={"Price Range"}
+          steps={1} // Specify the step value
+          onvalueChange={(range) => console.log(range)}
+        />
+
+        <InputRange
+          min={0} // Ensure this is a numeric value
+          max={200000} // Ensure this is a numeric value and greater than min
+          title={"KMs Driven"}
+          steps={1} // Specify the step value
+          onvalueChange={(range) => console.log(range)}
+        />
+
+        <InputRange
+          min={400} // Ensure this is a numeric value
+          max={2000} // Ensure this is a numeric value and greater than min
+          title={"Engine Capacity CC"}
+          steps={1} // Specify the step value
+          onvalueChange={(range) => console.log(range)}
+        />
+
         <TouchableOpacity
           style={styles.selectLocationButton}
           onPress={handleOpenLocationPicker}
@@ -182,16 +236,6 @@ const FilterSearchCar = () => {
           isVisible={locationModalVisible}
           onClose={handleCloseLocationPicker}
           onSelectLocation={handleLocationSelect}
-        />
-
-        {/* here there is implementation of slider:: */}
-
-        <InputRange
-          min={1950} // Ensure this is a numeric value
-          max={2022} // Ensure this is a numeric value and greater than min
-          title={"Year"}
-          steps={1} // Specify the step value
-          onvalueChange={(range) => console.log(range)}
         />
 
         <TouchableOpacity
@@ -282,7 +326,7 @@ const FilterSearchCar = () => {
                     onValueChange={(value) => setSelectedPrice(value)}
                 /> */}
 
-        <View style={styles.selectKmDrivenButton}>
+        {/* <View style={styles.selectKmDrivenButton}>
           <Image
             source={require("../assets/carMeter.png")}
             style={styles.kmIcon}
@@ -300,8 +344,8 @@ const FilterSearchCar = () => {
             }}
             keyboardType="numeric"
           />
-        </View>
-        <View style={styles.selectPriceButton}>
+        </View> */}
+        {/* <View style={styles.selectPriceButton}>
           <Image
             source={require("../assets/priceTag.png")}
             style={styles.priceIcon}
@@ -319,9 +363,9 @@ const FilterSearchCar = () => {
             }}
             keyboardType="numeric"
           />
-        </View>
+        </View> */}
 
-        <View style={styles.selectDescriptionButton}>
+        {/* <View style={styles.selectDescriptionButton}>
           <Image
             source={require("../assets/descriptionIcon.png")}
             style={styles.descriptionIcon}
@@ -332,22 +376,22 @@ const FilterSearchCar = () => {
             value={selectedDescription}
             onChangeText={(text) => setSelectedDescription(text)}
           />
-        </View>
+        </View> */}
 
-        <TouchableOpacity
+        {/* <TouchableOpacity
           style={styles.viewSuggestionsButton}
           onPress={handleViewSuggestions}
         >
           <Text style={styles.viewSuggestionsText}>View All Suggestions</Text>
-        </TouchableOpacity>
+        </TouchableOpacity> */}
 
-        <DescribeYourCar
+        {/* <DescribeYourCar
           isVisible={describeYourCarModalVisible}
           onClose={() => setDescribeYourCarModalVisible(false)}
           onDone={handleDescribeYourCarDone}
-        />
+        /> */}
 
-        <View style={styles.selectPriceButton}>
+        {/* <View style={styles.selectPriceButton}>
           <Image
             source={require("../assets/powerIcon.png")}
             style={styles.priceIcon}
@@ -365,9 +409,9 @@ const FilterSearchCar = () => {
             }}
             keyboardType="numeric"
           />
-        </View>
+        </View> */}
 
-        <View style={styles.selectDriveOptionContainer}>
+        {/* <View style={styles.selectDriveOptionContainer}>
           <Text style={styles.selectDriveOptionText}>Drive options :</Text>
           <View style={styles.toggleButtonContainer}>
             <TouchableOpacity
@@ -404,12 +448,12 @@ const FilterSearchCar = () => {
               </Text>
             </TouchableOpacity>
           </View>
-        </View>
+        </View> */}
 
         {/* here i have to add textfields rent post service  */}
 
         <View style={styles.selectTransmissionContainer}>
-          <Text style={styles.selectTransmissionText}>Transmission :</Text>
+          <Text style={styles.selectTransmissionText}>Transmission </Text>
           <View style={styles.toggleButtonContainer}>
             <TouchableOpacity
               style={[
@@ -449,7 +493,7 @@ const FilterSearchCar = () => {
         </View>
 
         <View style={styles.selectAssemblyContainer}>
-          <Text style={styles.selectAssemblyText}>Assembly :</Text>
+          <Text style={styles.selectAssemblyText}>Assembly </Text>
           <View style={styles.toggleButtonContainer}>
             <TouchableOpacity
               style={[
@@ -487,25 +531,25 @@ const FilterSearchCar = () => {
         </View>
 
         {/* "Contact Info" section */}
-        <View style={styles.contactInfoContainer}>
+        {/* <View style={styles.contactInfoContainer}>
           <Text style={styles.contactInfoText}>Contact Info</Text>
-          {/* Add two text fields below "Contact Info" */}
+          
           <TextInput
             style={styles.contactInput}
             placeholder="Enter your name"
-            // Add any necessary props or event handlers
+            
           />
           <TextInput
             style={styles.contactInput}
             placeholder="Enter your phone number"
             keyboardType="numeric"
-            // Add any necessary props or event handlers
+            
           />
-        </View>
+        </View> */}
 
-        <TouchableOpacity style={styles.Postbutton} onPress={handlePostYourAd}>
+        {/* <TouchableOpacity style={styles.Postbutton} onPress={handlePostYourAd}>
           <Text style={styles.PostbuttonText}>Post Ad</Text>
-        </TouchableOpacity>
+        </TouchableOpacity> */}
 
         {/* <View style={styles.noteContainer}>
           <Text style={styles.noteHeading}>Note</Text>
@@ -522,6 +566,10 @@ const FilterSearchCar = () => {
           <Text style={styles.PremiumAdButtonText}>Click to go for Premium Ad Service</Text>
         </TouchableOpacity> */}
       </ScrollView>
+      <FilterApply
+        onApplyFilter={handleApplyFilter}
+        onResetFilter={handleResetFilter}
+      />
     </View>
   );
 };
@@ -540,10 +588,10 @@ const styles = StyleSheet.create({
     backgroundColor: "#Ac3803",
     flexDirection: "row",
     alignItems: "center",
-    padding: 15,
+    padding: StatusBar.currentHeight,
   },
   backButton: {
-    paddingRight: 20,
+    // paddingRight: 20,
     tintColor: "white",
   },
   backIcon: {
@@ -558,6 +606,7 @@ const styles = StyleSheet.create({
     color: "white",
     fontSize: 18,
     fontWeight: "bold",
+    alignSelf: 'center'
   },
   scrollViewContent: {
     flexGrow: 1,
@@ -568,8 +617,9 @@ const styles = StyleSheet.create({
     height: 50,
     width: 300,
     borderColor: "#Ac3803",
-    borderWidth: 1,
-    borderRadius: 5,
+    // borderWidth: 1,
+    // borderRadius: 5,
+    borderBottomWidth: 2,
     marginTop: 40,
     alignSelf: "center",
   },
@@ -591,8 +641,9 @@ const styles = StyleSheet.create({
     height: 50,
     width: 300,
     borderColor: "#Ac3803",
-    borderWidth: 1,
-    borderRadius: 5,
+    // borderWidth: 1,
+    // borderRadius: 5,
+    borderBottomWidth: 2,
     marginTop: 10,
     alignItems: "center",
     alignSelf: "center",
@@ -614,8 +665,9 @@ const styles = StyleSheet.create({
     height: 50,
     width: 300,
     borderColor: "#Ac3803",
-    borderWidth: 1,
-    borderRadius: 5,
+    // borderWidth: 1,
+    // borderRadius: 5,
+    borderBottomWidth: 2,
     marginTop: 10,
     // justifyContent: 'center',
     alignSelf: "center",
@@ -625,8 +677,9 @@ const styles = StyleSheet.create({
     height: 50,
     width: 300,
     borderColor: "#Ac3803",
-    borderWidth: 1,
-    borderRadius: 5,
+    // borderWidth: 1,
+    // borderRadius: 5,
+    borderBottomWidth: 2,
     marginTop: 10,
     alignItems: "center",
     alignSelf: "center",
@@ -647,8 +700,9 @@ const styles = StyleSheet.create({
     height: 50,
     width: 300,
     borderColor: "#Ac3803",
-    borderWidth: 1,
-    borderRadius: 5,
+    // borderWidth: 1,
+    // borderRadius: 5,
+    borderBottomWidth: 2,
     marginTop: 10,
     alignItems: "center",
     alignSelf: "center",
@@ -674,8 +728,9 @@ const styles = StyleSheet.create({
     height: 50,
     width: 300,
     borderColor: "#Ac3803",
-    borderWidth: 1,
-    borderRadius: 5,
+    // borderWidth: 1,
+    // borderRadius: 5,
+    borderBottomWidth: 2,
     marginTop: 10,
     alignItems: "center",
     alignSelf: "center",
@@ -693,8 +748,9 @@ const styles = StyleSheet.create({
     height: 50,
     width: 300,
     borderColor: "#Ac3803",
-    borderWidth: 1,
-    borderRadius: 5,
+    // borderWidth: 1,
+    // borderRadius: 5,
+    borderBottomWidth: 2,
     marginTop: 10,
     alignItems: "center",
     alignSelf: "center",
@@ -730,8 +786,9 @@ const styles = StyleSheet.create({
     height: 50,
     width: 300,
     borderColor: "#Ac3803",
-    borderWidth: 1,
-    borderRadius: 5,
+    // borderWidth: 1,
+    // borderRadius: 5,
+    borderBottomWidth: 2,
     marginTop: 10,
     alignItems: "center",
     alignSelf: "center",
