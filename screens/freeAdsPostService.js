@@ -1,26 +1,16 @@
-import React from "react";
-import {
-  View,
-  Image,
-  StyleSheet,
-  TouchableOpacity,
-  Text,
-  ScrollView,
-  TextInput,
-} from "react-native";
-import { useState } from "react";
-import { useNavigation } from "@react-navigation/native";
-import LocationPicker from "../components/locationPicker";
-import CarModelPicker from "../components/carModelPicker";
-import RegisteredPicker from "../components/registeredPicker";
-import BodyColorPicker from "../components/bodyColor";
-import DescribeYourCar from "../components/describeYourCar";
-import FuelTypePicker from "../components/fuelTypePicker";
-import PremiumAdCharges from "../components/premiumAdCharges";
-
-
-
-import ImagePickerComponent from "../components/imagePicker";
+import React from 'react';
+import { View, Image, StyleSheet, TouchableOpacity, Text, ScrollView, TextInput } from 'react-native';
+import { useState } from 'react';
+import { useNavigation } from '@react-navigation/native';
+import LocationPicker from '../components/locationPicker';
+import CarModelPicker from '../components/carModelPicker';
+import RegisteredPicker from '../components/registeredPicker';
+import BodyColorPicker from '../components/bodyColor';
+import DescribeYourCar from '../components/describeYourCar';
+import FuelTypePicker from '../components/fuelTypePicker';
+import PremiumAdCharges from '../components/premiumAdCharges';
+import ImagePickerComponent from '../components/imagePicker';
+import axios from "axios"
 
 const freeAdsPostService = () => {
   // let A = '';
@@ -31,7 +21,7 @@ const freeAdsPostService = () => {
   const [selectedYear, setSelectedYear] = useState("");
   const [selectedBrand, setSelectedBrand] = useState("");
   const [selectedVariant, setSelectedVariant] = useState("");
-  const [selectedModel, setSelectedModel] = useState("");
+  
   const [registeredModalVisible, setRegisteredModalVisible] = useState(false);
   const [selectedRegisteredLocation, setSelectedRegisteredLocation] =
     useState("");
@@ -40,7 +30,7 @@ const freeAdsPostService = () => {
   const [selectedKmDriven, setSelectedKmDriven] = useState("");
   const [selectedPrice, setSelectedPrice] = useState("");
   const [selectedDescription, setSelectedDescription] = useState("");
-  const [engineCapacity, setEngineCapacity] = useState("");
+  
   const [describeYourCarModalVisible, setDescribeYourCarModalVisible] =
     useState(false);
   const [selectedSuggestions, setSelectedSuggestions] = useState([]);
@@ -51,10 +41,11 @@ const freeAdsPostService = () => {
   const [isFeaturePickerVisible, setIsFeaturePickerVisible] = useState(false);
   const [selectedFeatures, setSelectedFeatures] = useState([]);
   const [modalVisible, setModalVisible] = useState(false);
+  const [selectedEngineCapcity , setEngineCapacity] = useState("") ;
+  const [name,setName]=useState("");
+  const [phoneNumber,setPhoneNumber]=useState("");
+  const [selectedModel , setSelectedModel] = useState("")
 
-  const [selectedImagesBase64, setSelectedImagesBase64] = useState([]);
-
-  
 
   const handleBack = () => {
     navigation.goBack();
@@ -100,15 +91,16 @@ const freeAdsPostService = () => {
     // Implement logic to open variant picker
   };
 
-  const handleModelSelect = (model) =>{
-    setSelectedModel(model);
-    handleCloseCarModelPicker();
-  };
+  
 
   const handleVariantSelect = (variant) => {
     setSelectedVariant(variant);
     handleCloseCarModelPicker();
   };
+  const handleModelSelect = (model)=>{
+    setSelectedModel(model)
+    handleCloseCarModelPicker();
+  }
 
   const handleOpenRegisteredPicker = () => {
     setRegisteredModalVisible(true);
@@ -168,7 +160,32 @@ const freeAdsPostService = () => {
   };
   const handlePostYourAd = async () => {
     // Handle the logic for posting the ad
-    console.log("Ad posted!");
+    console.log('Ad posted!');
+    const adData = {
+      location:selectedLocation,
+      year:selectedYear,
+      brand:selectedBrand,
+      varient:selectedVariant,
+      regiesteredIn:selectedRegisteredLocation,
+      color:selectedBodyColor,
+      kmDriven:selectedKmDriven,
+      price:selectedPrice,
+      description:selectedDescription,
+      fuelType:selectedFuelType,
+      transimission:selectedTransmission,
+      assembly:selectedAssembly,
+      engineCapacity:selectedEngineCapcity,
+      name:name,
+      phoneNumber:phoneNumber,
+    }
+    console.log(adData)
+    try {
+      const response = await axios.post("http://192.168.18.16:8000/api/carAd/upload", adData);
+      console.log(response.data)
+    } catch (error) {
+      console.log(error.response.data)
+    }
+
     // Add any additional logic you need for posting the ad
     console.log("user Ad Details ::");
     console.log("user Ad Details ::");
@@ -268,19 +285,13 @@ const freeAdsPostService = () => {
           onSelectLocation={handleLocationSelect}
         />
 
-        <TouchableOpacity
-          style={styles.selectCarModelButton}
-          onPress={handleOpenCarModelPicker}
-        >
-          <Image
-            source={require("../assets/carFrontIcon.png")}
-            style={styles.carModelIcon}
-          />
-          <Text style={styles.selectCarModelText}>
-            {selectedYear ? `${selectedYear} ` : ""}
-            {selectedBrand ? `${selectedBrand} ` : ""}
-            {selectedModel ? `${selectedModel} ` : ""}
-            {selectedVariant || "Car Model"}
+        <TouchableOpacity style={styles.selectCarModelButton} onPress={handleOpenCarModelPicker}>
+          <Image source={require('../assets/carFrontIcon.png')} style={styles.carModelIcon} />
+          <Text style={styles.selectCarModelText} placeholder="Car Model">
+            {selectedYear ? `${selectedYear} ` : ''}
+            {selectedBrand ? `${selectedBrand} ` : ''}
+            {selectedModel ?  `${selectedModel}` : ""}
+            {selectedVariant? `${selectedVariant}`:""}
           </Text>
         </TouchableOpacity>
 
@@ -518,11 +529,11 @@ const freeAdsPostService = () => {
           <TextInput
             style={styles.textInput}
             placeholder="Engine Capacity"
-            value={selectedPrice ? `${selectedPrice} CC` : ''} // Include "CC" after the entered value if not empty
+            value={selectedEngineCapcity ? `${selectedEngineCapcity} CC` : ''} // Include "CC" after the entered value if not empty
             onChangeText={(text) => {
               const numericValue = text.replace(/[^0-9]/g, '');
               const formattedValue = parseInt(numericValue, 10).toLocaleString('en-IN');
-              setSelectedPrice(formattedValue);
+              setEngineCapacity(formattedValue);
             }}
             keyboardType="numeric"
           />
@@ -535,13 +546,14 @@ const freeAdsPostService = () => {
           <TextInput
             style={styles.contactInput}
             placeholder="Enter your name"
-            // Add any necessary props or event handlers
+            onChangeText={(text)=>setName(text)}
           />
           <TextInput
             style={styles.contactInput}
             placeholder="Enter your phone number"
             keyboardType="numeric"
-            // Add any necessary props or event handlers
+            onChangeText={(text)=>setPhoneNumber(text)}
+          // Add any necessary props or event handlers
           />
         </View>
 

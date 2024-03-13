@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState ,useEffect} from "react";
 import {
   View,
   Text,
@@ -9,29 +9,30 @@ import {
   TextInput,
   StyleSheet,
 } from "react-native";
+import axios from "axios";
 
-const carModelsData = [
-  {
-    year: "2020",
-    brands: [
-      {
-        name: "Toyota",
-        model: [
-          {
-            name: "Corolla",
-            varient: [
-              {
-                name: "1.5t",
-              },
-            ],
-          },
-        ],
-      },
-    ],
-  },
+// const carModelsData = [
+//   {
+//     year: "2020",
+//     brands: [
+//       {
+//         name: "Toyota",
+//         model: [
+//           {
+//             name: "Corolla",
+//             varient: [
+//               {
+//                 name: "1.5t",
+//               },
+//             ],
+//           },
+//         ],
+//       },
+//     ],
+//   },
 
   // Add more years, brands, and variants as needed
-];
+// ];
 
 const CarModelPicker = ({
   isVisible,
@@ -45,24 +46,103 @@ const CarModelPicker = ({
   const [selectedBrand, setSelectedBrand] = useState("");
   const [selectedModel, setSelectedModel] = useState("");
   const [selectedVariant, setSelectedVariant] = useState("");
+  const [yearsData,setYearsData] = useState("")
+  const [brandsData , setBrandsData] = useState("")
+  const [modelsData , setModelsData] = useState("")
+  const [brandId , setBrandId] = useState("") 
+  const [varientData , setVarientData] = useState("")
+  const [modelId , setModelId] = useState("")
+
+  const getYearData =async ()=>{
+    try {
+      const response = await axios.get("http://192.168.18.16:8000/api/year/")
+      // console.log(response.data.data)
+      setYearsData(response.data.data);
+    } catch (error) {
+      console.log(error.response.data)
+    }
+  }
+
+  const getBrandData =async ()=>{
+    try {
+      const response = await axios.get("http://192.168.18.16:8000/brands")
+      // console.log(response.data)
+      setBrandsData(response.data)
+    } catch (error) {
+      console.log(error.response.data)
+    }
+  }
+
+  const getModelData =async ()=>{
+    console.log(brandId)
+    try {
+      const response = await axios.get(`http://192.168.18.16:8000/Model/${brandId}`)
+      // console.log(response.data)
+      setModelsData(response.data)
+    } catch (error) {
+      console.log(error.response.data)
+    }
+  }
+
+
+  const getVariantData =async ()=>{
+    try {
+      const response = await axios.get(`http://192.168.18.16:8000/varient/${modelId}`)
+      // console.log("THIisssssssss",response.data.products)
+      setVarientData(response.data.products)
+    } catch (error) {
+      console.log(error.response.data)
+    }
+  }
+
+
+  
+
+  useEffect(()=>{
+    getYearData();
+    getBrandData();
+  },[])
+
+
+
+  useEffect(() => {
+    setSelectedYear("")
+    setSelectedBrand("")
+    setSelectedModel("")
+    setSelectedVariant("")
+  }, [isVisible]);
+
+  useEffect(()=>{
+    getModelData()
+  },[brandId])
+
+  useEffect(()=>{
+    getVariantData()
+  },[modelId])
 
   const handleYearSelect = (year) => {
     setSelectedYear(year);
     setSelectedBrand("");
     setSelectedVariant("");
+    setSelectedBrand("");
+    setSelectedVariant("");
   };
 
   const handleBrandSelect = (brand) => {
-    setSelectedBrand(brand);
+    setSelectedBrand(brand.name);
+    setBrandId(brand._id);
+    console.log(brand._id)
   };
   const handleModelSelect = (model) => {
-    setSelectedModel(model);
+    setSelectedModel(model.name);
+    setModelId(model._id);
     setSelectedVariant("");
   };
   const handleVariantSelect = (variant) => {
     setSelectedVariant(variant);
     onSelectYear(selectedYear);
     onSelectBrand(selectedBrand);
+    onSelectModel(selectedModel);
     onSelectModel(selectedModel);
     onSelectVariant(variant);
     onClose();
@@ -82,7 +162,7 @@ const CarModelPicker = ({
             <>
               <Text style={styles.headerText}>Select Year</Text>
               <FlatList
-                data={carModelsData}
+                data={yearsData}
                 keyExtractor={(item) => item.year}
                 renderItem={({ item }) => (
                   <TouchableOpacity
@@ -99,15 +179,12 @@ const CarModelPicker = ({
             <>
               <Text style={styles.headerText}>Select Brand</Text>
               <FlatList
-                data={
-                  carModelsData.find((data) => data.year === selectedYear)
-                    .brands
-                }
+                data={brandsData}
                 keyExtractor={(item) => item.name}
                 renderItem={({ item }) => (
                   <TouchableOpacity
                     style={styles.itemButton}
-                    onPress={() => handleBrandSelect(item.name)}
+                    onPress={() => handleBrandSelect(item)}
                   >
                     <Text>{item.name}</Text>
                   </TouchableOpacity>
@@ -120,18 +197,12 @@ const CarModelPicker = ({
             <>
               <Text style={styles.headerText}>Select Model</Text>
               <FlatList
-                data={
-                  carModelsData
-                    .find((data) => data.year === selectedYear)
-                    .brands.find(
-                      (brandData) => brandData.name === selectedBrand
-                    )?.model || []
-                } // Add a check for undefined before accessing models
+                data={modelsData} // Add a check for undefined before accessing models
                 keyExtractor={(item) => item.name}
                 renderItem={({ item }) => (
                   <TouchableOpacity
                     style={styles.itemButton}
-                    onPress={() => handleModelSelect(item.name)}
+                    onPress={() => handleModelSelect(item)}
                   >
                     <Text>{item.name}</Text>
                   </TouchableOpacity>
@@ -144,23 +215,14 @@ const CarModelPicker = ({
             <>
               <Text style={styles.headerText}>Select Variant</Text>
               <FlatList
-                data={
-                  carModelsData
-                    .find((data) => data.year === selectedYear)
-                    .brands.find(
-                      (brandData) => brandData.name === selectedBrand
-                    )
-                    ?.model.find(
-                      (modelData) => modelData.name === selectedModel
-                    )?.varient || []
-                }
+                data={varientData}
                 keyExtractor={(item) => item.name}
                 renderItem={({ item }) => (
                   <TouchableOpacity
                     style={styles.itemButton}
                     onPress={() => handleVariantSelect(item.name)}
                   >
-                    <Text>{item.name}</Text>
+                    <Text>{item.name}a</Text>
                   </TouchableOpacity>
                 )}
               />
@@ -180,8 +242,10 @@ const styles = StyleSheet.create({
   modalContainer: {
     flex: 1,
     justifyContent: "flex-end",
+    justifyContent: "flex-end",
   },
   modalContent: {
+    backgroundColor: "white",
     backgroundColor: "white",
     borderTopLeftRadius: 20,
     borderTopRightRadius: 20,
@@ -191,14 +255,17 @@ const styles = StyleSheet.create({
   headerText: {
     fontSize: 18,
     fontWeight: "bold",
+    fontWeight: "bold",
     marginBottom: 10,
   },
   itemButton: {
     padding: 10,
     borderBottomWidth: 1,
     borderBottomColor: "#ccc",
+    borderBottomColor: "#ccc",
   },
   closeButton: {
+    alignItems: "center",
     alignItems: "center",
     marginTop: 10,
   },
