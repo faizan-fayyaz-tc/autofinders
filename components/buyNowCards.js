@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { View, Text, StyleSheet, Image } from "react-native";
 import managedByAutoFinder from "./managedByAutoFinder";
 
@@ -15,6 +15,10 @@ const BuyNowCard = ({
   isFeatured,
   isManagedByAutoFinder,
 }) => {
+
+  useEffect(() => {
+    console.log(typeof(carImage))
+  }, []);
 
   const cardStyle = {
     ...(isInspected || isManagedByAutoFinder
@@ -53,7 +57,7 @@ const BuyNowCard = ({
     );
   }
 
-  
+  const source = { uri: carImage };
 
   return (
     <View>
@@ -65,7 +69,7 @@ const BuyNowCard = ({
           />
         )}
         <View style={styles.imageContainer}>
-          <Image source={carImage} style={styles.image} />
+          <Image source={source} style={styles.image} />
         </View>
         <View style={styles.detailsContainer}>
           <Text style={styles.name}>{name}</Text>

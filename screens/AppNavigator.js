@@ -3,7 +3,7 @@
 /* eslint-disable prettier/prettier */
 // MainStack.js
 
-import React from 'react';
+import React, { useEffect } from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
 import SellNowPopup from './sellNowPopup';
 import { NavigationContainer } from '@react-navigation/native';
@@ -40,13 +40,32 @@ import PremiumAdsPostService from './premiumAdsPostService';
 import BasicInfoBuyCarForMe from './basicInfoBuyCarForMe';
 import FilterSearchCar from './filterSearchCar';
 import BuyNow from './buyNow';
-
+import SyncStorage from 'sync-storage';
+import { useContext } from 'react';
+import { UserContext } from '../context/userContext';
+import axios from 'axios';
 
 
 
 const Stack = createStackNavigator();
-
 const AppNavigator = () => {
+  const {user,dispatch} = useContext(UserContext)
+
+  const rehydrateUser = async ()=>{
+    try {
+      const response = await axios.get("api/user/rehydrateUser")
+      console.log("rehydratedUser",response.data);
+      dispatch({type:"LOGIN" , payload:response.data.data})
+    } catch (error) {
+      console.log(error.response.data)
+    }
+  }
+
+  useEffect(() => {
+    if(SyncStorage.get("token")){
+      rehydrateUser()
+    }
+  }, [user]);
   return (
     <Stack.Navigator mode="modal" headerMode="none" initialRouteName="home">
       <Stack.Screen name="home" component={home} />

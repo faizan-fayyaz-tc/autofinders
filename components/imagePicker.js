@@ -31,7 +31,7 @@ const ImagePickerComponent = ({ onSelectedImagesBase64Change }) => {
         const base64Images = [];
         for (const asset of result.assets){
           const base64 = await FileSystem.readAsStringAsync(asset.uri,{ encoding: FileSystem.EncodingType.Base64});
-          console.log("Base64 representation of image:", base64);
+          // console.log("Base64 representation of image:", base64);
           const base64Image = `data:image/jpg;base64,${base64}`;
           imageUris.push(asset.uri);
           base64Images.push(base64Image);

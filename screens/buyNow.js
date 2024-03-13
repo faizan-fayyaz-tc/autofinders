@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import {
   View,
   StyleSheet,
@@ -11,10 +11,12 @@ import { useNavigation } from "@react-navigation/core";
 import { AntDesign } from "@expo/vector-icons"; // Importing AntDesign icons
 import SearchBar from "../components/searchBar";
 import BuyNowCard from "../components/buyNowCards";
-
+import axios from "axios"
 const BuyNow = () => {
   const navigation = useNavigation();
-
+  const [filterOptions , setFilterOptions] = useState({})
+  const [isLoading , setIsloading] = useState(true)
+  const  [data , setData ]=useState([])
   const handleBackPress = () => {
     navigation.goBack();
   };
@@ -22,6 +24,22 @@ const BuyNow = () => {
   const handleFilterPress = () => {
     // Implement your filter logic here
   };
+
+  useEffect(() => {
+    async function getData(){
+      try {
+        const response = await axios.post("http://192.168.18.16:8000/api/carAd/",{})
+        setData(response.data.data)
+        // console.log(response.data)
+        setIsloading(false)
+      } catch (error) {
+        console.log(error.response.data)
+        setIsloading(false)
+      }
+    }
+    getData()
+  }, []);
+
 
   return (
     <View style={styles.container}>
@@ -44,75 +62,27 @@ const BuyNow = () => {
       </View>
 
       <ScrollView style={styles.scrollView}>
-        <BuyNowCard
-          carImage={require("../assets/car2.jpg")}
-          name="Toyota Camry"
-          variant="2022 XLE"
-          price="$25,000"
-          year="2019"
-          fuelType="petrol"
-          kmReading="2,11,000"
-          location="Islamabad"
-          isInspected={false}
-          isFeatured={true}
-          isManagedByAutoFinder={false}
-        />
+        {isLoading && <Text>Loading ...</Text>}
 
-        <BuyNowCard
-          carImage={require("../assets/car2.jpg")}
-          name="Toyota Camry"
-          variant="2022 XLE"
-          price="$25,000"
-          year="2019"
-          fuelType="petrol"
-          kmReading="2,11,000"
-          location="Islamabad"
-          isInspected={true}
-          isFeatured={true}
-          isManagedByAutoFinder={true}
-        />
+        {!isLoading && data.length===0 && <Text>No Cars To show</Text>}
 
-        <BuyNowCard
-          carImage={require("../assets/car2.jpg")}
-          name="Toyota Camry"
-          variant="2022 XLE"
-          price="$25,000"
-          year="2019"
-          fuelType="petrol"
-          kmReading="2,11,000"
-          location="Islamabad"
-          isInspected={false}
-          isFeatured={true}
-          isManagedByAutoFinder={true}
-        />
+        {!isLoading && data.length>0 && data.map((item)=>(
+            <BuyNowCard
+            key={item._id}
+            carImage={item.images[0]}
+            name={item.brand}
+            variant={item.varient}
+            price="$25,000"
+            year="2019"
+            fuelType="petrol"
+            kmReading="2,11,000"
+            location="Islamabad"
+            isInspected={item.inspected}
+            isFeatured={item.featured}
+            isManagedByAutoFinder={item.ManagedByAutoFinder}
+          />
+        ))}
 
-        <BuyNowCard
-          carImage={require("../assets/car2.jpg")}
-          name="Toyota Camry"
-          variant="2022 XLE"
-          price="$25,000"
-          year="2019"
-          fuelType="petrol"
-          kmReading="2,11,000"
-          location="Islamabad"
-          isInspected={true}
-          isFeatured={true}
-          isManagedByAutoFinder={false}
-        />
-
-        <BuyNowCard
-          carImage={require("../assets/car2.jpg")}
-          name="Toyota Camry"
-          variant="2022 XLE"
-          price="$25,000"
-          year="2019"
-          fuelType="petrol"
-          kmReading="2,11,000"
-          location="Islamabad"
-          isInspected={false}
-          isFeatured={false}
-          isManagedByAutoFinder={false}
-        />
       </ScrollView>
     </View>
   );
