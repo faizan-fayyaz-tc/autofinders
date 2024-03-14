@@ -1,12 +1,37 @@
-import React, { useState } from 'react';
-import { View, Image, StyleSheet, TouchableOpacity, Text, ScrollView } from 'react-native';
+import React, { useEffect, useState } from 'react';
+import { View, Image, StyleSheet, TouchableOpacity, Text, ScrollView,ActivityIndicator } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import Footercontact from '../components/footerContact';
+import { useRoute } from '@react-navigation/native';
+import axios from 'axios';
+
 
 const SellerCarDetail = () => {
     const navigation = useNavigation();
     const [currentImageIndex, setCurrentImageIndex] = useState(0);
-    const images = [require('../assets/car.jpg'), require('../assets/car2.jpg'), require('../assets/car.jpg'), require('../assets/car2.jpg')]; // Add all your image paths here
+    
+    
+    const [carDetails, setCarDetails] = useState({});
+    const route = useRoute();
+    const itemId = route.params.itemId;
+    const [isLoading , setIsloading] = useState(true)
+    const [images , setImages] = useState([])
+    const [imagesUri , setImagesUri]=useState([])
+    useEffect(() => {
+        async function loadItem(){
+            try {
+                const response = await axios.get(`http://192.168.18.146:8000/api/carAd/${itemId}`);
+                console.log('response', response.data.ok)
+                setCarDetails(response.data.data);
+                setImagesUri(response.data.data.images.map(image=> ({uri : `${image}`})))
+                setIsloading(false)
+            } catch (error) {
+                console.log(error.response.data)
+            }
+        }
+        loadItem()
+   
+    }, []);
 
     const FeatureItem = ({ feature }) => (
         <View style={styles.feature}>
@@ -47,19 +72,19 @@ const SellerCarDetail = () => {
         { name: 'Automatic', icon: require('../assets/transmission.png') },
     ];
 
-    const carDetails = [
-        { heading: 'Registered In', name: 'Islamabad' },
-        { heading: 'Exterior Color', name: 'white' },
-        { heading: 'Assembly', name: 'imported' },
-        { heading: 'Engine Capacity', name: '1000' },
-        { heading: 'Body Type', name: 'Hatchback' },
-        { heading: 'Chassis no', name: 'M700A-1002079' },
-        { heading: 'Auction Grade', name: '3.5' },
-        { heading: 'Last Updated', name: '9 FEB 2024' },
-        { heading: 'Ad ID', name: '8370512' },
-        { heading: 'Date of Inspection', name: '9 FEB 2024' },
-        // Add more features as needed
-    ];
+    // const carDetails = [
+    //     { heading: 'Registered In', name: 'Islamabad' },
+    //     { heading: 'Exterior Color', name: 'white' },
+    //     { heading: 'Assembly', name: 'imported' },
+    //     { heading: 'Engine Capacity', name: '1000' },
+    //     { heading: 'Body Type', name: 'Hatchback' },
+    //     { heading: 'Chassis no', name: 'M700A-1002079' },
+    //     { heading: 'Auction Grade', name: '3.5' },
+    //     { heading: 'Last Updated', name: '9 FEB 2024' },
+    //     { heading: 'Ad ID', name: '8370512' },
+    //     { heading: 'Date of Inspection', name: '9 FEB 2024' },
+    //     // Add more features as needed
+    // ];
 
     const carFeatures = [
         { name: 'Feature 1', icon: require('../assets/modelYear.png') },
@@ -95,12 +120,14 @@ const SellerCarDetail = () => {
     };
 
     const handlePrevImage = () => {
-        handleImageChange('prev');
+        setCurrentImageIndex(prevIndex => (prevIndex > 0 ? prevIndex - 1 : imagesUri.length - 1));
     };
+    
 
     const handleNextImage = () => {
-        handleImageChange('next');
+        setCurrentImageIndex(prevIndex => (prevIndex < imagesUri.length - 1 ? prevIndex + 1 : 0));
     };
+    
 
     const handleSellerDetailsPress = () => {
         navigation.navigate('sellerProfile');
@@ -126,8 +153,13 @@ const SellerCarDetail = () => {
         // Add your logic here
     };
 
-    return (
-        <View style={styles.container}>
+    if(isLoading){
+        return <ActivityIndicator size="large"/>
+    }
+    else{
+
+        return (
+            <View style={styles.container}>
             <View style={styles.header}>
                 <TouchableOpacity onPress={handleBack} style={styles.backButton}>
                     <Image
@@ -140,43 +172,45 @@ const SellerCarDetail = () => {
                 </View>
             </View>
             <ScrollView>
-                <View style={styles.imageContainer}>
-                    <Image
-                        source={images[currentImageIndex]}
-                        style={styles.image}
-                    />
-                    <View style={styles.buttonContainer}>
-                        <TouchableOpacity style={styles.button} onPress={handleShare}>
-                            <Image
-                                source={require('../assets/shareIcon.png')}
-                                style={styles.buttonIcon}
-                            />
-                        </TouchableOpacity>
-                        <TouchableOpacity style={styles.button} onPress={handleSaved}>
-                            <Image
-                                source={require('../assets/savedAd.png')}
-                                style={styles.buttonIcon}
-                            />
-                        </TouchableOpacity>
-                    </View>
-                    <View style={styles.imageCount}>
-                        <Text style={styles.imageCountText}>{currentImageIndex + 1}/{images.length}</Text>
-                    </View>
-                    <View style={styles.navigationContainer}>
-                        <TouchableOpacity onPress={handlePrevImage} style={styles.navigationButton}>
-                            <Image
-                                source={require('../assets/previous.png')}
-                                style={styles.navigationButtonIcon}
-                            />
-                        </TouchableOpacity>
-                        <TouchableOpacity onPress={handleNextImage} style={styles.navigationButton}>
-                            <Image
-                                source={require('../assets/next.png')}
-                                style={styles.navigationButtonIcon}
-                            />
-                        </TouchableOpacity>
-                    </View>
-                </View>
+            <View style={styles.imageContainer}>
+    <Image
+        source={imagesUri[currentImageIndex] ? { uri: imagesUri[currentImageIndex].uri } : null}
+        style={styles.image}
+    />
+    <View style={styles.buttonContainer}>
+        <TouchableOpacity style={styles.button} onPress={handleShare}>
+            <Image
+                source={require('../assets/shareIcon.png')}
+                style={styles.buttonIcon}
+            />
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.button} onPress={handleSaved}>
+            <Image
+                source={require('../assets/savedAd.png')}
+                style={styles.buttonIcon}
+            />
+        </TouchableOpacity>
+    </View>
+    <View style={styles.imageCount}>
+        <Text style={styles.imageCountText}>
+            {currentImageIndex + 1}/{imagesUri.length}
+        </Text>
+    </View>
+    <View style={styles.navigationContainer}>
+        <TouchableOpacity onPress={handlePrevImage} style={styles.navigationButton}>
+            <Image
+                source={require('../assets/previous.png')}
+                style={styles.navigationButtonIcon}
+            />
+        </TouchableOpacity>
+        <TouchableOpacity onPress={handleNextImage} style={styles.navigationButton}>
+            <Image
+                source={require('../assets/next.png')}
+                style={styles.navigationButtonIcon}
+            />
+        </TouchableOpacity>
+    </View>
+</View>
 
                 <Text style={styles.carNameText}>Name of Car</Text>
 
@@ -192,19 +226,25 @@ const SellerCarDetail = () => {
                         </View>
                     ))}
                 </View>
-
+                
                 <View style={styles.carDetailContainer}>
+                        <View style={styles.carDetailRow}>
+                            <Text style={styles.carDetailHeading}>Location</Text>
+                            <Text style={styles.carDetailName}>{carDetails && carDetails.location}</Text>
+                        </View>
+                </View>
+                {/* <View style={styles.carDetailContainer}>
                     {carDetails.map((detail, index) => (
                         <View key={index} style={styles.carDetailRow}>
-                            <Text style={styles.carDetailHeading}>{detail.heading}</Text>
+                        <Text style={styles.carDetailHeading}>{detail.heading}</Text>
                             <Text style={styles.carDetailName}>{detail.name}</Text>
-                        </View>
-                    ))}
-                </View>
+                            </View>
+                            ))}
+                        </View> */}
 
                 {/* Note:::::::::::::::::::::::::::::::::::::::::::::::::::::::::
                 add inspection sheet
-                add Auction report */}
+            add Auction report */}
 
                 <Text style={styles.sectionFeatureTitle}>Features</Text>
 
@@ -232,6 +272,7 @@ const SellerCarDetail = () => {
 
         </View>
     );
+}
 };
 
 const styles = StyleSheet.create({

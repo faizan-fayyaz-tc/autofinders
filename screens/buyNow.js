@@ -2,23 +2,28 @@ import React, { useEffect, useState } from "react";
 import {
   View,
   StyleSheet,
-  TouchableOpacity,
   Text,
   ScrollView,
+  ActivityIndicator,
+  TouchableOpacity
 } from "react-native";
 import Header from "../components/header"; // Corrected import with PascalCase
 import { useNavigation } from "@react-navigation/core";
 import { AntDesign } from "@expo/vector-icons"; // Importing AntDesign icons
 import SearchBar from "../components/searchBar";
 import BuyNowCard from "../components/buyNowCards";
-import axios from "axios"
+import axios from "axios";
 const BuyNow = () => {
   const navigation = useNavigation();
-  const [filterOptions , setFilterOptions] = useState({})
-  const [isLoading , setIsloading] = useState(true)
-  const  [data , setData ]=useState([])
+  const [filterOptions, setFilterOptions] = useState({});
+  const [isLoading, setIsloading] = useState(true);
+  const [data, setData] = useState([]);
   const handleBackPress = () => {
     navigation.goBack();
+  };
+
+  const handleCardPress = (itemId) => {
+    navigation.navigate("sellerCarDetail" , {itemId: itemId})
   };
 
   const handleFilterPress = () => {
@@ -26,20 +31,22 @@ const BuyNow = () => {
   };
 
   useEffect(() => {
-    async function getData(){
+    async function getData() {
       try {
-        const response = await axios.post("http://192.168.18.16:8000/api/carAd/",{})
-        setData(response.data.data)
+        const response = await axios.post(
+          "http://192.168.18.146:8000/api/carAd/",
+          {}
+        );
+        setData(response.data.data);
         // console.log(response.data)
-        setIsloading(false)
+        setIsloading(false);
       } catch (error) {
-        console.log(error.response.data)
-        setIsloading(false)
+        console.log(error.response.data);
+        setIsloading(false);
       }
     }
-    getData()
+    getData();
   }, []);
-
 
   return (
     <View style={styles.container}>
@@ -62,31 +69,53 @@ const BuyNow = () => {
       </View>
 
       <ScrollView style={styles.scrollView}>
-        {isLoading && <Text>Loading ...</Text>}
+        {isLoading && (
+          <View style={[styless.container, styless.horizontal]}>
+            <ActivityIndicator size="large" color="gray" />
+          </View>
+        )}
 
-        {!isLoading && data.length===0 && <Text>No Cars To show</Text>}
+        {!isLoading && data.length === 0 && <Text>No Cars To show</Text>}
 
-        {!isLoading && data.length>0 && data.map((item)=>(
-            <BuyNowCard
-            key={item._id}
-            carImage={item.images[0]}
-            name={item.brand}
-            variant={item.varient}
-            price="$25,000"
-            year="2019"
-            fuelType="petrol"
-            kmReading="2,11,000"
-            location="Islamabad"
-            isInspected={item.inspected}
-            isFeatured={item.featured}
-            isManagedByAutoFinder={item.ManagedByAutoFinder}
-          />
-        ))}
-
+        {!isLoading &&
+          data.length > 0 &&
+          data.map((item) => (
+            <TouchableOpacity
+              key={item._id}
+              onPress={()=>handleCardPress(item._id)}
+            >
+              <BuyNowCard
+                key={item._id}
+                carImage={item.images[0]}
+                name={item.brand}
+                variant={item.varient}
+                price="$25,000"
+                year="2019"
+                fuelType="petrol"
+                kmReading="2,11,000"
+                location="Islamabad"
+                isInspected={item.inspected}
+                isFeatured={item.featured}
+                isManagedByAutoFinder={item.ManagedByAutoFinder}
+              />
+            </TouchableOpacity>
+          ))}
       </ScrollView>
     </View>
   );
 };
+
+const styless = StyleSheet.create({
+  container: {
+    flex: 1,
+    justifyContent: 'center',
+  },
+  horizontal: {
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+    padding: 10,
+  },
+})
 
 const styles = StyleSheet.create({
   container: {

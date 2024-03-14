@@ -195,7 +195,7 @@ const freeAdsPostService = () => {
     }
     console.log(adData)
     try {
-      const response = await axios.post("http://192.168.18.16:8000/api/carAd/upload", adData);
+      const response = await axios.post("http://192.168.18.146:8000/api/carAd/upload", adData);
       console.log(response.data)
       if(response.data.ok){
         setIsVisible(true);
@@ -243,9 +243,6 @@ const freeAdsPostService = () => {
           <Text style={styles.title}>Post Your Ad</Text>
         </View>
       </View>
-      <TouchableOpacity onPress={()=>console.log(imagesBase64.length)}>
-        <Text>Test</Text>
-      </TouchableOpacity>
       {/* <View style={styles.MarqueeContainer}>
         <MarqueeText
           style={styles.marqueeText}
