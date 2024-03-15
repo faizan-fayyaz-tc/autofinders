@@ -1,4 +1,4 @@
-import React, { useState , useContext} from "react";
+import React, { useState, useContext } from "react";
 import { UserContext } from "../context/userContext";
 import { useNavigation } from "@react-navigation/native";
 import {
@@ -36,7 +36,7 @@ const EmailSignin = () => {
   const [invalidEmail, setInvalidEmail] = useState(false);
   const [loginError, setLoginError] = useState(false);
   const [emptyFields, setEmptyFields] = useState([]);
-  const {user,dispatch} = useContext(UserContext)
+  const { user, dispatch } = useContext(UserContext);
   const togglePasswordVisibility = () => {
     setPasswordVisible(!passwordVisible);
   };
@@ -74,29 +74,27 @@ const EmailSignin = () => {
     //api
     try {
       const response = await axios.post(
-        "http://192.168.10.9:8000/api/user/login",
+        "http://192.168.18.18:8000/api/user/login",
         {
           email,
           password,
         }
       );
 
-      if(response.data.ok){
+      if (response.data.ok) {
         SyncStorage.set("token", response.data.token);
-        dispatch({type: "LOGIN" , payload:response.data.data});
+        dispatch({ type: "LOGIN", payload: response.data.data });
         navigation.navigate("home");
       }
 
       // SyncStorage.set("token", response.data.token);
-        // console.log(response.data);
+      // console.log(response.data);
       // const result = SyncStorage.get("token");
       // console.log(result); // 'bar'
-
-      
     } catch (error) {
       console.error(error.response.data);
-      if(!error.response.data.ok){
-        setLoginError(error.response.data.error)
+      if (!error.response.data.ok) {
+        setLoginError(error.response.data.error);
       }
     }
 
@@ -157,7 +155,6 @@ const EmailSignin = () => {
               Password must be minimum 8 characters and include at least 1 digit
             </Text>
           )} */}
-          
         </View>
 
         <TouchableOpacity style={styles.signUpButton}>
@@ -192,43 +189,39 @@ const EmailSignin = () => {
             </View>
           </View>
         </Modal>
-        
-        
       </View>
     </ScrollView>
   );
 };
 
 const styles = StyleSheet.create({
+  modalContainer: {
+    flex: 1,
+    backgroundColor: "rgba(0, 0, 0, 0.5)",
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  modalContent: {
+    backgroundColor: "white",
+    padding: 20,
+    borderRadius: 10,
+    width: "80%",
+  },
+  popupTitle: {
+    fontSize: 20,
+    fontWeight: "bold",
+    marginBottom: 10,
+  },
+  popupField: {
+    fontSize: 16,
+    marginBottom: 5,
+  },
+  popupClose: {
+    fontSize: 18,
+    color: "blue",
+    marginTop: 10,
+  },
 
-    modalContainer: {
-      flex: 1,
-      backgroundColor: 'rgba(0, 0, 0, 0.5)',
-      justifyContent: 'center',
-      alignItems: 'center',
-    },
-    modalContent: {
-      backgroundColor: 'white',
-      padding: 20,
-      borderRadius: 10,
-      width: '80%',
-    },
-    popupTitle: {
-      fontSize: 20,
-      fontWeight: 'bold',
-      marginBottom: 10,
-    },
-    popupField: {
-      fontSize: 16,
-      marginBottom: 5,
-    },
-    popupClose: {
-      fontSize: 18,
-      color: 'blue',
-      marginTop: 10,
-    },
- 
-  
   container: {
     flex: 1,
     padding: 20,

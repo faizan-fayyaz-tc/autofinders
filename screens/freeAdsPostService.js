@@ -1,16 +1,24 @@
-import React from 'react';
-import { View, Image, StyleSheet, TouchableOpacity, Text, ScrollView, TextInput } from 'react-native';
-import { useState } from 'react';
-import { useNavigation } from '@react-navigation/native';
-import LocationPicker from '../components/locationPicker';
-import CarModelPicker from '../components/carModelPicker';
-import RegisteredPicker from '../components/registeredPicker';
-import BodyColorPicker from '../components/bodyColor';
-import DescribeYourCar from '../components/describeYourCar';
-import FuelTypePicker from '../components/fuelTypePicker';
-import PremiumAdCharges from '../components/premiumAdCharges';
-import ImagePickerComponent from '../components/imagePicker';
-import axios from "axios"
+import React from "react";
+import {
+  View,
+  Image,
+  StyleSheet,
+  TouchableOpacity,
+  Text,
+  ScrollView,
+  TextInput,
+} from "react-native";
+import { useState } from "react";
+import { useNavigation } from "@react-navigation/native";
+import LocationPicker from "../components/locationPicker";
+import CarModelPicker from "../components/carModelPicker";
+import RegisteredPicker from "../components/registeredPicker";
+import BodyColorPicker from "../components/bodyColor";
+import DescribeYourCar from "../components/describeYourCar";
+import FuelTypePicker from "../components/fuelTypePicker";
+import PremiumAdCharges from "../components/premiumAdCharges";
+import ImagePickerComponent from "../components/imagePicker";
+import axios from "axios";
 
 const freeAdsPostService = () => {
   // let A = '';
@@ -21,7 +29,7 @@ const freeAdsPostService = () => {
   const [selectedYear, setSelectedYear] = useState("");
   const [selectedBrand, setSelectedBrand] = useState("");
   const [selectedVariant, setSelectedVariant] = useState("");
-  
+
   const [registeredModalVisible, setRegisteredModalVisible] = useState(false);
   const [selectedRegisteredLocation, setSelectedRegisteredLocation] =
     useState("");
@@ -30,7 +38,7 @@ const freeAdsPostService = () => {
   const [selectedKmDriven, setSelectedKmDriven] = useState("");
   const [selectedPrice, setSelectedPrice] = useState("");
   const [selectedDescription, setSelectedDescription] = useState("");
-  
+
   const [describeYourCarModalVisible, setDescribeYourCarModalVisible] =
     useState(false);
   const [selectedSuggestions, setSelectedSuggestions] = useState([]);
@@ -41,11 +49,11 @@ const freeAdsPostService = () => {
   const [isFeaturePickerVisible, setIsFeaturePickerVisible] = useState(false);
   const [selectedFeatures, setSelectedFeatures] = useState([]);
   const [modalVisible, setModalVisible] = useState(false);
-  const [selectedEngineCapcity , setEngineCapacity] = useState("") ;
-  const [name,setName]=useState("");
-  const [phoneNumber,setPhoneNumber]=useState("");
-  const [selectedModel , setSelectedModel] = useState("")
-
+  const [selectedEngineCapcity, setEngineCapacity] = useState("");
+  const [name, setName] = useState("");
+  const [phoneNumber, setPhoneNumber] = useState("");
+  const [selectedModel, setSelectedModel] = useState("");
+  const [Cardescription, setCarDescription] = useState("");
 
   const handleBack = () => {
     navigation.goBack();
@@ -91,16 +99,14 @@ const freeAdsPostService = () => {
     // Implement logic to open variant picker
   };
 
-  
-
   const handleVariantSelect = (variant) => {
     setSelectedVariant(variant);
     handleCloseCarModelPicker();
   };
-  const handleModelSelect = (model)=>{
-    setSelectedModel(model)
+  const handleModelSelect = (model) => {
+    setSelectedModel(model);
     handleCloseCarModelPicker();
-  }
+  };
 
   const handleOpenRegisteredPicker = () => {
     setRegisteredModalVisible(true);
@@ -131,9 +137,10 @@ const freeAdsPostService = () => {
   const handleViewSuggestions = () => {
     setDescribeYourCarModalVisible(true);
   };
-
+  const [selectedFeaturess, setSelectedFeaturess] = useState([]);
   const handleDescribeYourCarDone = (selectedOptions) => {
     setSelectedDescription(selectedOptions.join(", "));
+    setSelectedFeaturess(selectedOptions);
     setDescribeYourCarModalVisible(false);
   };
 
@@ -158,64 +165,44 @@ const freeAdsPostService = () => {
     setSelectedFeatures(selectedFeatures);
     setIsFeaturePickerVisible(false);
   };
+
+  const [imagesBase64, setImagesBaes64] = useState([]);
+
   const handlePostYourAd = async () => {
     // Handle the logic for posting the ad
-    console.log('Ad posted!');
+    console.log("Ad posted!");
+    console.log(selectedFeaturess.length);
     const adData = {
-      location:selectedLocation,
-      year:selectedYear,
-      brand:selectedBrand,
-      varient:selectedVariant,
-      regiesteredIn:selectedRegisteredLocation,
-      color:selectedBodyColor,
-      kmDriven:selectedKmDriven,
-      price:selectedPrice,
-      description:selectedDescription,
-      fuelType:selectedFuelType,
-      transimission:selectedTransmission,
-      assembly:selectedAssembly,
-      engineCapacity:selectedEngineCapcity,
-      name:name,
-      phoneNumber:phoneNumber,
-    }
-    console.log(adData)
-    try {
-      const response = await axios.post("http://192.168.18.16:8000/api/carAd/upload", adData);
-      console.log(response.data)
-    } catch (error) {
-      console.log(error.response.data)
-    }
-
-    // Add any additional logic you need for posting the ad
-    console.log("user Ad Details ::");
-    console.log("user Ad Details ::");
-
-    const adDetails = {
       location: selectedLocation,
+      year: selectedYear,
+      brand: selectedBrand,
+      varient: selectedVariant,
       registeredIn: selectedRegisteredLocation,
-      bodyColor: selectedBodyColor,
-      kilometersDriven: selectedKmDriven,
+      color: selectedBodyColor,
+      kmDriven: selectedKmDriven,
       price: selectedPrice,
       description: selectedDescription,
       fuelType: selectedFuelType,
-      transmission: selectedTransmission,
+      transimission: selectedTransmission,
       assembly: selectedAssembly,
-      engineCapacity: engineCapacity,
-      year : selectedYear,
-      brand : selectedBrand,
-      model : selectedModel,
-      variant : selectedVariant
+      engineCapacity: selectedEngineCapcity,
+      name: name,
+      phoneNumber: phoneNumber,
+      description: setCarDescriptions,
     };
-
-    console.log("Ad Details:", adDetails);
+    // console.log(adData)
+    try {
+      const response = await axios.post(
+        "http://192.168.18.16:8000/api/carAd/upload",
+        adData
+      );
+      console.log(response.data);
+    } catch (error) {
+      console.log(error.response.data);
+    }
 
     // console.log("Selected Images Base64:::::", selectedImagesBase64);
-
-    
-    
   };
-
-  
 
   // const handlePremiumAdService = () => {
   //   // Handle the logic for navigating to Premium Ad Service or any other action
@@ -264,7 +251,9 @@ const freeAdsPostService = () => {
         {/* Button to select images */}
 
         <View style={styles.Imageborder}>
-          <ImagePickerComponent onSelectedImagesBase64Change={setSelectedImagesBase64}/>
+          <ImagePickerComponent
+            onSelectedImagesBase64Change={setImagesBaes64}
+          />
         </View>
 
         <TouchableOpacity
@@ -285,13 +274,19 @@ const freeAdsPostService = () => {
           onSelectLocation={handleLocationSelect}
         />
 
-        <TouchableOpacity style={styles.selectCarModelButton} onPress={handleOpenCarModelPicker}>
-          <Image source={require('../assets/carFrontIcon.png')} style={styles.carModelIcon} />
+        <TouchableOpacity
+          style={styles.selectCarModelButton}
+          onPress={handleOpenCarModelPicker}
+        >
+          <Image
+            source={require("../assets/carFrontIcon.png")}
+            style={styles.carModelIcon}
+          />
           <Text style={styles.selectCarModelText} placeholder="Car Model">
-            {selectedYear ? `${selectedYear} ` : ''}
-            {selectedBrand ? `${selectedBrand} ` : ''}
-            {selectedModel ?  `${selectedModel}` : ""}
-            {selectedVariant? `${selectedVariant}`:""}
+            {selectedYear ? `${selectedYear} ` : ""}
+            {selectedBrand ? `${selectedBrand} ` : ""}
+            {selectedModel ? `${selectedModel}` : ""}
+            {selectedVariant ? `${selectedVariant}` : ""}
           </Text>
         </TouchableOpacity>
 
@@ -388,7 +383,7 @@ const freeAdsPostService = () => {
           <TextInput
             style={styles.textInput}
             placeholder="Engine Capacity"
-            value={engineCapacity ? `${engineCapacity} CC` : ""}
+            value={selectedEngineCapcity ? `${selectedEngineCapcity} CC` : ""}
             // value={selectedPrice ? `${selectedPrice} CC` : ''} // Include "CC" after the entered value if not empty
             onChangeText={(text) => {
               const numericValue = text.replace(/[^0-9]/g, "");
@@ -401,31 +396,19 @@ const freeAdsPostService = () => {
           />
         </View>
 
-        <View style={styles.selectDescriptionButton}>
+        {/* <View style={styles.selectDescriptionButton}>
           <Image
             source={require("../assets/descriptionIcon.png")}
             style={styles.descriptionIcon}
           />
           <TextInput
             style={styles.textInput}
-            placeholder="For example: Alloy Rims, First Owner, etc."
+            placeholder="Select Features"
             value={selectedDescription}
             onChangeText={(text) => setSelectedDescription(text)}
+            readOnly
           />
-        </View>
-
-        <TouchableOpacity
-          style={styles.viewSuggestionsButton}
-          onPress={handleViewSuggestions}
-        >
-          <Text style={styles.viewSuggestionsText}>View All Suggestions</Text>
-        </TouchableOpacity>
-
-        <DescribeYourCar
-          isVisible={describeYourCarModalVisible}
-          onClose={() => setDescribeYourCarModalVisible(false)}
-          onDone={handleDescribeYourCarDone}
-        />
+        </View> */}
 
         <TouchableOpacity
           style={styles.selectFuelTypeButton}
@@ -446,8 +429,44 @@ const freeAdsPostService = () => {
           onSelectFuelType={handleFuelTypeSelect}
         />
 
+        <View style={styles.featureContainer}>
+          <TouchableOpacity
+            style={styles.viewSuggestionsButton}
+            onPress={handleViewSuggestions}
+          >
+            <Text style={styles.viewSuggestionsText}>Select Features</Text>
+          </TouchableOpacity>
+          {selectedFeaturess.length > 0 &&
+            selectedFeaturess.map((item) => (
+              <Text style={styles.bulletPointText}>• {item}</Text>
+            ))}
+        </View>
+
+        <DescribeYourCar
+          isVisible={describeYourCarModalVisible}
+          onClose={() => setDescribeYourCarModalVisible(false)}
+          onDone={handleDescribeYourCarDone}
+        />
+
+        {/* ////////////////////////////////////// */}
+
+        <View style={styles.selectPriceButton}>
+          <Image
+            source={require("../assets/descriptionIcon.png")}
+            style={styles.descriptionIcon}
+          />
+          <TextInput
+            style={styles.textInput}
+            placeholder="Describe your car"
+            value={Cardescription}
+            onChangeText={setCarDescription}
+            multiline={true} // Allow multiline input
+            numberOfLines={4}
+          />
+        </View>
+
         <View style={styles.selectTransmissionContainer}>
-          <Text style={styles.selectTransmissionText}>Transmission:</Text>
+          <Text style={styles.selectTransmissionText}>Transmission</Text>
           <View style={styles.toggleButtonContainer}>
             <TouchableOpacity
               style={[
@@ -487,7 +506,7 @@ const freeAdsPostService = () => {
         </View>
 
         <View style={styles.selectAssemblyContainer}>
-          <Text style={styles.selectAssemblyText}>Assembly:</Text>
+          <Text style={styles.selectAssemblyText}>Assembly</Text>
           <View style={styles.toggleButtonContainer}>
             <TouchableOpacity
               style={[
@@ -546,29 +565,30 @@ const freeAdsPostService = () => {
           <TextInput
             style={styles.contactInput}
             placeholder="Enter your name"
-            onChangeText={(text)=>setName(text)}
+            onChangeText={(text) => setName(text)}
           />
           <TextInput
             style={styles.contactInput}
             placeholder="Enter your phone number"
             keyboardType="numeric"
-            onChangeText={(text)=>setPhoneNumber(text)}
-          // Add any necessary props or event handlers
+            onChangeText={(text) => setPhoneNumber(text)}
+            // Add any necessary props or event handlers
           />
         </View>
 
         <TouchableOpacity style={styles.Postbutton} onPress={handlePostYourAd}>
           <Text style={styles.PostbuttonText}>Post Ad</Text>
         </TouchableOpacity>
+        <Text>Add Dealer Packages</Text>
 
-        <View style={styles.noteContainer}>
+        {/* <View style={styles.noteContainer}>
           <Text style={styles.noteHeading}>Note</Text>
           <Text style={styles.noteText}>
             If you will buy 3rd standard free ad, and then willing to buy
             Premium ad service, your paid 525/- amount will be adjusted in
             Premium ad service.
           </Text>
-        </View>
+        </View> */}
 
         <TouchableOpacity
           style={styles.PremiumAdButton}
@@ -579,6 +599,7 @@ const freeAdsPostService = () => {
             Go for Premium Ad Service
           </Text>
         </TouchableOpacity>
+
         <PremiumAdCharges isVisible={modalVisible} onClose={handleCloseModal} />
       </ScrollView>
     </View>
@@ -796,8 +817,12 @@ const styles = StyleSheet.create({
     color: "#fc6f03",
     fontWeight: "bold",
     fontSize: 16,
-    marginTop: 20,
+    marginTop: 30,
+    padding: 5,
     textAlign: "center",
+    borderColor: "#fc6f03",
+    borderWidth: 1,
+    borderRadius: 25,
   },
   selectFuelTypeButton: {
     flexDirection: "row",
@@ -981,6 +1006,32 @@ const styles = StyleSheet.create({
     fontSize: 16,
     textAlign: "center",
     fontWeight: "bold",
+  },
+  featureContainer: {
+    alignItems: "flex-start",
+    // paddingLeft: 50,
+    marginTop: 10,
+    marginBottom: 10,
+    borderWidth: 1,
+    borderColor: "black",
+    display: "flex",
+    borderStyle: "dashed",
+    flex: 1,
+    gap: 10,
+    width: 300,
+  },
+  bulletPointsContainer: {
+    backgroundColor: "black",
+    flexDirection: "row", // Display bullet points in a row
+    alignItems: "flex-start", // Align bullet points at the top
+    marginVertical: 30,
+    paddingHorizontal: 20,
+  },
+  bulletPointText: {
+    fontSize: 16,
+    marginBottom: 5,
+    marginRight: 10, // Add margin to create space between bullet points
+    color: "#2884ec",
   },
 });
 

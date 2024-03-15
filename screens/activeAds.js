@@ -27,7 +27,7 @@ const ActiveAds = ({ adData, navigation, onRemoveItem }) => {
   );
 
   const handleCellPress = (item) => {
-    navigation.navigate('home', { itemId: item.id });
+    navigation.navigate('sellerCarDetail', { itemId: item.id });
   };
 
   const handleEditPress = (item) => {

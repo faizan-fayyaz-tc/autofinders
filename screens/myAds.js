@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, TouchableOpacity, ScrollView, StyleSheet, Image,Platform  } from 'react-native';
+import { View, Text, TouchableOpacity, ScrollView, StyleSheet, Image,Platformn ,StatusBar  } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import ActiveAds from './activeAds'; // Import ActiveAds component
 import PendingAds from './pendingAds';
@@ -79,6 +79,7 @@ const MyAds = () => {
                     />
                 </TouchableOpacity>
                 {/* Title */}
+                <View style={styles.titleContainer}>
                 <Text style={styles.title}>
                     {selectedSection === 'Active Ads'
                         ? `Active Ads (${activeAdsCount})`
@@ -86,6 +87,8 @@ const MyAds = () => {
                             ? `Pending Ads (${pendingAdsCount})`
                             : `Removed Ads (${removedAdsCount})`}
                 </Text>
+                </View>
+                
             </View>
 
             {/* Content */}
@@ -143,28 +146,32 @@ const styles = StyleSheet.create({
     header: {
         flexDirection: 'row',
         alignItems: 'center',
-        backgroundColor: '#Ac3803',
-        padding: 15,
-        height: 60,
+        backgroundColor: '#fc6f03',
+        padding: StatusBar.currentHeight,   
     },
     backButton: {
-        padding: 5,
+        // padding: 5,
     },
     backImage: {
-        width: 30,
-        height: 30,
-        resizeMode: 'contain',
-        tintColor: 'white',
+        width: 20,
+        height: 20,
+        tintColor: "white",
     },
+    titleContainer: {
+        flex: 1,
+      },
     title: {
-        color: 'white',
-        fontSize: 18,
-        marginLeft: 10,
-        fontWeight: 'bold',
+        color: "white",
+    fontSize: 18,
+    fontWeight: "bold",
+    alignSelf: 'center'
+        
     },
     content: {
         flex: 1,
         paddingTop: 10, // Add padding to account for header height
+        
+        
     },
     sectionsContainer: {
         flexDirection: 'row',
@@ -181,7 +188,7 @@ const styles = StyleSheet.create({
     sectionText: {
         fontWeight: 'bold',
         color: 'black',
-        fontSize: 20,
+        fontSize: 16,
     },
     noAdsText: {
         textAlign: 'center',

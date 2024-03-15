@@ -51,8 +51,17 @@ const FilterSearchCar = () => {
   const [selectedFeatures, setSelectedFeatures] = useState([]);
   const [selectedDriveOption, setSelectedDriveOption] = useState("");
   const [area, setArea] = useState("");
-
   const [selectedFilters, setSelectedFilters] = useState({});
+
+  const [minYear, setMinYear] = useState(1943);
+  const [maxYear, setMaxYear] = useState(2022);
+
+  const handleYearRangeChange = (minValue, maxValue) => {
+    console.log("New minimum value:", minValue);
+    console.log("New maximum value:", maxValue);
+    setMinYear(minValue);
+    setMaxYear(maxValue);
+  };
 
   const applyFilters = (filters) => {
     // Update the selected filters state here
@@ -166,7 +175,10 @@ const FilterSearchCar = () => {
   };
 
   const handleApplyFilter = () => {
-
+    
+      console.log("min year : ", minYear);
+      console.log("max year : ", maxYear);
+    
   };
   const handleResetFilter = () => {
 
@@ -193,7 +205,7 @@ const FilterSearchCar = () => {
           max={2022} // Ensure this is a numeric value and greater than min
           title={"Model Year Range"}
           steps={1} // Specify the step value
-          onApplyFilters={applyFilters}
+          onvalueChange={handleYearRangeChange}
         />
 
         <InputRange
@@ -201,7 +213,7 @@ const FilterSearchCar = () => {
           max={24000000} // Ensure this is a numeric value and greater than min
           title={"Price Range"}
           steps={1} // Specify the step value
-          onvalueChange={(range) => console.log(range)}
+          onvalueChange={(range) => console.log(range)} 
         />
 
         <InputRange
@@ -585,7 +597,7 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   header: {
-    backgroundColor: "#Ac3803",
+    backgroundColor: "#fc6f03",
     flexDirection: "row",
     alignItems: "center",
     padding: StatusBar.currentHeight,

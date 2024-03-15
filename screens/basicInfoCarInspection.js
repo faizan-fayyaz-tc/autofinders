@@ -35,8 +35,11 @@ const basicInfoCarInspection = ({ navigation }) => {
   const [locationModalVisible, setLocationModalVisible] = useState(false);
   const [selectedLocation, setSelectedLocation] = useState("");
   const [emptyFields, setEmptyFields] = useState([]);
-    const [emptyNameError , setEmptyNameError] = useState(false)
-    
+  const [emptyNameError, setEmptyNameError] = useState(false);
+  const [emptyPhoneError, setEmptyPhoneError] = useState(false);
+  const [InvalidPhoneError, setInvalidPhoneError] = useState(false);
+  const [cityError, setCityError] = useState(false);
+
   const handleBrandSearch = (text) => {
     const filtered = brands.filter((brand) =>
       brand.toLowerCase().includes(text.toLowerCase())
@@ -63,23 +66,47 @@ const basicInfoCarInspection = ({ navigation }) => {
     clearData(); //refreshing page
     navigation.goBack();
   };
-  const handleNext = () => {
 
-    if(fullName.length<=3){
-        setEmptyNameError(true);
+  const validation = () => {
+    if (fullName.length <= 3) {
+      setEmptyNameError(true);
+    } else {
+      setEmptyNameError(false);
+      // Add logic to proceed to the next step
     }
-    
+    const phoneRegex = /^03\d{9}$/; 
+    if (!phoneRegex.test(phoneNumber)) {
+      setInvalidPhoneError(true);
+    } else {
+      setInvalidPhoneError(false);
+    }
+    if (phoneNumber === "") {
+      setEmptyPhoneError(true);
+    } else {
+      setEmptyPhoneError(false);
+    }
+
+    if(selectedLocation === ""){
+      setCityError(true);
+    }else{
+      setCityError(false);
+    }
+  };
+
+  const handleNext = () => {
+    validation();
+
     const data = {
-        fullName,
+      fullName,
       phoneNumber,
-        selectedLocation,
-        selectedYear,
-        selectedBrand,
-        selectedModel,
-        selectedVariant,
-        carSummary,
-      };
-      console.log(data);
+      selectedLocation,
+      selectedYear,
+      selectedBrand,
+      selectedModel,
+      selectedVariant,
+      carSummary,
+    };
+    console.log(data);
     navigation.navigate("bookExpertVisitCarInspection");
   };
   const handleCitySelection = (city) => {
@@ -267,15 +294,14 @@ const basicInfoCarInspection = ({ navigation }) => {
               placeholder="Enter full name"
               placeholderTextColor="#999" // Lighter text color when the field is empty
               onChangeText={setFullName} // Update fullName state
-            value={fullName} // Bind value to fullName state
+              value={fullName} // Bind value to fullName state
             />
-           {emptyNameError && <Text>Please enter your name.</Text>}
+            {emptyNameError && <Text>Please enter your name.</Text>}
           </View>
-          
 
           {/* Phone Number Input Field */}
           <View style={styles.inputContainer}>
-            <Text style={styles.label}>Your phone number</Text>
+            <Text style={styles.label}>Your phone number*</Text>
             <TextInput
               style={styles.textField}
               placeholder="03xxxxxxxxx"
@@ -284,18 +310,16 @@ const basicInfoCarInspection = ({ navigation }) => {
               onChangeText={setPhoneNumber} // Update phoneNumber state
               value={phoneNumber} // Bind value to phoneNumber state
             />
-            {emptyFields.includes("phonenumber") && (
-            <Text style={styles.errorText}>Please enter your phone number</Text>
-          )}
+            {emptyPhoneError && <Text>Please enter your Phone Number.</Text>}
+            {InvalidPhoneError && <Text>Invalid format.</Text>}
           </View>
-          
 
           {/* City Selection Input Field */}
           <TouchableOpacity
             style={styles.inputContainer}
             onPress={handleOpenLocationPicker}
           >
-            <Text style={styles.label}>Where do you live</Text>
+            <Text style={styles.label}>Where do you live*</Text>
             <View style={styles.citySelectionField}>
               <Text style={styles.selectedCity}>
                 {selectedLocation || "Select city"}
@@ -305,6 +329,7 @@ const basicInfoCarInspection = ({ navigation }) => {
                 style={styles.arrowIcon}
               />
             </View>
+            {cityError && <Text>Select Your City.</Text>}
           </TouchableOpacity>
 
           <LocationPicker
@@ -313,30 +338,11 @@ const basicInfoCarInspection = ({ navigation }) => {
             onSelectLocation={handleLocationSelect}
           />
 
-          {/* Tell us about your car model (year) */}
-          {/* <TouchableOpacity
-            style={styles.inputContainer}
-            onPress={openYearModal}
-          >
-            <Text style={styles.label}>
-              Tell us about your car model (year)
-            </Text>
-            <View style={styles.citySelectionField}>
-              <Text style={styles.selectedCity}>
-                {selectedYear || "Select year"}
-              </Text>
-              <Image
-                source={require("../assets/right-arrow.png")}
-                style={styles.arrowIcon}
-              />
-            </View>
-          </TouchableOpacity> */}
-
           <TouchableOpacity
             style={styles.inputContainer}
             onPress={handleOpenCarModelPicker}
           >
-            <Text style={styles.label}>Tell us about your car brand</Text>
+            <Text style={styles.label}>Tell us about your car brand*</Text>
             <View style={styles.citySelectionField}>
               <Text style={styles.selectedCity}>
                 {/* {selectedBrand || "Select brand"} */}
@@ -355,24 +361,6 @@ const basicInfoCarInspection = ({ navigation }) => {
             </View>
           </TouchableOpacity>
 
-          {/* //////////////////////// */}
-          {/* 
-          <TouchableOpacity
-            style={styles.selectCarModelButton}
-            onPress={handleOpenCarModelPicker}
-          >
-            <Image
-              source={require("../assets/carFrontIcon.png")}
-              style={styles.carModelIcon}
-            />
-            <Text style={styles.selectCarModelText}>
-              {selectedYear ? `${selectedYear} ` : ""}
-              {selectedBrand ? `${selectedBrand} ` : ""}
-              {selectedModel ? `${selectedModel} ` : ""}
-              {selectedVariant || "Car Model"}
-            </Text>
-          </TouchableOpacity> */}
-
           <CarModelPicker
             isVisible={carModelModalVisible}
             onClose={handleCloseCarModelPicker}
@@ -382,12 +370,8 @@ const basicInfoCarInspection = ({ navigation }) => {
             onSelectModel={handleModelSelect}
           />
 
-          {/* //////////////////////// */}
-
           <View style={styles.inputContainer}>
-            <Text style={styles.label}>
-              Vehicle Description 
-            </Text>
+            <Text style={styles.label}>Vehicle Description</Text>
             <TextInput
               style={styles.summaryInput}
               placeholder="Write a summary about your car..."
@@ -402,117 +386,12 @@ const basicInfoCarInspection = ({ navigation }) => {
           </TouchableOpacity>
         </View>
       </ScrollView>
-
-      {/* City Selection Modal */}
-      {/* <Modal
-        animationType="slide"
-        transparent={true}
-        visible={isCityModalVisible}
-        onRequestClose={closeCityModal}
-      >
-        <View style={styles.modalContainer}>
-          <View style={styles.modalContent}>
-            <FlatList
-              data={cities}
-              keyExtractor={(item, index) => item + index}
-              numColumns={numColumns}
-              renderItem={({ item }) => (
-                <TouchableOpacity
-                  style={styles.cityButton}
-                  onPress={() => handleCitySelection(item)}
-                >
-                  <Text>{item}</Text>
-                </TouchableOpacity>
-              )}
-            />
-            <TouchableOpacity
-              style={styles.closeButton}
-              onPress={closeCityModal}
-            >
-              <Text>Close</Text>
-            </TouchableOpacity>
-          </View>
-        </View>
-      </Modal> */}
-      {/* Tell us about your car  */}
-      {/* Tell us about your car year */}
-      {/* <Modal
-        animationType="slide"
-        transparent={true}
-        visible={isYearModalVisible}
-        onRequestClose={closeYearModal}
-      >
-        <View style={styles.modalContainer}>
-          <View style={styles.modalContent}>
-            <FlatList
-              data={year}
-              keyExtractor={(item, index) => item + index}
-              numColumns={numColumn}
-              renderItem={({ item }) => (
-                <TouchableOpacity
-                  style={styles.cityButton}
-                  onPress={() => handleYearSelection(item)}
-                >
-                  <Text>{item}</Text>
-                </TouchableOpacity>
-              )}
-            />
-            <TouchableOpacity
-              style={styles.closeButton}
-              onPress={closeYearModal}
-            >
-              <Text>Close</Text>
-            </TouchableOpacity>
-          </View>
-        </View>
-      </Modal> */}
-
-      {/* Tell us about your car brand Modal */}
-      {/* <Modal
-        animationType="slide"
-        transparent={true}
-        visible={isBrandModalVisible}
-        onRequestClose={closeBrandModal}
-      >
-        <View style={styles.modalContainer}>
-          <View style={styles.modalContent}> */}
-            {/* Search Bar */}
-            {/* <TextInput
-              style={styles.searchInput}
-              placeholder="Search brand here!."
-              onChangeText={handleBrandSearch}
-            /> */}
-
-            {/* Brand List */}
-            {/* <FlatList
-              data={filteredBrands}
-              keyExtractor={(item, index) => item + index}
-              numColumns={numColumn}
-              renderItem={({ item }) => (
-                <TouchableOpacity
-                  style={styles.cityButton}
-                  onPress={() => handleBrandSelection(item)}
-                >
-                  <Text>{item}</Text>
-                </TouchableOpacity>
-              )}
-            /> */}
-            {/* <TouchableOpacity
-              style={styles.closeButton}
-              onPress={closeBrandModal}
-            >
-              <Text>Close</Text>
-            </TouchableOpacity>
-          </View>
-        </View>
-      </Modal> */}
     </View>
   );
 };
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-
   },
   header: {
     backgroundColor: "#fc6f03",
@@ -527,8 +406,8 @@ const styles = StyleSheet.create({
     tintColor: "white",
   },
   backIcon: {
-    width: 20,
-    height: 20,
+    width: 30,
+    height: 30,
     tintColor: "white",
   },
   titleContainer: {
@@ -538,7 +417,7 @@ const styles = StyleSheet.create({
     color: "white",
     fontSize: 18,
     fontWeight: "bold",
-    alignSelf: 'center'
+    alignSelf: "center",
   },
   scrollContainer: {
     flex: 1,

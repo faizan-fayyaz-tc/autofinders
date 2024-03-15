@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Image, StyleSheet, TouchableOpacity, Text, ScrollView } from 'react-native';
+import { View, Image, StyleSheet, TouchableOpacity, Text, ScrollView, StatusBar } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import Footercontact from '../components/footerContact';
 
@@ -243,7 +243,7 @@ const styles = StyleSheet.create({
         backgroundColor: '#fc6f03',
         flexDirection: 'row',
         alignItems: 'center',
-        padding: 15,
+        padding: 15
     },
     backButton: {
         // paddingRight: 10,
@@ -253,6 +253,7 @@ const styles = StyleSheet.create({
         width: 20,
         height: 20,
         tintColor: 'white',
+        marginTop: 20,
     },
     titleContainer: {
         flex: 1,
@@ -261,7 +262,8 @@ const styles = StyleSheet.create({
         color: 'white',
         fontSize: 18,
         fontWeight: 'bold',
-        alignSelf: 'center'
+        alignSelf: 'center',
+        marginTop: 20,
     },
     imageContainer: {
         // position: 'relative',

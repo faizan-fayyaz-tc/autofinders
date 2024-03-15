@@ -11,6 +11,7 @@ import { useNavigation } from "@react-navigation/core";
 import { AntDesign } from "@expo/vector-icons"; // Importing AntDesign icons
 import SearchBar from "../components/searchBar";
 import BuyNowCard from "../components/buyNowCards";
+import FeatureAdsCard from "../components/featureAdsCard";
 
 const BuyNow = () => {
   const navigation = useNavigation();
@@ -56,6 +57,16 @@ const BuyNow = () => {
           isInspected={false}
           isFeatured={true}
           isManagedByAutoFinder={false}
+        />
+
+        <FeatureAdsCard
+          title="Car Inspection"
+          subtitle="Get your car inspected by the our expert over 200 checkpoints"
+          buttonText="Get my car inspected"
+          imageSource={require("../assets/inspected.png")}
+          onPressButton={() => {
+            handleBackPress;
+          }}
         />
 
         <BuyNowCard

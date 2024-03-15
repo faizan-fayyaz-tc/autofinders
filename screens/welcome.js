@@ -1,5 +1,5 @@
 /* eslint-disable prettier/prettier */
-import React from 'react';
+import React from "react";
 import {
   View,
   Text,
@@ -9,30 +9,27 @@ import {
   TouchableOpacity,
   Image,
   Linking,
-} from 'react-native';
+} from "react-native";
 import GoogleLogo from "../assets/Googlelogo.jpeg";
-import { useNavigation } from '@react-navigation/native';
-
+import gmail from "../assets/gmail.png";
+import { useNavigation } from "@react-navigation/native";
 
 const Welcome = () => {
-  const navigation  = useNavigation();
+  const navigation = useNavigation();
   const handleTermsPress = () => {
-    Linking.openURL('https://example.com/terms');
+    Linking.openURL("https://example.com/terms");
   };
   const handlePrivacyPress = () => {
-    Linking.openURL('https://example.com/privacy');
+    Linking.openURL("https://example.com/privacy");
   };
   const handleGoogleSignIn = () => {
-    navigation.navigate('googleSignin');
+    navigation.navigate("googleSignin");
   };
 
-  const handleFacebookSignIn = () => {
-    
-  };
+  const handleFacebookSignIn = () => {};
 
   const handleEmailSignIn = () => {
-    navigation.navigate('emailSignin');
-    
+    navigation.navigate("emailSignin");
   };
   return (
     <ScrollView contentContainerStyle={styles.scrollContainer}>
@@ -53,16 +50,14 @@ const Welcome = () => {
         <View style={styles.buttonsContainer}>
           <TouchableOpacity
             style={[styles.button, styles.buttonGoogle]}
-            onPress={handleGoogleSignIn}>
-            <Image
-              source={GoogleLogo}
-              style={styles.buttonIcon}
-            />
+            onPress={handleGoogleSignIn}
+          >
+            <Image source={GoogleLogo} style={styles.buttonIcon} />
             <Text style={styles.buttonText}>Continue with Google</Text>
           </TouchableOpacity>
 
           {/* Continue with Facebook */}
-          <TouchableOpacity
+          {/* <TouchableOpacity
             style={[styles.button, styles.buttonFacebook]}
             onPress={handleFacebookSignIn}>
             <Image
@@ -70,22 +65,20 @@ const Welcome = () => {
               style={styles.buttonIcon}
             />
             <Text style={styles.buttonText}>Continue with Facebook</Text>
-          </TouchableOpacity>
+          </TouchableOpacity> */}
 
           {/* Continue with Email */}
           <TouchableOpacity
             style={[styles.button, styles.buttonEmail]}
-            onPress={handleEmailSignIn}>
-            <Image
-              source={GoogleLogo}
-              style={styles.buttonIcon}
-            />
+            onPress={handleEmailSignIn}
+          >
+            <Image source={gmail} style={styles.buttonIcon} />
             <Text style={styles.buttonText}>Continue with Email</Text>
           </TouchableOpacity>
         </View>
         <View style={styles.agreementContainer}>
           <Text style={styles.agreementText}>
-            By continuing you agree to our{'\n'}
+            By continuing you agree to our{"\n"}
             <TouchableOpacity onPress={handleTermsPress}>
               <Text style={styles.inlineUnderlineGray}>Terms of Use</Text>
             </TouchableOpacity>
@@ -103,30 +96,30 @@ const Welcome = () => {
 const styles = StyleSheet.create({
   scrollContainer: {
     flexGrow: 1,
-    color : "white"
+    color: "white",
   },
   container: {
     flex: 1,
   },
   headerText: {
     fontSize: 24,
-    fontWeight: 'bold',
+    fontWeight: "bold",
     marginTop: 50,
-    textAlignVertical: 'center',
-    textAlign: 'center',
-    color: 'black',
+    textAlignVertical: "center",
+    textAlign: "center",
+    color: "black",
   },
   getStartedText: {
     fontSize: 38,
-    fontWeight: 'bold',
+    fontWeight: "bold",
     marginTop: 80,
     marginLeft: 20,
-    color: 'coral', //(#ff7f50)
+    color: "#fc6f03",
   },
   inputContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    borderBottomColor: '#CCCCCC',
+    flexDirection: "row",
+    alignItems: "center",
+    borderBottomColor: "#CCCCCC",
     borderBottomWidth: 1,
     marginTop: 50,
     marginLeft: 20,
@@ -136,40 +129,40 @@ const styles = StyleSheet.create({
   prefixText: {
     marginRight: 10,
     fontSize: 18,
-    color: '#333333',
+    color: "#333333",
   },
   phoneNumberInput: {
     flex: 1,
     fontSize: 15,
-    color: '#333333',
+    color: "#333333",
   },
   continueWithText: {
     marginTop: 20,
     fontSize: 16,
-    color: 'darkgrey',
-    fontWeight: 'bold',
-    textAlignVertical: 'center',
-    textAlign: 'center',
+    color: "darkgrey",
+    fontWeight: "bold",
+    textAlignVertical: "center",
+    textAlign: "center",
   },
   buttonsContainer: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
+    justifyContent: "center",
+    alignItems: "center",
     marginTop: 50,
   },
   button: {
-    width: '80%',
+    width: "80%",
     height: 50,
     borderRadius: 8,
-    padding: 15,
-    alignItems: 'center',
-    flexDirection: 'row',
-    marginTop: 20,
+    padding: 10,
+    alignItems: "center",
+    flexDirection: "row",
+    marginTop: 10,
     marginLeft: 20,
     marginRight: 20,
-    backgroundColor: '#FFFFFF',
+    backgroundColor: "#FFFFFF",
     borderWidth: 1,
-    borderColor: '#000000',
+    borderColor: "black",
   },
   buttonIcon: {
     width: 24,
@@ -179,42 +172,42 @@ const styles = StyleSheet.create({
   buttonText: {
     flex: 1,
     fontSize: 16,
-    color: '#000000',
-    fontWeight: 'bold',
-    textAlign: 'center',
-    textAlignVertical: 'center',
+    color: "#000000",
+    fontWeight: "bold",
+    textAlign: "center",
+    textAlignVertical: "center",
   },
   buttonGoogle: {
-    borderColor: '#000000',
+    borderColor: "#000000",
   },
   buttonFacebook: {
-    borderColor: '#000000',
+    borderColor: "#000000",
   },
   buttonEmail: {
-    borderColor: '#000000',
+    borderColor: "#000000",
   },
   agreementContainer: {
-    alignItems: 'center',
+    alignItems: "center",
     marginTop: 150,
   },
   agreementText: {
     fontSize: 14,
-    color: 'gray',
-    textAlign: 'center',
+    color: "gray",
+    textAlign: "center",
   },
   inlineText: {
-    fontWeight: 'bold',
-    color: 'gray',
+    fontWeight: "bold",
+    color: "gray",
   },
   inlineUnderlineGray: {
-    fontWeight: 'bold',
-    textDecorationLine: 'underline',
-    color: 'gray',
+    fontWeight: "bold",
+    textDecorationLine: "underline",
+    color: "gray",
   },
   inlineUnderlineBlack: {
-    fontWeight: 'bold',
-    textDecorationLine: 'underline',
-    color: 'black',
+    fontWeight: "bold",
+    textDecorationLine: "underline",
+    color: "black",
   },
 });
 
