@@ -7,6 +7,7 @@ import {
   Text,
   ScrollView,
   TextInput,
+  Modal,
 } from "react-native";
 import { useState } from "react";
 import { useNavigation } from "@react-navigation/native";
@@ -19,8 +20,10 @@ import FuelTypePicker from "../components/fuelTypePicker";
 import PremiumAdCharges from "../components/premiumAdCharges";
 import ImagePickerComponent from "../components/imagePicker";
 import axios from "axios";
-
+import { useContext } from "react";
+import { UserContext } from "../context/userContext";
 const freeAdsPostService = () => {
+  const { user } = useContext(UserContext);
   // let A = '';
   const navigation = useNavigation();
   const [locationModalVisible, setLocationModalVisible] = useState(false);
@@ -53,7 +56,8 @@ const freeAdsPostService = () => {
   const [name, setName] = useState("");
   const [phoneNumber, setPhoneNumber] = useState("");
   const [selectedModel, setSelectedModel] = useState("");
-  const [Cardescription, setCarDescription] = useState("");
+
+  const [isVisible, setIsVisible] = useState(false);
 
   const handleBack = () => {
     navigation.goBack();
@@ -166,19 +170,25 @@ const freeAdsPostService = () => {
     setIsFeaturePickerVisible(false);
   };
 
-  const [imagesBase64, setImagesBaes64] = useState([]);
+  const handleCloseModall = () => {
+    setIsVisible(false);
+  };
 
+  const [isError, setIsError] = useState(false);
+  const [error, setError] = useState("");
+  const [imagesBase64, setImagesBase64] = useState([]);
   const handlePostYourAd = async () => {
     // Handle the logic for posting the ad
     console.log("Ad posted!");
     console.log(selectedFeaturess.length);
     const adData = {
+      images: imagesBase64,
       location: selectedLocation,
       year: selectedYear,
       brand: selectedBrand,
       varient: selectedVariant,
-      registeredIn: selectedRegisteredLocation,
-      color: selectedBodyColor,
+      regiesteredIn: selectedRegisteredLocation,
+      bodyColor: selectedBodyColor,
       kmDriven: selectedKmDriven,
       price: selectedPrice,
       description: selectedDescription,
@@ -188,20 +198,23 @@ const freeAdsPostService = () => {
       engineCapacity: selectedEngineCapcity,
       name: name,
       phoneNumber: phoneNumber,
-      description: setCarDescriptions,
+      user: user._id,
     };
-    // console.log(adData)
+    // console.log(adData);
     try {
       const response = await axios.post(
-        "http://192.168.18.16:8000/api/carAd/upload",
+        "http://192.168.18.18:8000/api/carAd/upload",
         adData
       );
       console.log(response.data);
+      if (response.data.ok) {
+        setIsVisible(true);
+      }
     } catch (error) {
       console.log(error.response.data);
+      setIsError(true);
+      setError(error.response.data.error);
     }
-
-    // console.log("Selected Images Base64:::::", selectedImagesBase64);
   };
 
   // const handlePremiumAdService = () => {
@@ -222,7 +235,7 @@ const freeAdsPostService = () => {
     // Do something with the selected images
     console.log(selectedImages);
   };
-
+  const [carDescription, setCarDescription] = useState("");
   return (
     <View style={styles.container}>
       <View style={styles.header}>
@@ -252,7 +265,7 @@ const freeAdsPostService = () => {
 
         <View style={styles.Imageborder}>
           <ImagePickerComponent
-            onSelectedImagesBase64Change={setImagesBaes64}
+            onSelectedImagesBase64Change={setImagesBase64}
           />
         </View>
 
@@ -458,10 +471,10 @@ const freeAdsPostService = () => {
           <TextInput
             style={styles.textInput}
             placeholder="Describe your car"
-            value={Cardescription}
-            onChangeText={setCarDescription}
             multiline={true} // Allow multiline input
             numberOfLines={4}
+            value={carDescription}
+            onChange={(text) => setCarDescription(text)}
           />
         </View>
 
@@ -566,13 +579,16 @@ const freeAdsPostService = () => {
             style={styles.contactInput}
             placeholder="Enter your name"
             onChangeText={(text) => setName(text)}
+            value={user.name}
+            readOnly
           />
           <TextInput
             style={styles.contactInput}
             placeholder="Enter your phone number"
             keyboardType="numeric"
             onChangeText={(text) => setPhoneNumber(text)}
-            // Add any necessary props or event handlers
+            value={user.phoneNumber}
+            readOnly
           />
         </View>
 
@@ -601,10 +617,70 @@ const freeAdsPostService = () => {
         </TouchableOpacity>
 
         <PremiumAdCharges isVisible={modalVisible} onClose={handleCloseModal} />
+
+        {/* aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa */}
+
+        <View style={styless.container}>
+          <Modal
+            visible={isVisible}
+            animationType="slide"
+            transparent={true}
+            onRequestClose={handleCloseModall}
+          >
+            <View style={styless.modalContainer}>
+              <View style={styless.modalContent}>
+                <Text>Ad Posted Successfully!!</Text>
+                <TouchableOpacity onPress={handleCloseModall}>
+                  <Text>Close Modal</Text>
+                </TouchableOpacity>
+              </View>
+            </View>
+          </Modal>
+        </View>
+
+        {/* aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa */}
+
+        <View style={styless.container}>
+          <Modal
+            visible={isError}
+            animationType="slide"
+            transparent={true}
+            onRequestClose={() => setIsError(false)}
+          >
+            <View style={styless.modalContainer}>
+              <View style={styless.modalContent}>
+                <Text>{error}</Text>
+                <TouchableOpacity onPress={() => setIsError(false)}>
+                  <Text>Close Modal</Text>
+                </TouchableOpacity>
+              </View>
+            </View>
+          </Modal>
+        </View>
       </ScrollView>
     </View>
   );
 };
+
+const styless = StyleSheet.create({
+  container: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  modalContainer: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: "rgba(0, 0, 0, 0.5)",
+  },
+  modalContent: {
+    backgroundColor: "white",
+    padding: 20,
+    borderRadius: 10,
+    alignItems: "center",
+  },
+});
 
 const styles = StyleSheet.create({
   container: {

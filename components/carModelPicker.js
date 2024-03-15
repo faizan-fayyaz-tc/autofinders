@@ -55,7 +55,7 @@ const CarModelPicker = ({
 
   const getYearData =async ()=>{
     try {
-      const response = await axios.get("http://192.168.18.16:8000/api/year/")
+      const response = await axios.get("http://192.168.18.146:8000/api/year/")
       // console.log(response.data.data)
       setYearsData(response.data.data);
     } catch (error) {
@@ -65,7 +65,7 @@ const CarModelPicker = ({
 
   const getBrandData =async ()=>{
     try {
-      const response = await axios.get("http://192.168.18.16:8000/brands")
+      const response = await axios.get("http://192.168.18.146:8000/brands")
       // console.log(response.data)
       setBrandsData(response.data)
     } catch (error) {
@@ -76,7 +76,7 @@ const CarModelPicker = ({
   const getModelData =async ()=>{
     console.log(brandId)
     try {
-      const response = await axios.get(`http://192.168.18.16:8000/Model/${brandId}`)
+      const response = await axios.get(`http://192.168.18.146:8000/Model/${brandId}`)
       // console.log(response.data)
       setModelsData(response.data)
     } catch (error) {
@@ -87,7 +87,7 @@ const CarModelPicker = ({
 
   const getVariantData =async ()=>{
     try {
-      const response = await axios.get(`http://192.168.18.16:8000/varient/${modelId}`)
+      const response = await axios.get(`http://192.168.18.146:8000/varient/${modelId}`)
       // console.log("THIisssssssss",response.data.products)
       setVarientData(response.data.products)
     } catch (error) {

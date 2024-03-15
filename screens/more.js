@@ -113,6 +113,7 @@ const More = ({ navigation }) => {
   const handlerLogout = () => {
     console.log("logout pressed");
     dispatch({ type: "LOGOUT" });
+    SyncStorage.remove("token")
   };
 
   return (
@@ -132,7 +133,7 @@ const More = ({ navigation }) => {
             />
           </TouchableOpacity>
 
-          {user ? (
+          {/* {SyncStorage.get("token") ? (
             <TouchableOpacity style={styles.logout} onPress={handlerLogout}>
               <Image
                 source={require("../assets/logout.png")}
@@ -148,7 +149,7 @@ const More = ({ navigation }) => {
                 resizeMode="contain"
               />
             </TouchableOpacity>
-          )}
+          )} */}
         </View>
 
         {/* Personal  dropdown*/}

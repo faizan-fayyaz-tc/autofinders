@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { View, Text, StyleSheet, Image } from "react-native";
 import managedByAutoFinder from "./managedByAutoFinder";
 
@@ -15,15 +15,30 @@ const BuyNowCard = ({
   isFeatured,
   isManagedByAutoFinder,
 }) => {
+  useEffect(() => {
+    console.log(typeof carImage);
+  }, []);
 
   const cardStyle = {
     ...(isInspected || isManagedByAutoFinder
-      ? { borderTopLeftRadius: 10, borderTopRightRadius: 10, borderBottomLeftRadius : 0, borderBottomRightRadius: 0}
+      ? {
+          borderTopLeftRadius: 10,
+          borderTopRightRadius: 10,
+          borderBottomLeftRadius: 0,
+          borderBottomRightRadius: 0,
+        }
       : {}), // Apply bottom border radius conditionally
-  }
+  };
   const additionalCard = {
-    ...(isInspected || isManagedByAutoFinder ? {borderTopLeftRadius : 0, borderTopRightRadius : 0, borderBottomLeftRadius : 10, borderBottomRightRadius: 10} : {}),
-  }
+    ...(isInspected || isManagedByAutoFinder
+      ? {
+          borderTopLeftRadius: 0,
+          borderTopRightRadius: 0,
+          borderBottomLeftRadius: 10,
+          borderBottomRightRadius: 10,
+        }
+      : {}),
+  };
 
   let additionalInfo = null;
 
@@ -53,7 +68,7 @@ const BuyNowCard = ({
     );
   }
 
-  
+  const source = { uri: carImage };
 
   return (
     <View>
@@ -65,10 +80,12 @@ const BuyNowCard = ({
           />
         )}
         <View style={styles.imageContainer}>
-          <Image source={carImage} style={styles.image} />
+          <Image source={source} style={styles.image} />
         </View>
         <View style={styles.detailsContainer}>
-          <Text style={styles.name}>{name}</Text>
+          <Text style={styles.name}>
+            {name} {variant}
+          </Text>
           <Text style={styles.variant}>{variant}</Text>
           <Text style={styles.price}>{price}</Text>
 
@@ -120,8 +137,8 @@ const styles = StyleSheet.create({
     backgroundColor: "#fff",
     padding: 10,
     margin: 10,
-    borderRadius : 10,
-   
+    borderRadius: 10,
+
     shadowColor: "#000",
     shadowOffset: {
       width: 0,
@@ -137,9 +154,8 @@ const styles = StyleSheet.create({
   imageContainer: {
     width: 100,
     marginRight: 10,
-    justifyContent: 'center', // Center vertically
-  alignItems: 'center', // Center horizontally
-  
+    justifyContent: "center", // Center vertically
+    alignItems: "center", // Center horizontally
   },
   image: {
     width: "100%",
