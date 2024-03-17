@@ -11,7 +11,7 @@ import {
   Linking,
 } from "react-native";
 import GoogleLogo from "../assets/Googlelogo.jpeg";
-import gmail from "../assets/gmail.png";
+import email from "../assets/email.png";
 import { useNavigation } from "@react-navigation/native";
 
 const Welcome = () => {
@@ -72,7 +72,7 @@ const Welcome = () => {
             style={[styles.button, styles.buttonEmail]}
             onPress={handleEmailSignIn}
           >
-            <Image source={gmail} style={styles.buttonIcon} />
+            <Image source={email} style={styles.buttonIcon} />
             <Text style={styles.buttonText}>Continue with Email</Text>
           </TouchableOpacity>
         </View>

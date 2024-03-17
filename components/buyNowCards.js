@@ -87,7 +87,7 @@ const BuyNowCard = ({
             {name} {variant}
           </Text>
           <Text style={styles.variant}>{variant}</Text>
-          <Text style={styles.price}>{price}</Text>
+          <Text style={styles.price}>PKR {price}</Text>
 
           {/* Upper view */}
           <View style={styles.upperView}>

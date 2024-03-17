@@ -8,6 +8,7 @@ import {
   ScrollView,
   TextInput,
   Modal,
+  StatusBar,
 } from "react-native";
 import { useState } from "react";
 import { useNavigation } from "@react-navigation/native";
@@ -187,13 +188,13 @@ const freeAdsPostService = () => {
       year: selectedYear,
       brand: selectedBrand,
       varient: selectedVariant,
-      regiesteredIn: selectedRegisteredLocation,
+      registeredIn: selectedRegisteredLocation,
       bodyColor: selectedBodyColor,
       kmDriven: selectedKmDriven,
       price: selectedPrice,
       description: selectedDescription,
       fuelType: selectedFuelType,
-      transimission: selectedTransmission,
+      transmission: selectedTransmission,
       assembly: selectedAssembly,
       engineCapacity: selectedEngineCapcity,
       name: name,
@@ -203,7 +204,7 @@ const freeAdsPostService = () => {
     // console.log(adData);
     try {
       const response = await axios.post(
-        "http://192.168.18.18:8000/api/carAd/upload",
+        "http://192.168.10.9:8000/api/carAd/upload",
         adData
       );
       console.log(response.data);
@@ -246,7 +247,7 @@ const freeAdsPostService = () => {
           />
         </TouchableOpacity>
         <View style={styles.titleContainer}>
-          <Text style={styles.title}>Post Your Ad</Text>
+          <Text style={styles.title}>Post Free Ad</Text>
         </View>
       </View>
       {/* <View style={styles.MarqueeContainer}>
@@ -278,7 +279,7 @@ const freeAdsPostService = () => {
             style={styles.locationIcon}
           />
           <Text style={styles.selectLocationText}>
-            {selectedLocation || "Location"}
+            {selectedLocation || "Select Your Location"}
           </Text>
         </TouchableOpacity>
         <LocationPicker
@@ -317,11 +318,11 @@ const freeAdsPostService = () => {
           onPress={handleOpenRegisteredPicker}
         >
           <Image
-            source={require("../assets/reegisteredIn.png")}
+            source={require("../assets/registered.png")}
             style={styles.locationIcon}
           />
           <Text style={styles.selectLocationText}>
-            {selectedRegisteredLocation || "Registered In"}
+            {selectedRegisteredLocation || "Registration Site"}
           </Text>
         </TouchableOpacity>
         <RegisteredPicker
@@ -335,11 +336,11 @@ const freeAdsPostService = () => {
           onPress={handleOpenBodyColorPicker}
         >
           <Image
-            source={require("../assets/bodyColor.png")}
+            source={require("../assets/bodycolour.png")}
             style={styles.bodyColorIcon}
           />
           <Text style={styles.selectBodyColorText}>
-            {selectedBodyColor || "Body Color"}
+            {selectedBodyColor || "Body Shade"}
           </Text>
         </TouchableOpacity>
 
@@ -351,12 +352,12 @@ const freeAdsPostService = () => {
 
         <View style={styles.selectKmDrivenButton}>
           <Image
-            source={require("../assets/carMeter.png")}
+            source={require("../assets/distanceKM.png")}
             style={styles.kmIcon}
           />
           <TextInput
             style={styles.textInput}
-            placeholder="KM's Driven"
+            placeholder="Kilometers Travelled"
             value={selectedKmDriven}
             onChangeText={(text) => {
               const numericValue = text.replace(/[^0-9]/g, "");
@@ -375,7 +376,7 @@ const freeAdsPostService = () => {
           />
           <TextInput
             style={styles.textInput}
-            placeholder="Price (PKR)"
+            placeholder="Selling Price (PKR)"
             value={selectedPrice}
             onChangeText={(text) => {
               const numericValue = text.replace(/[^0-9]/g, "");
@@ -432,7 +433,7 @@ const freeAdsPostService = () => {
             style={styles.fuelTypeIcon}
           />
           <Text style={styles.selectFuelTypeText}>
-            {selectedFuelType || "Fuel Type"}
+            {selectedFuelType || "Fuel Category"}
           </Text>
         </TouchableOpacity>
 
@@ -442,13 +443,15 @@ const freeAdsPostService = () => {
           onSelectFuelType={handleFuelTypeSelect}
         />
 
+        <TouchableOpacity
+          style={styles.viewSuggestionsButton}
+          onPress={handleViewSuggestions}
+        >
+          <Text style={styles.viewSuggestionsText}>
+            Tap for Feature Selection
+          </Text>
+        </TouchableOpacity>
         <View style={styles.featureContainer}>
-          <TouchableOpacity
-            style={styles.viewSuggestionsButton}
-            onPress={handleViewSuggestions}
-          >
-            <Text style={styles.viewSuggestionsText}>Select Features</Text>
-          </TouchableOpacity>
           {selectedFeaturess.length > 0 &&
             selectedFeaturess.map((item) => (
               <Text style={styles.bulletPointText}>• {item}</Text>
@@ -470,7 +473,7 @@ const freeAdsPostService = () => {
           />
           <TextInput
             style={styles.textInput}
-            placeholder="Describe your car"
+            placeholder="Description"
             multiline={true} // Allow multiline input
             numberOfLines={4}
             value={carDescription}
@@ -479,7 +482,7 @@ const freeAdsPostService = () => {
         </View>
 
         <View style={styles.selectTransmissionContainer}>
-          <Text style={styles.selectTransmissionText}>Transmission</Text>
+          <Text style={styles.selectTransmissionText}>Gear Transmission</Text>
           <View style={styles.toggleButtonContainer}>
             <TouchableOpacity
               style={[
@@ -519,7 +522,7 @@ const freeAdsPostService = () => {
         </View>
 
         <View style={styles.selectAssemblyContainer}>
-          <Text style={styles.selectAssemblyText}>Assembly</Text>
+          <Text style={styles.selectAssemblyText}>Assembly Integrated</Text>
           <View style={styles.toggleButtonContainer}>
             <TouchableOpacity
               style={[
@@ -579,6 +582,7 @@ const freeAdsPostService = () => {
             style={styles.contactInput}
             placeholder="Enter your name"
             onChangeText={(text) => setName(text)}
+            placeholderTextColor="black"
             value={user.name}
             readOnly
           />
@@ -587,6 +591,7 @@ const freeAdsPostService = () => {
             placeholder="Enter your phone number"
             keyboardType="numeric"
             onChangeText={(text) => setPhoneNumber(text)}
+            placeholderTextColor="black"
             value={user.phoneNumber}
             readOnly
           />
@@ -612,7 +617,7 @@ const freeAdsPostService = () => {
         >
           <Text style={styles.PremiumAdButtonText}>
             {" "}
-            Go for Premium Ad Service
+            Choose premium ad service
           </Text>
         </TouchableOpacity>
 
@@ -687,7 +692,6 @@ const styles = StyleSheet.create({
     flex: 1,
     // alignItems: 'center',
     backgroundColor: "white",
-    // paddingTop: 10
   },
   Imageborder: {
     // borderWidth: 1,
@@ -699,16 +703,17 @@ const styles = StyleSheet.create({
     backgroundColor: "#fc6f03",
     flexDirection: "row",
     alignItems: "center",
-    padding: 15,
+    paddingTop: StatusBar.currentHeight,
   },
   backButton: {
     // paddingRight: 20,
     tintColor: "white",
   },
   backIcon: {
-    width: 20,
-    height: 20,
+    width: 25,
+    height: 25,
     tintColor: "white",
+    marginLeft: 5,
   },
   titleContainer: {
     flex: 1,
@@ -757,8 +762,8 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     height: 50,
     width: 300,
-    borderColor: "grey",
-    borderWidth: 1,
+    borderColor: "#fc6f03",
+    borderBottomWidth: 1,
     // borderRadius: 5,
     marginTop: 40,
   },
@@ -767,7 +772,7 @@ const styles = StyleSheet.create({
     height: 20,
     marginLeft: 10,
     marginTop: 15,
-    tintColor: "#fc6f03",
+    tintColor: "lightgrey",
   },
   selectLocationText: {
     fontSize: 14,
@@ -779,9 +784,11 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     height: 50,
     width: 300,
-    borderColor: "grey",
-    borderWidth: 1,
-    // borderRadius: 5,
+    // borderColor: "grey",
+    // borderWidth: 1,
+    // // borderRadius: 5,
+    borderColor: "#fc6f03",
+    borderBottomWidth: 1,
     marginTop: 10,
     alignItems: "center",
   },
@@ -789,7 +796,7 @@ const styles = StyleSheet.create({
     width: 20,
     height: 20,
     marginLeft: 10,
-    tintColor: "#fc6f03",
+    tintColor: "lightgrey",
   },
   selectCarModelText: {
     fontSize: 13,
@@ -801,8 +808,10 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     height: 50,
     width: 300,
-    borderColor: "grey",
-    borderWidth: 1,
+    // borderColor: "grey",
+    // borderWidth: 1,
+    borderColor: "#fc6f03",
+    borderBottomWidth: 1,
     // borderRadius: 5,
     marginTop: 10,
     // justifyContent: 'center',
@@ -811,8 +820,10 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     height: 50,
     width: 300,
-    borderColor: "grey",
-    borderWidth: 1,
+    // borderColor: "grey",
+    // borderWidth: 1,
+    borderColor: "#fc6f03",
+    borderBottomWidth: 1,
     // borderRadius: 5,
     marginTop: 10,
     alignItems: "center",
@@ -821,7 +832,7 @@ const styles = StyleSheet.create({
     width: 20,
     height: 20,
     marginLeft: 10,
-    tintColor: "#fc6f03",
+    tintColor: "lightgrey",
   },
   selectBodyColorText: {
     fontSize: 14,
@@ -832,8 +843,10 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     height: 50,
     width: 300,
-    borderColor: "grey",
-    borderWidth: 1,
+    // borderColor: "grey",
+    // borderWidth: 1,
+    borderColor: "#fc6f03",
+    borderBottomWidth: 1,
     // borderRadius: 5,
     marginTop: 10,
     alignItems: "center",
@@ -843,14 +856,16 @@ const styles = StyleSheet.create({
     height: 30,
     marginLeft: 5,
     justifyContent: "center",
-    tintColor: "#fc6f03",
+    tintColor: "lightgrey",
   },
   textInput: {
     flex: 1,
     height: "100%",
-    borderColor: "white",
-    borderWidth: 1, // Remove the border to make it look like other fields
+    // borderColor: "white",
+    // borderWidth: 1, // Remove the border to make it look like other fields
     // borderRadius: 5,
+    // borderColor: "black",
+    // borderBottomWidth: 1,
     paddingLeft: 10,
     fontSize: 14,
   },
@@ -858,8 +873,10 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     height: 50,
     width: 300,
-    borderColor: "grey",
-    borderWidth: 1,
+    // borderColor: "grey",
+    // borderWidth: 1,
+    borderColor: "#fc6f03",
+    borderBottomWidth: 1,
     // borderRadius: 5,
     marginTop: 10,
     alignItems: "center",
@@ -869,15 +886,17 @@ const styles = StyleSheet.create({
     height: 25,
     marginLeft: 5,
     justifyContent: "center",
-    tintColor: "#fc6f03",
+    tintColor: "lightgrey",
   },
 
   selectDescriptionButton: {
     flexDirection: "row",
     height: 50,
     width: 300,
-    borderColor: "grey",
-    borderWidth: 1,
+    // borderColor: "grey",
+    // borderWidth: 1,
+    borderColor: "#fc6f03",
+    borderBottomWidth: 1,
     // borderRadius: 5,
     marginTop: 10,
     alignItems: "center",
@@ -887,14 +906,14 @@ const styles = StyleSheet.create({
     height: 20,
     marginLeft: 5,
     justifyContent: "center",
-    tintColor: "#fc6f03",
+    tintColor: "lightgrey",
   },
   viewSuggestionsText: {
-    color: "#fc6f03",
+    color: "#2884ec",
     fontWeight: "bold",
     fontSize: 16,
     marginTop: 30,
-    padding: 5,
+    padding: 10,
     textAlign: "center",
     borderColor: "#fc6f03",
     borderWidth: 1,
@@ -904,8 +923,10 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     height: 50,
     width: 300,
-    borderColor: "grey",
-    borderWidth: 1,
+    // borderColor: "grey",
+    // borderWidth: 1,
+    borderColor: "#fc6f03",
+    borderBottomWidth: 1,
     // borderRadius: 5,
     marginTop: 15,
     alignItems: "center",
@@ -915,7 +936,7 @@ const styles = StyleSheet.create({
     height: 20,
     marginLeft: 5,
     justifyContent: "center",
-    tintColor: "#fc6f03",
+    tintColor: "lightgrey",
   },
   selectFuelTypeText: {
     fontSize: 14,
@@ -1086,10 +1107,10 @@ const styles = StyleSheet.create({
   featureContainer: {
     alignItems: "flex-start",
     // paddingLeft: 50,
-    marginTop: 10,
+    marginTop: 20,
     marginBottom: 10,
     borderWidth: 1,
-    borderColor: "black",
+    borderColor: "#fc6f03",
     display: "flex",
     borderStyle: "dashed",
     flex: 1,
@@ -1104,11 +1125,14 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
   },
   bulletPointText: {
-    fontSize: 16,
-    marginBottom: 5,
-    marginRight: 10, // Add margin to create space between bullet points
-    color: "#2884ec",
+    fontSize: 12,
+    // marginBottom: 2,
+    marginRight: 20, // Add margin to create space between bullet points
+    marginLeft: 10,
+    color: "black",
   },
 });
 
 export default freeAdsPostService;
+
+//#2884ec

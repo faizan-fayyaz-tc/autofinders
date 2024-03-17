@@ -1,4 +1,4 @@
-import React, { useState ,useEffect} from "react";
+import React, { useState, useEffect } from "react";
 import {
   View,
   Text,
@@ -31,7 +31,7 @@ import axios from "axios";
 //     ],
 //   },
 
-  // Add more years, brands, and variants as needed
+// Add more years, brands, and variants as needed
 // ];
 
 const CarModelPicker = ({
@@ -46,79 +46,77 @@ const CarModelPicker = ({
   const [selectedBrand, setSelectedBrand] = useState("");
   const [selectedModel, setSelectedModel] = useState("");
   const [selectedVariant, setSelectedVariant] = useState("");
-  const [yearsData,setYearsData] = useState("")
-  const [brandsData , setBrandsData] = useState("")
-  const [modelsData , setModelsData] = useState("")
-  const [brandId , setBrandId] = useState("") 
-  const [varientData , setVarientData] = useState("")
-  const [modelId , setModelId] = useState("")
+  const [yearsData, setYearsData] = useState("");
+  const [brandsData, setBrandsData] = useState("");
+  const [modelsData, setModelsData] = useState("");
+  const [brandId, setBrandId] = useState("");
+  const [varientData, setVarientData] = useState("");
+  const [modelId, setModelId] = useState("");
 
-  const getYearData =async ()=>{
+  const getYearData = async () => {
     try {
-      const response = await axios.get("http://192.168.18.146:8000/api/year/")
+      const response = await axios.get("http://192.168.18.18:8000/api/year/");
       // console.log(response.data.data)
       setYearsData(response.data.data);
     } catch (error) {
-      console.log(error.response.data)
+      console.log(error.response.data);
     }
-  }
+  };
 
-  const getBrandData =async ()=>{
+  const getBrandData = async () => {
     try {
-      const response = await axios.get("http://192.168.18.146:8000/brands")
+      const response = await axios.get("http://192.168.18.18:8000/brands");
       // console.log(response.data)
-      setBrandsData(response.data)
+      setBrandsData(response.data);
     } catch (error) {
-      console.log(error.response.data)
+      console.log(error.response.data);
     }
-  }
+  };
 
-  const getModelData =async ()=>{
-    console.log(brandId)
+  const getModelData = async () => {
+    console.log(brandId);
     try {
-      const response = await axios.get(`http://192.168.18.146:8000/Model/${brandId}`)
+      const response = await axios.get(
+        `http://192.168.18.18:8000/Model/${brandId}`
+      );
       // console.log(response.data)
-      setModelsData(response.data)
+      setModelsData(response.data);
     } catch (error) {
-      console.log(error.response.data)
+      console.log(error.response.data);
     }
-  }
+  };
 
-
-  const getVariantData =async ()=>{
+  const getVariantData = async () => {
     try {
-      const response = await axios.get(`http://192.168.18.146:8000/varient/${modelId}`)
+      const response = await axios.get(
+        `http://192.168.18.18:8000/varient/${modelId}`
+      );
       // console.log("THIisssssssss",response.data.products)
-      setVarientData(response.data.products)
+      setVarientData(response.data.products);
     } catch (error) {
-      console.log(error.response.data)
+      console.log(error.response.data);
     }
-  }
-
-
-  
-
-  useEffect(()=>{
-    getYearData();
-    getBrandData();
-  },[])
-
-
+  };
 
   useEffect(() => {
-    setSelectedYear("")
-    setSelectedBrand("")
-    setSelectedModel("")
-    setSelectedVariant("")
+    getYearData();
+    getBrandData();
+  }, []);
+
+  useEffect(() => {
+    setSelectedYear("");
+    setSelectedBrand("");
+    setSelectedModel("");
+    setSelectedVariant("");
   }, [isVisible]);
 
-  useEffect(()=>{
-    getModelData()
-  },[brandId])
+  useEffect(() => {
+    getModelData();
+  }, [brandId]);
 
-  useEffect(()=>{
-    getVariantData()
-  },[modelId])
+  useEffect(() => {
+    getVariantData();
+  }, [modelId]);
 
   const handleYearSelect = (year) => {
     setSelectedYear(year);
@@ -131,7 +129,7 @@ const CarModelPicker = ({
   const handleBrandSelect = (brand) => {
     setSelectedBrand(brand.name);
     setBrandId(brand._id);
-    console.log(brand._id)
+    console.log(brand._id);
   };
   const handleModelSelect = (model) => {
     setSelectedModel(model.name);

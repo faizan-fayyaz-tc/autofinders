@@ -39,6 +39,7 @@ const basicInfoCarInspection = ({ navigation }) => {
   const [emptyPhoneError, setEmptyPhoneError] = useState(false);
   const [InvalidPhoneError, setInvalidPhoneError] = useState(false);
   const [cityError, setCityError] = useState(false);
+  const [validationOK, setvalidationOK] = useState(false);
 
   const handleBrandSearch = (text) => {
     const filtered = brands.filter((brand) =>
@@ -74,8 +75,8 @@ const basicInfoCarInspection = ({ navigation }) => {
       setEmptyNameError(false);
       // Add logic to proceed to the next step
     }
-    const phoneRegex = /^03\d{9}$/; 
-    if (!phoneRegex.test(phoneNumber)) {
+    const phoneRegex = /^03\d{9}$/;
+    if (phoneNumber !== "" && !phoneRegex.test(phoneNumber)) {
       setInvalidPhoneError(true);
     } else {
       setInvalidPhoneError(false);
@@ -86,14 +87,30 @@ const basicInfoCarInspection = ({ navigation }) => {
       setEmptyPhoneError(false);
     }
 
-    if(selectedLocation === ""){
+    if (selectedLocation === "") {
       setCityError(true);
-    }else{
+    } else {
       setCityError(false);
+    }
+
+    if (
+      !setEmptyNameError &&
+      !setEmptyPhoneError &&
+      !setCityError &&
+      !setInvalidPhoneError
+    ) {
+      setvalidationOK(true);
     }
   };
 
   const handleNext = () => {
+    // if (setvalidationOK) {
+    //   navigation.navigate("bookExpertVisitCarInspection", { name: "faizan" });
+    //   console.log(validationOK);
+    // } else {
+    //   validation();
+    // }
+
     validation();
 
     const data = {
@@ -106,8 +123,8 @@ const basicInfoCarInspection = ({ navigation }) => {
       selectedVariant,
       carSummary,
     };
-    console.log(data);
-    navigation.navigate("bookExpertVisitCarInspection");
+    // console.log(data);
+    navigation.navigate("bookExpertVisitCarInspection", { data });
   };
   const handleCitySelection = (city) => {
     setSelectedCity(city);
@@ -296,7 +313,9 @@ const basicInfoCarInspection = ({ navigation }) => {
               onChangeText={setFullName} // Update fullName state
               value={fullName} // Bind value to fullName state
             />
-            {emptyNameError && <Text>Please enter your name.</Text>}
+            {emptyNameError && (
+              <Text style={styles.errorText}>Please enter your full name.</Text>
+            )}
           </View>
 
           {/* Phone Number Input Field */}
@@ -310,8 +329,14 @@ const basicInfoCarInspection = ({ navigation }) => {
               onChangeText={setPhoneNumber} // Update phoneNumber state
               value={phoneNumber} // Bind value to phoneNumber state
             />
-            {emptyPhoneError && <Text>Please enter your Phone Number.</Text>}
-            {InvalidPhoneError && <Text>Invalid format.</Text>}
+            {emptyPhoneError && (
+              <Text style={styles.errorText}>
+                Please enter your Phone Number.
+              </Text>
+            )}
+            {InvalidPhoneError && (
+              <Text style={styles.errorText}>Invalid format.</Text>
+            )}
           </View>
 
           {/* City Selection Input Field */}
@@ -329,7 +354,9 @@ const basicInfoCarInspection = ({ navigation }) => {
                 style={styles.arrowIcon}
               />
             </View>
-            {cityError && <Text>Select Your City.</Text>}
+            {cityError && (
+              <Text style={styles.errorText}>Select Your City.</Text>
+            )}
           </TouchableOpacity>
 
           <LocationPicker
@@ -374,7 +401,7 @@ const basicInfoCarInspection = ({ navigation }) => {
             <Text style={styles.label}>Vehicle Description</Text>
             <TextInput
               style={styles.summaryInput}
-              placeholder="Write a summary about your car..."
+              placeholder="Add description about your car..."
               placeholderTextColor="grey"
               multiline
               numberOfLines={4}
@@ -406,9 +433,10 @@ const styles = StyleSheet.create({
     tintColor: "white",
   },
   backIcon: {
-    width: 30,
-    height: 30,
+    width: 25,
+    height: 25,
     tintColor: "white",
+    marginLeft: 5,
   },
   titleContainer: {
     flex: 1,
@@ -530,7 +558,7 @@ const styles = StyleSheet.create({
   },
   errorText: {
     color: "red",
-    fontSize: 14,
+    fontSize: 12,
   },
 });
 

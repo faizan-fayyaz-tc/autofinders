@@ -1,5 +1,13 @@
 import React, { useState } from "react";
-import { View, Text, TouchableOpacity, Image, StyleSheet, ScrollView, Dimensions } from "react-native";
+import {
+  View,
+  Text,
+  TouchableOpacity,
+  Image,
+  StyleSheet,
+  ScrollView,
+  Dimensions,
+} from "react-native";
 import * as ImagePicker from "expo-image-picker";
 import * as FileSystem from "expo-file-system";
 
@@ -10,16 +18,17 @@ const ImagePickerComponent = ({ onSelectedImagesBase64Change }) => {
 
   const handleChooseImage = async () => {
     try {
-      const { status } = await ImagePicker.requestMediaLibraryPermissionsAsync();
+      const { status } =
+        await ImagePicker.requestMediaLibraryPermissionsAsync();
       if (status !== "granted") {
         console.log("Permission to access photo library was denied");
         return;
       }
-////////////////////////////////////////////////////////////////////////
+      ////////////////////////////////////////////////////////////////////////
       let result = await ImagePicker.launchImageLibraryAsync({
         mediaTypes: ImagePicker.MediaTypeOptions.Images,
         allowsEditing: true,
-        aspect: [4, 3],
+        aspect: [1, 1],
         quality: 1,
         multiple: true,
       });
@@ -29,8 +38,10 @@ const ImagePickerComponent = ({ onSelectedImagesBase64Change }) => {
       if (!result.cancelled && result.assets.length > 0) {
         const imageUris = [];
         const base64Images = [];
-        for (const asset of result.assets){
-          const base64 = await FileSystem.readAsStringAsync(asset.uri,{ encoding: FileSystem.EncodingType.Base64});
+        for (const asset of result.assets) {
+          const base64 = await FileSystem.readAsStringAsync(asset.uri, {
+            encoding: FileSystem.EncodingType.Base64,
+          });
           // console.log("Base64 representation of image:", base64);
           const base64Image = `data:image/jpg;base64,${base64}`;
           imageUris.push(asset.uri);
@@ -38,8 +49,11 @@ const ImagePickerComponent = ({ onSelectedImagesBase64Change }) => {
         }
         // const imageUris = result.assets.map((asset) => asset.uri);
         setSelectedImages([...selectedImages, ...imageUris]);
-        setSelectedImagesBase64([...selectedImagesBase64, ...base64Images]); 
-        onSelectedImagesBase64Change([...selectedImagesBase64, ...base64Images]);
+        setSelectedImagesBase64([...selectedImagesBase64, ...base64Images]);
+        onSelectedImagesBase64Change([
+          ...selectedImagesBase64,
+          ...base64Images,
+        ]);
       }
     } catch (error) {
       console.error("Error selecting image:", error);
@@ -60,7 +74,7 @@ const ImagePickerComponent = ({ onSelectedImagesBase64Change }) => {
 
   return (
     <View style={styles.container}>
-      <Text>Add image</Text>
+      <Text style={styles.imageText}>Upload your car image</Text>
       <ScrollView horizontal={true} style={styles.imageScrollContainer}>
         <View style={{ flexDirection: "row" }}>
           {selectedImages.map((imageUri, index) => (
@@ -70,7 +84,10 @@ const ImagePickerComponent = ({ onSelectedImagesBase64Change }) => {
             >
               <Image
                 source={{ uri: imageUri }}
-                style={[styles.image, { display: index === currentIndex ? 'flex' : 'none' }]}
+                style={[
+                  styles.image,
+                  { display: index === currentIndex ? "flex" : "none" },
+                ]}
               />
             </TouchableOpacity>
           ))}
@@ -78,14 +95,8 @@ const ImagePickerComponent = ({ onSelectedImagesBase64Change }) => {
       </ScrollView>
       <ScrollView horizontal={true} style={styles.thumbnailScrollContainer}>
         {selectedImages.map((imageUri, index) => (
-          <TouchableOpacity
-            key={index}
-            onPress={() => setCurrentIndex(index)}
-          >
-            <Image
-              source={{ uri: imageUri }}
-              style={styles.thumbnailImage}
-            />
+          <TouchableOpacity key={index} onPress={() => setCurrentIndex(index)}>
+            <Image source={{ uri: imageUri }} style={styles.thumbnailImage} />
           </TouchableOpacity>
         ))}
       </ScrollView>
@@ -94,7 +105,10 @@ const ImagePickerComponent = ({ onSelectedImagesBase64Change }) => {
           onPress={handlePreviousImage}
           style={[styles.navigationButton, { marginRight: 10 }]}
         >
-          <Image source={require("../assets/previous.png")} style={styles.arrowIcon} />
+          <Image
+            source={require("../assets/previous.png")}
+            style={styles.arrowIcon}
+          />
         </TouchableOpacity>
         <TouchableOpacity
           onPress={handleChooseImage}
@@ -107,23 +121,32 @@ const ImagePickerComponent = ({ onSelectedImagesBase64Change }) => {
             />
           </View>
         </TouchableOpacity>
-        <Text style={styles.currentIndexText}>{currentIndex + 1}/{selectedImages.length}</Text>
+        <Text style={styles.currentIndexText}>
+          {currentIndex + 1}/{selectedImages.length}
+        </Text>
         <TouchableOpacity
           onPress={handleNextImage}
           style={[styles.navigationButton, { marginLeft: 10 }]}
         >
-          <Image source={require("../assets/next.png")} style={styles.arrowIcon} />
+          <Image
+            source={require("../assets/next.png")}
+            style={styles.arrowIcon}
+          />
         </TouchableOpacity>
       </View>
     </View>
   );
 };
 
-const windowWidth = Dimensions.get('window').width;
+const windowWidth = Dimensions.get("window").width;
 
 const styles = StyleSheet.create({
   container: {
     height: 420, // Set a fixed height for the container
+  },
+  imageText: {
+    fontSize: 14,
+    alignSelf: "center",
   },
   buttonContainer: {
     flexDirection: "row",
@@ -143,9 +166,14 @@ const styles = StyleSheet.create({
   cameraIcon: {
     width: 20,
     height: 20,
+    tintColor: "white",
   },
   imageScrollContainer: {
-    marginTop: 10,
+    marginTop: 1,
+    // backgroundColor: "black",
+    borddisplay: "flex",
+    borderStyle: "dashed",
+    borderWidth: 2,
   },
   thumbnailScrollContainer: {
     marginTop: 10,
@@ -154,11 +182,10 @@ const styles = StyleSheet.create({
   },
   image: {
     width: windowWidth, // Set width to window width
-    aspectRatio: 4 / 3, // Maintain aspect ratio of 4:3
+    aspectRatio: 1 / 1, // Maintain aspect ratio of 4:3
     borderRadius: 5,
-    marginHorizontal: 5,
-    height: 250
-    
+    marginHorizontal: 10,
+    height: 250,
   },
   thumbnailImage: {
     width: 70,

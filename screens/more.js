@@ -113,7 +113,7 @@ const More = ({ navigation }) => {
   const handlerLogout = () => {
     console.log("logout pressed");
     dispatch({ type: "LOGOUT" });
-    SyncStorage.remove("token")
+    SyncStorage.remove("token");
   };
 
   return (
@@ -369,7 +369,7 @@ const More = ({ navigation }) => {
           style={styles.dropdownItem}
           onPress={toggleExploreDropdown}
         >
-          <Text style={styles.dropdownText}>Explore</Text>
+          <Text style={styles.dropdownText}>More</Text>
           <Image
             source={
               showExploreDropdown

@@ -7,7 +7,7 @@ import {
   Text,
   ScrollView,
   TextInput,
-  StatusBar
+  StatusBar,
 } from "react-native";
 import { useState } from "react";
 import { useNavigation } from "@react-navigation/native";
@@ -67,9 +67,8 @@ const FilterSearchCar = () => {
     // Update the selected filters state here
     setSelectedFilters(filters);
     // Now you can apply the filters as needed
-    console.log('Selected filters:', filters);
+    console.log("Selected filters:", filters);
   };
-
 
   const handleBack = () => {
     navigation.goBack();
@@ -175,14 +174,10 @@ const FilterSearchCar = () => {
   };
 
   const handleApplyFilter = () => {
-    
-      console.log("min year : ", minYear);
-      console.log("max year : ", maxYear);
-    
+    console.log("min year : ", minYear);
+    console.log("max year : ", maxYear);
   };
-  const handleResetFilter = () => {
-
-  };
+  const handleResetFilter = () => {};
 
   return (
     <View style={styles.container}>
@@ -194,7 +189,7 @@ const FilterSearchCar = () => {
           />
         </TouchableOpacity>
         <View style={styles.titleContainer}>
-          <Text style={styles.title}>Filter Car</Text>
+          <Text style={styles.title}>Filter your search</Text>
         </View>
       </View>
       <ScrollView contentContainerStyle={styles.scrollViewContent}>
@@ -213,7 +208,7 @@ const FilterSearchCar = () => {
           max={24000000} // Ensure this is a numeric value and greater than min
           title={"Price Range"}
           steps={1} // Specify the step value
-          onvalueChange={(range) => console.log(range)} 
+          onvalueChange={(range) => console.log(range)}
         />
 
         <InputRange
@@ -278,11 +273,11 @@ const FilterSearchCar = () => {
           onPress={handleOpenRegisteredPicker}
         >
           <Image
-            source={require("../assets/reegisteredIn.png")}
+            source={require("../assets/registered.png")}
             style={styles.locationIcon}
           />
           <Text style={styles.selectLocationText}>
-            {selectedRegisteredLocation || "Registered In"}
+            {selectedRegisteredLocation || "Registration Site"}
           </Text>
         </TouchableOpacity>
         <RegisteredPicker
@@ -296,11 +291,11 @@ const FilterSearchCar = () => {
           onPress={handleOpenBodyColorPicker}
         >
           <Image
-            source={require("../assets/bodyColor.png")}
+            source={require("../assets/bodycolour.png")}
             style={styles.bodyColorIcon}
           />
           <Text style={styles.selectBodyColorText}>
-            {selectedBodyColor || "Body Color"}
+            {selectedBodyColor || "Body Shade"}
           </Text>
         </TouchableOpacity>
 
@@ -465,7 +460,7 @@ const FilterSearchCar = () => {
         {/* here i have to add textfields rent post service  */}
 
         <View style={styles.selectTransmissionContainer}>
-          <Text style={styles.selectTransmissionText}>Transmission </Text>
+          <Text style={styles.selectTransmissionText}>Gear Transmission</Text>
           <View style={styles.toggleButtonContainer}>
             <TouchableOpacity
               style={[
@@ -505,7 +500,7 @@ const FilterSearchCar = () => {
         </View>
 
         <View style={styles.selectAssemblyContainer}>
-          <Text style={styles.selectAssemblyText}>Assembly </Text>
+          <Text style={styles.selectAssemblyText}>Assembly Integrated</Text>
           <View style={styles.toggleButtonContainer}>
             <TouchableOpacity
               style={[
@@ -590,7 +585,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     // alignItems: 'center',
-    backgroundColor: "white",
+    // backgroundColor: "white",
     // padding: 10
   },
   inputRange: {
@@ -600,7 +595,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#fc6f03",
     flexDirection: "row",
     alignItems: "center",
-    padding: StatusBar.currentHeight,
+    padding: 5,
   },
   backButton: {
     // paddingRight: 20,
@@ -618,7 +613,8 @@ const styles = StyleSheet.create({
     color: "white",
     fontSize: 18,
     fontWeight: "bold",
-    alignSelf: 'center'
+    alignSelf: "center",
+    marginLeft: 5,
   },
   scrollViewContent: {
     flexGrow: 1,
@@ -628,10 +624,10 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     height: 50,
     width: 300,
-    borderColor: "#Ac3803",
+    borderColor: "#fc6f03",
     // borderWidth: 1,
     // borderRadius: 5,
-    borderBottomWidth: 2,
+    borderBottomWidth: 1,
     marginTop: 40,
     alignSelf: "center",
   },
@@ -640,7 +636,7 @@ const styles = StyleSheet.create({
     height: 20,
     marginLeft: 10,
     marginTop: 15,
-    tintColor: "#Ac3803",
+    tintColor: "lightgrey",
   },
   selectLocationText: {
     fontSize: 14,
@@ -652,10 +648,10 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     height: 50,
     width: 300,
-    borderColor: "#Ac3803",
+    borderColor: "#fc6f03",
     // borderWidth: 1,
     // borderRadius: 5,
-    borderBottomWidth: 2,
+    borderBottomWidth: 1,
     marginTop: 10,
     alignItems: "center",
     alignSelf: "center",
@@ -664,7 +660,7 @@ const styles = StyleSheet.create({
     width: 20,
     height: 20,
     marginLeft: 10,
-    tintColor: "#Ac3803",
+    tintColor: "lightgrey",
   },
   selectCarModelText: {
     fontSize: 13,
@@ -676,10 +672,10 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     height: 50,
     width: 300,
-    borderColor: "#Ac3803",
+    borderColor: "#fc6f03",
     // borderWidth: 1,
     // borderRadius: 5,
-    borderBottomWidth: 2,
+    borderBottomWidth: 1,
     marginTop: 10,
     // justifyContent: 'center',
     alignSelf: "center",
@@ -688,10 +684,10 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     height: 50,
     width: 300,
-    borderColor: "#Ac3803",
+    borderColor: "#fc6f03",
     // borderWidth: 1,
     // borderRadius: 5,
-    borderBottomWidth: 2,
+    borderBottomWidth: 1,
     marginTop: 10,
     alignItems: "center",
     alignSelf: "center",
@@ -700,7 +696,7 @@ const styles = StyleSheet.create({
     width: 20,
     height: 20,
     marginLeft: 10,
-    tintColor: "#Ac3803",
+    tintColor: "lightgrey",
   },
   selectBodyColorText: {
     fontSize: 14,
@@ -711,10 +707,10 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     height: 50,
     width: 300,
-    borderColor: "#Ac3803",
+    borderColor: "#fc6f03",
     // borderWidth: 1,
     // borderRadius: 5,
-    borderBottomWidth: 2,
+    borderBottomWidth: 1,
     marginTop: 10,
     alignItems: "center",
     alignSelf: "center",
@@ -797,10 +793,10 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     height: 50,
     width: 300,
-    borderColor: "#Ac3803",
+    borderColor: "#fc6f03",
     // borderWidth: 1,
     // borderRadius: 5,
-    borderBottomWidth: 2,
+    borderBottomWidth: 1,
     marginTop: 10,
     alignItems: "center",
     alignSelf: "center",
@@ -810,7 +806,7 @@ const styles = StyleSheet.create({
     height: 20,
     marginLeft: 5,
     justifyContent: "center",
-    tintColor: "#Ac3803",
+    tintColor: "lightgrey",
   },
   selectFuelTypeText: {
     fontSize: 14,

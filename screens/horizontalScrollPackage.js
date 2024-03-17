@@ -1,8 +1,8 @@
 /* eslint-disable prettier/prettier */
 // HorizontalScrollPackage.js
 
-import React from 'react';
-import {View, Image, Text, StyleSheet, TouchableOpacity} from 'react-native';
+import React from "react";
+import { View, Image, Text, StyleSheet, TouchableOpacity } from "react-native";
 
 const HorizontalScrollPackage = ({
   imageSource,
@@ -23,47 +23,47 @@ const HorizontalScrollPackage = ({
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: 'white',
+    backgroundColor: "white",
     width: 150,
     margin: 10,
     borderRadius: 10,
-    overflow: 'hidden',
+    overflow: "hidden",
     height: 160,
   },
   image: {
     width: 50,
     height: 50,
-    resizeMode: 'cover',
-    alignSelf: 'center',
+    resizeMode: "cover",
+    alignSelf: "center",
   },
   title: {
-    fontWeight: 'bold',
+    fontWeight: "bold",
     fontSize: 14,
-    color: 'firebrick',
-    alignSelf: 'center',
+    color: "#2884ec",
+    alignSelf: "center",
   },
   content: {
-    color: 'grey',
-    alignSelf: 'center',
+    color: "grey",
+    alignSelf: "center",
     marginBottom: 10,
     fontSize: 10,
   },
   packagePriceButton: {
-    backgroundColor: 'white',
+    backgroundColor: "white",
     borderRadius: 8,
-    width: '80%',
-    alignItems: 'center',
-    justifyContent: 'center',
+    width: "80%",
+    alignItems: "center",
+    justifyContent: "center",
     marginTop: 30,
     marginLeft: 15,
     marginRight: 15,
     borderWidth: 1,
-    borderColor: 'darkred',
+    borderColor: "#2884ec",
   },
   packagePrice: {
-    color: 'darkred',
+    color: "#fc6f03",
     fontSize: 14,
-    fontWeight: 'bold',
+    fontWeight: "bold",
   },
 });
 

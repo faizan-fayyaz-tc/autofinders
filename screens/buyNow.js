@@ -6,12 +6,14 @@ import {
   ScrollView,
   ActivityIndicator,
   TouchableOpacity,
+  StatusBar,
 } from "react-native";
 import Header from "../components/header"; // Corrected import with PascalCase
 import { useNavigation } from "@react-navigation/core";
 import { AntDesign } from "@expo/vector-icons"; // Importing AntDesign icons
 import SearchBar from "../components/searchBar";
 import BuyNowCard from "../components/buyNowCards";
+import backArrow from "../assets/back-arrow.png";
 import axios from "axios";
 const BuyNow = () => {
   const navigation = useNavigation();
@@ -28,6 +30,7 @@ const BuyNow = () => {
 
   const handleFilterPress = () => {
     // Implement your filter logic here
+    navigation.navigate("filterSearchCar");
   };
 
   useEffect(() => {
@@ -52,6 +55,15 @@ const BuyNow = () => {
     <View style={styles.container}>
       <Header title="Buy Now" onPressBack={handleBackPress} />
 
+      {/* <View style={styles.header}>
+        <TouchableOpacity onPress={handleBack} style={styles.backButton}>
+          <Image source={backArrow} style={styles.backIcon} />
+        </TouchableOpacity>
+        <View style={styles.titleContainer}>
+          <Text style={styles.title}>Free Ads Service</Text>
+        </View>
+      </View> */}
+
       <View style={styles.rowContainer}>
         {/* Search bar */}
         <View style={styles.searchBar}>
@@ -64,7 +76,7 @@ const BuyNow = () => {
           onPress={handleFilterPress}
         >
           <Text style={styles.filterText}>Filter</Text>
-          <AntDesign name="filter" size={24} color="#fc6f03" />
+          <AntDesign name="filter" size={22} color="#fc6f03" />
         </TouchableOpacity>
       </View>
 
@@ -89,10 +101,10 @@ const BuyNow = () => {
                 carImage={item.images[0]}
                 name={item.brand}
                 variant={item.varient}
-                price="$25,000"
-                year="2019"
-                fuelType="petrol"
-                kmReading="2,11,000"
+                price={item.price}
+                year={item.year}
+                fuelType={item.fuelType}
+                kmReading={item.kmDriven}
                 location={item.location}
                 isInspected={item.inspected}
                 isFeatured={item.featured}

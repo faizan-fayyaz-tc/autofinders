@@ -11,7 +11,7 @@ import SellNowPopup from "../screens/sellNowPopup";
 import { useContext } from "react";
 import { UserContext } from "../context/userContext";
 import Icon from "react-native-vector-icons/Entypo";
-import SyncStorage from "sync-storage"
+import SyncStorage from "sync-storage";
 import FilterSearchCar from "../screens/filterSearchCar";
 const MainHeader = ({
   onPressHome,
@@ -30,7 +30,7 @@ const MainHeader = ({
     // Replace this with your actual logic for the My Ads button press
     navigation.navigate("myAds");
     // navigation.navigate('sellItMyself');
-    console.log("presed")
+    console.log("presed");
   };
 
   const [sellNowPopupVisible, setSellNowPopupVisible] = React.useState(false);
@@ -48,14 +48,14 @@ const MainHeader = ({
     navigation.navigate("more");
   };
 
-  const handleBuyNowPress = () =>{
+  const handleBuyNowPress = () => {
     navigation.navigate("buyNow");
   };
 
-  const handleFilterPress = () =>{
-    console.log(SyncStorage.get("token"))
-    navigation.navigate('filterSearchCar');
-  };
+  // const handleFilterPress = () => {
+  //   console.log(SyncStorage.get("token"));
+  //   navigation.navigate("filterSearchCar");
+  // };
 
   // return (
   //   <View style={styles.headerContainer}>
@@ -90,17 +90,13 @@ const MainHeader = ({
   //   </View>
   // );
 
-  
-
   return (
     <View>
       <View style={styles.headerContainer}>
         {/* User Name */}
         <View>
           <Text style={styles.welcomeText}>Welcome,</Text>
-          <Text style={styles.userName}>
-            {user.name ? user.name : "User"}
-          </Text>
+          <Text style={styles.userName}>{user.name ? user.name : "User"}</Text>
         </View>
 
         {/* More Button */}
@@ -121,9 +117,9 @@ const MainHeader = ({
         <TouchableOpacity style={styles.buttons} onPress={handleBuyNowPress}>
           <Text style={styles.buttonText}>Buy Now</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.buttons} onPress={handleFilterPress}>
+        {/* <TouchableOpacity style={styles.buttons} onPress={handleFilterPress}>
           <Text style={styles.buttonText}>Filter</Text>
-        </TouchableOpacity>
+        </TouchableOpacity> */}
       </View>
       <SellNowPopup
         visible={sellNowPopupVisible}
@@ -146,7 +142,6 @@ const styles = StyleSheet.create({
     paddingTop: 15 + StatusBar.currentHeight,
     paddingBottom: 10,
     paddingHorizontal: 20,
-
   },
   userName: {
     color: "white",
@@ -162,33 +157,31 @@ const styles = StyleSheet.create({
   buttonText: {
     color: "black",
     fontWeight: "bold",
-
   },
-  buttonHolder:{
-    display:"flex",
-    flexDirection:"row",
-    justifyContent:"space-between",
-    alignItems:"center",
-    paddingVertical:10,
-    paddingHorizontal:10,
-    width:"100%",
+  buttonHolder: {
+    display: "flex",
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+    paddingVertical: 10,
+    paddingHorizontal: 10,
+    width: "100%",
   },
-  buttons:{
-    backgroundColor:"white",
-    width:"22%",
-    height:40,
-    justifyContent:"center",
-    alignItems:"center",
-    padding:5,
-    borderRadius:110,
+  buttons: {
+    backgroundColor: "white",
+    width: "30%",
+    height: 40,
+    justifyContent: "center",
+    alignItems: "center",
+    padding: 5,
+    borderRadius: 110,
     elevation: 5,
   },
-  buttonText:{
-    textAlign:"center",
-    color : '#fc6f03',
-    fontWeight: 'bold'
-  }
-
+  buttonText: {
+    textAlign: "center",
+    color: "#fc6f03",
+    fontWeight: "bold",
+  },
 });
 
 export default MainHeader;

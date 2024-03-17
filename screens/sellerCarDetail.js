@@ -77,9 +77,9 @@ const SellerCarDetail = () => {
   };
 
   const carSpecs = [
-    { name: "2018", icon: require("../assets/modelYear.png") },
-    { name: "1,555,000", icon: require("../assets/carMeter.png") },
-    { name: "Petrol", icon: require("../assets/fuelIcon.png") },
+    { name: carDetails.year, icon: require("../assets/modelYear.png") },
+    { name: carDetails.kmDriven, icon: require("../assets/carMeter.png") },
+    { name: carDetails.fuelType, icon: require("../assets/fuelIcon.png") },
     { name: "Automatic", icon: require("../assets/transmission.png") },
   ];
 
@@ -238,7 +238,9 @@ const SellerCarDetail = () => {
 
           <Text style={styles.carNameText}>Name of Car</Text>
 
-          <Text style={styles.priceText}>PKR {carPrice}</Text>
+          <Text style={styles.priceText}>
+            PKR {carDetails && carDetails.price}
+          </Text>
 
           <Text style={styles.locationText}>
             {carDetails && carDetails.location}
