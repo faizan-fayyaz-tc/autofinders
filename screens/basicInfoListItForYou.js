@@ -11,6 +11,7 @@ import {
   FlatList,
   StatusBar,
 } from "react-native";
+import { Picker } from "@react-native-picker/picker";
 import { useState, useEffect } from "react";
 import { useNavigation } from "@react-navigation/native"; // Import navigation hook from react-navigation
 import CarModelPicker from "../components/carModelPicker";
@@ -404,6 +405,19 @@ const BasicInfoListItForYou = ({ navigation }) => {
             onSelectVariant={handleVariantSelect}
             onSelectModel={handleModelSelect}
           />
+
+          <View>
+            <Picker
+              selectedValue={selectedPickerValue}
+              style={{ height: 50, width: 140 }}
+              onValueChange={(itemValue, itemIndex) => {
+                setSelectedPickerValue(itemValue);
+              }}
+            >
+              <Picker.Item label="java" value="java" />
+              <Picker.Item label="java" value="java" />
+            </Picker>
+          </View>
 
           <View style={styles.inputContainer}>
             <Text style={styles.label}>Engine Capacity*</Text>

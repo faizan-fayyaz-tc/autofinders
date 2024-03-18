@@ -40,6 +40,7 @@ import PremiumAdsPostService from "./premiumAdsPostService";
 import BasicInfoBuyCarForMe from "./basicInfoBuyCarForMe";
 import BasicInfoListItForYou from "./basicInfoListItForYou";
 import FilterSearchCar from "./filterSearchCar";
+import TransactionApproval from "./transactionApproval";
 import BuyNow from "./buyNow";
 import SyncStorage from "sync-storage";
 import { useContext } from "react";
@@ -118,6 +119,10 @@ const AppNavigator = () => {
       <Stack.Screen name="rentPostService" component={RentPostService} />
       <Stack.Screen name="filterSearch" component={FilterSearch} />
       <Stack.Screen name="filterSearchCar" component={FilterSearchCar} />
+      <Stack.Screen
+        name="transactionApproval"
+        component={TransactionApproval}
+      />
       <Stack.Screen
         name="basicInfoBuyCarForMe"
         component={BasicInfoBuyCarForMe}
