@@ -204,7 +204,7 @@ const freeAdsPostService = () => {
     // console.log(adData);
     try {
       const response = await axios.post(
-        "http://192.168.10.9:8000/api/carAd/upload",
+        "http://192.168.10.12:8000/api/carAd/upload",
         adData
       );
       console.log(response.data);

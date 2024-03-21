@@ -1,12 +1,14 @@
-import React from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import React from "react";
+import { View, Text, StyleSheet } from "react-native";
 
 const Advantage = ({ advantages }) => {
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Advantages of Our Application:</Text>
+      <Text style={styles.title}>Advantages of Rent Service</Text>
       {advantages.map((advantage, index) => (
-        <Text key={index} style={styles.advantage}>{index + 1}. {advantage}</Text>
+        <Text key={index} style={styles.advantage}>
+          {index + 1}. {advantage}
+        </Text>
       ))}
     </View>
   );
@@ -15,16 +17,16 @@ const Advantage = ({ advantages }) => {
 const styles = StyleSheet.create({
   container: {
     padding: 20,
-    backgroundColor: 'white',
+    backgroundColor: "white",
     borderRadius: 10,
     margin: 20,
     elevation: 5,
   },
   title: {
     fontSize: 18,
-    fontWeight: 'bold',
+    fontWeight: "bold",
     marginBottom: 10,
-    color: 'black'
+    color: "darkgreen",
   },
   advantage: {
     fontSize: 14,

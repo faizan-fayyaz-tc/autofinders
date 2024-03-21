@@ -1,34 +1,46 @@
-/* eslint-disable prettier/prettier */
 import React, { useState } from "react";
 import {
   View,
   Text,
   TouchableOpacity,
-  Image,
   StyleSheet,
-  ScrollView,
+  Image,
+  StatusBar,
+  Alert,
 } from "react-native";
+import { useEffect } from "react";
+import LoginHeader from "../components/loginHeader";
+import LogoutHeader from "../components/logoutHeader";
+import { ScrollView } from "react-native-gesture-handler";
 import { useNavigation } from "@react-navigation/native";
-import ProfileScreen from "./profile";
-import MyGarage from "./myGarage";
+import SyncStorage from "sync-storage";
 import { useContext } from "react";
 import { UserContext } from "../context/userContext";
-import SyncStorage from "sync-storage";
 
-const More = ({ navigation }) => {
+const MoreOption = ({ navigation }) => {
+  const [isLoggedIn, setIsLoggedIn] = useState(false); // Set to true if user is logged in
+  const username = "John Doe"; // Get username if logged in
   const { user, dispatch } = useContext(UserContext);
-  //const navigation = useNavigation();
-  const [showPersonalDropdown, setShowPersonalDropdown] = useState(false);
+
+  useEffect(() => {
+    const token = SyncStorage.get("token");
+    setIsLoggedIn(!!token);
+  }, []);
+
   const [showProductDropdown, setShowProductDropdown] = useState(false);
   const [showServicesDropdown, setShowServicesDropdown] = useState(false);
   const [showExploreDropdown, setShowExploreDropdown] = useState(false);
+  const [showPersonalDropdown, setShowPersonalDropdown] = useState(false);
 
-  const togglePersonalDropdown = () => {
-    setShowPersonalDropdown(!showPersonalDropdown);
-  };
   const toggleProductDropdown = () => {
     setShowProductDropdown(!showProductDropdown);
   };
+  const togglePersonalDropdown = () => {
+    setShowPersonalDropdown(!showPersonalDropdown);
+  };
+  // const toggleProductDropdown = () => {
+  //   setShowProductDropdown(!showProductDropdown);
+  // };
   const toggleServicesDropdown = () => {
     setShowServicesDropdown(!showServicesDropdown);
   };
@@ -36,20 +48,40 @@ const More = ({ navigation }) => {
     setShowExploreDropdown(!showExploreDropdown);
   };
 
-  const handlerViewProfile = () => {
-    //  navigation.navigate('ProfileScreen');
-    navigation.navigate("profile");
+  const handleLogin = () => {
+    // Handle login logic
+    navigation.navigate("emailSignin");
   };
 
-  // const handleMyGarage = () => {
-  //   console.log('MyGarage');
-  //   //navigation.navigate("MyGarage");
-  //   navigation.navigate('MyGarage');
-  // };
+  const handleLogout = () => {
+    // Handle logout logic
+    Alert.alert(
+      "Logout",
+      "Are you sure you want to logout?",
+      [
+        {
+          text: "Cancel",
+          onPress: () => console.log("Cancel Pressed"),
+          style: "cancel",
+        },
+        {
+          text: "Logout",
+          onPress: () => {
+            setIsLoggedIn(false);
+            SyncStorage.remove("token");
+            dispatch({ type: "LOGOUT" });
+            navigation.navigate("home");
+          },
+        },
+      ],
+      { cancelable: false }
+    );
+  };
 
-  // const handleMyCart = () => {
-  //   console.log('Navigate to My Cart');
-  // };
+  const handleViewProfile = () => {
+    // Handle view profile logic
+    navigation.navigate("profile");
+  };
 
   const handleSavedAs = () => {
     console.log("Navigate to Saved As");
@@ -105,35 +137,29 @@ const More = ({ navigation }) => {
   const handleContactUs = () => {
     console.log("Navigate to Saved As");
   };
-  const handlerLogin = () => {
-    console.log("login Pressed");
-    console.log(SyncStorage.get("token"));
-    dispatch({ type: "LOGIN", payload: userData });
-  };
-  const handlerLogout = () => {
-    console.log("logout pressed");
-    dispatch({ type: "LOGOUT" });
-    SyncStorage.remove("token");
-  };
+
+  //   const token = SyncStorage.get("token");
+  //   if (!token) {
+  //     setIsLoggedIn(false);
+  //   } else {
+  //     setIsLoggedIn(true);
+  //   }
 
   return (
-    <View style={styles.container}>
-      <Text style={styles.usernameText}>Username</Text>
+    <View>
       <View>
-        <View style={styles.loginlogoutView}>
-          <TouchableOpacity
-            style={styles.profileButton}
-            onPress={handlerViewProfile}
-          >
-            <Text style={styles.profileButtonText}>View Profile</Text>
-            <Image
-              source={require("../assets/right-arrow.png")}
-              style={styles.arrowIcon}
-              resizeMode="contain"
-            />
-          </TouchableOpacity>
-        </View>
-
+        {isLoggedIn ? (
+          <LogoutHeader
+            username={user.name ? user.name : "User"}
+            onViewProfilePress={handleViewProfile}
+            onLogoutPress={handleLogout}
+          />
+        ) : (
+          <LoginHeader onLoginPress={handleLogin} />
+        )}
+        {/* Your other content goes here */}
+      </View>
+      <ScrollView>
         {/* Personal  dropdown*/}
         <TouchableOpacity
           style={styles.dropdownItem}
@@ -390,17 +416,7 @@ const More = ({ navigation }) => {
             </TouchableOpacity>
           </View>
         )}
-        <View style={styles.centeredTextContainer}>
-          <TouchableOpacity
-            onPress={handleContactUs} // Add your event handler here
-          >
-            <Text style={styles.needHelpText}>
-              Need help? <Text style={styles.contactUsText}>Contact us</Text>
-            </Text>
-          </TouchableOpacity>
-          <Text style={styles.additionalText}>11.11.86</Text>
-        </View>
-      </View>
+      </ScrollView>
     </View>
   );
 };
@@ -410,6 +426,28 @@ const styles = StyleSheet.create({
     height: 120,
     paddingHorizontal: 20,
     backgroundColor: "#fc6f03",
+  },
+  header: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+    paddingHorizontal: 20,
+    paddingVertical: 10,
+    borderBottomWidth: 1,
+    borderBottomColor: "lightgray",
+  },
+  usernameText: {
+    fontSize: 18,
+    fontWeight: "bold",
+    color: "black",
+  },
+  logoutText: {
+    fontSize: 16,
+    color: "blue",
+  },
+  loginText: {
+    fontSize: 16,
+    color: "blue",
   },
   usernameText: {
     fontSize: 22,
@@ -506,4 +544,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default More;
+export default MoreOption;

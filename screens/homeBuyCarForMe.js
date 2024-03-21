@@ -7,6 +7,7 @@ import {
   Text,
   ScrollView,
   StatusBar,
+  Animated,
 } from "react-native";
 import { useState } from "react";
 import { useNavigation } from "@react-navigation/native"; // Import navigation hook from react-navigation
@@ -14,11 +15,21 @@ import HorizontalScrollItem from "./horizontallScrollItems";
 import ManagedByAutoFinder from "../components/managedByAutoFinder";
 // import InspectionIncludedComponentt from './InspectionIncludedComponent';
 // import HorizontalScrollPackagee from './horizontalScrollPackage';
+import { useEffect, useRef } from "react";
 
 const homeBuyCarForMe = ({ navigation }) => {
   // const navigation = useNavigation();
 
   const [selectedPackage, setSelectedPackage] = useState(null);
+  const fadeAnim = useRef(new Animated.Value(0)).current;
+
+  useEffect(() => {
+    Animated.timing(fadeAnim, {
+      toValue: 1,
+      duration: 1000,
+      useNativeDriver: true,
+    }).start();
+  }, [fadeAnim]);
 
   const FeatureLine = ({ imageSource, text }) => (
     <View style={styles.featureLine}>
@@ -99,30 +110,33 @@ const homeBuyCarForMe = ({ navigation }) => {
           style={styles.image}
         />
         <Text style={styles.addText}>Buy Car For Me</Text>
-        <TouchableOpacity
-          style={styles.button}
-          onPress={handleFacilitateMyCarPurchase}
-        >
-          <Text style={styles.buttonText}>Facilitate My Car Purchase</Text>
-        </TouchableOpacity>
+
+        <Animated.View style={[styles.container, { opacity: fadeAnim }]}>
+          <TouchableOpacity
+            style={styles.button}
+            onPress={handleFacilitateMyCarPurchase}
+          >
+            <Text style={styles.buttonText}>Facilitate My Car Purchase</Text>
+          </TouchableOpacity>
+        </Animated.View>
 
         <Text style={styles.addTextChoose}>
           Why AutoFinder is best to "Buy Car For You"?{" "}
         </Text>
         <FeatureLine
-          imageSource={require("../assets/reports.png")}
+          imageSource={require("../assets/consultation.png")}
           text="Personalized consultation"
         />
         <FeatureLine
-          imageSource={require("../assets/staff.png")}
+          imageSource={require("../assets/searchCar.png")}
           text="Extensive vehicle search"
         />
         <FeatureLine
-          imageSource={require("../assets/inspection.png")}
+          imageSource={require("../assets/saleman.png")}
           text="Professional purchased executives"
         />
         <FeatureLine
-          imageSource={require("../assets/inspection.png")}
+          imageSource={require("../assets/tensionfree.png")}
           text="Tension free service"
         />
 
@@ -130,15 +144,15 @@ const homeBuyCarForMe = ({ navigation }) => {
           How AutoFinder Buy Car For Me service works?
         </Text>
         <WorksellForItForMe
-          imageSource={require("../assets/number-1.png")}
+          imageSource={require("../assets/one.png")}
           text="Sign Up for Buy Car For Me service."
         />
         <WorksellForItForMe
-          imageSource={require("../assets/number-2.png")}
+          imageSource={require("../assets/two.png")}
           text="Our team will promptly contact you to collect information for your desired future car."
         />
         <WorksellForItForMe
-          imageSource={require("../assets/number-3.png")}
+          imageSource={require("../assets/three.png")}
           text="you have to pay initial payment through different channels available at your convenience."
         />
 
@@ -264,6 +278,7 @@ const homeBuyCarForMe = ({ navigation }) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    backgroundColor: "white",
   },
   header: {
     backgroundColor: "#fc6f03",
@@ -332,7 +347,7 @@ const styles = StyleSheet.create({
     width: 20,
     height: 20,
     marginRight: 10,
-    tintColor: "#fc6f03",
+    // tintColor: "#fc6f03",
   },
   featureText: {
     fontSize: 14,
@@ -369,7 +384,7 @@ const styles = StyleSheet.create({
     width: 20,
     height: 20,
     marginRight: 10,
-    tintColor: "#fc6f03",
+    // tintColor: "#fc6f03",
   },
   worksellForItForMeText: {
     fontSize: 14,

@@ -11,11 +11,13 @@ import {
   FlatList,
   StatusBar,
 } from "react-native";
-import { Picker } from "@react-native-picker/picker";
+import { Picker } from "react-native";
+
 import { useState, useEffect } from "react";
 import { useNavigation } from "@react-navigation/native"; // Import navigation hook from react-navigation
 import CarModelPicker from "../components/carModelPicker";
 import LocationPicker from "../components/locationPicker";
+import EngineCapacityModal from "../components/engineCapacityPicker";
 
 const BasicInfoListItForYou = ({ navigation }) => {
   const numColumns = 3;
@@ -25,7 +27,7 @@ const BasicInfoListItForYou = ({ navigation }) => {
   const [selectedCity, setSelectedCity] = useState(null);
   const [isCityModalVisible, setCityModalVisible] = useState(false);
   const [selectedYear, setSelectedYear] = useState(null);
-  const [engineCC, setEngineCC] = useState("");
+  // const [engineCC, setEngineCC] = useState("");
   const [isYearModalVisible, setYearModalVisible] = useState(false);
   const [selectedBrand, setSelectedBrand] = useState(null);
   const [isBrandModalVisible, setBrandModalVisible] = useState(false);
@@ -43,6 +45,9 @@ const BasicInfoListItForYou = ({ navigation }) => {
   const [cityError, setCityError] = useState(false);
   const [engineCCerror, setEngineCCerror] = useState(false);
   const [validationOK, setvalidationOK] = useState(false);
+  // const [selectedPickerValue, setSelectedPickerValue] = useState("java");
+  const [isCapacityModalVisible, setIsCapacityModalVisible] = useState(false);
+  const [selectedCapacity, setSelectedCapacity] = useState("");
 
   const handleBrandSearch = (text) => {
     const filtered = brands.filter((brand) =>
@@ -74,6 +79,7 @@ const BasicInfoListItForYou = ({ navigation }) => {
   const validation = () => {
     if (fullName.length <= 3) {
       setEmptyNameError(true);
+      return false;
     } else {
       setEmptyNameError(false);
       // Add logic to proceed to the next step
@@ -81,34 +87,30 @@ const BasicInfoListItForYou = ({ navigation }) => {
     const phoneRegex = /^03\d{9}$/;
     if (phoneNumber !== "" && !phoneRegex.test(phoneNumber)) {
       setInvalidPhoneError(true);
+      return false;
     } else {
       setInvalidPhoneError(false);
     }
     if (phoneNumber === "") {
       setEmptyPhoneError(true);
+      return false;
     } else {
       setEmptyPhoneError(false);
     }
 
     if (selectedLocation === "") {
       setCityError(true);
+      return false;
     } else {
       setCityError(false);
     }
-    if (engineCC.length <= 3) {
-      setEngineCCerror(true);
-    } else {
-      setEngineCCerror(false);
-    }
+    // if (engineCC.length <= 3) {
+    //   setEngineCCerror(true);
+    // } else {
+    //   setEngineCCerror(false);
+    // }
 
-    if (
-      !setEmptyNameError &&
-      !setEmptyPhoneError &&
-      !setCityError &&
-      !setInvalidPhoneError
-    ) {
-      setvalidationOK(true);
-    }
+    return true;
   };
 
   const handleNext = () => {
@@ -119,7 +121,7 @@ const BasicInfoListItForYou = ({ navigation }) => {
     //   validation();
     // }
 
-    validation();
+    // validation();
 
     const data = {
       fullName,
@@ -130,10 +132,12 @@ const BasicInfoListItForYou = ({ navigation }) => {
       selectedModel,
       selectedVariant,
       carSummary,
-      engineCC,
+      selectedCapacity,
     };
     // console.log(data);
-    navigation.navigate("bookExpertVisitCarInspection", { data });
+    if (validation()) {
+      navigation.navigate("bookExpertVisitCarInspection", { data });
+    }
   };
   const handleCitySelection = (city) => {
     setSelectedCity(city);
@@ -217,6 +221,10 @@ const BasicInfoListItForYou = ({ navigation }) => {
     // A = location;
     handleCloseLocationPicker();
     // console.log(A);
+  };
+
+  const handleCapacitySelect = (capacity) => {
+    setSelectedCapacity(capacity);
   };
 
   const cities = [
@@ -406,7 +414,7 @@ const BasicInfoListItForYou = ({ navigation }) => {
             onSelectModel={handleModelSelect}
           />
 
-          <View>
+          {/* <View>
             <Picker
               selectedValue={selectedPickerValue}
               style={{ height: 50, width: 140 }}
@@ -417,9 +425,9 @@ const BasicInfoListItForYou = ({ navigation }) => {
               <Picker.Item label="java" value="java" />
               <Picker.Item label="java" value="java" />
             </Picker>
-          </View>
+          </View> */}
 
-          <View style={styles.inputContainer}>
+          {/* <View style={styles.inputContainer}>
             <Text style={styles.label}>Engine Capacity*</Text>
             <TextInput
               style={styles.textField}
@@ -433,7 +441,28 @@ const BasicInfoListItForYou = ({ navigation }) => {
                 Please enter your car's engine capacity 'CC'.
               </Text>
             )}
-          </View>
+          </View> */}
+
+          <TouchableOpacity
+            style={styles.inputContainer}
+            onPress={() => setIsCapacityModalVisible(true)}
+          >
+            <Text style={styles.label}>Engine Capacity CC</Text>
+            <View style={styles.citySelectionField}>
+              <Text style={styles.selectedCity}>
+                {selectedCapacity || "Select engine Capacity"}
+              </Text>
+              <Image
+                source={require("../assets/right-arrow.png")}
+                style={styles.arrowIcon}
+              />
+            </View>
+          </TouchableOpacity>
+          <EngineCapacityModal
+            isVisible={isCapacityModalVisible}
+            onClose={() => setIsCapacityModalVisible(false)}
+            onSelectCapacity={handleCapacitySelect}
+          />
 
           <View style={styles.inputContainer}>
             <Text style={styles.label}>Vehicle Description</Text>

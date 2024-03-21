@@ -12,7 +12,7 @@ import Welcome from "./welcome";
 import EmailSignin from "./emailSignin";
 import GoogleSignin from "./googleSignin";
 import SignUp from "./signUp";
-import More from "./more";
+// import More from "./more";
 // import MyGarage from './myGarage';
 import homeCarInspection from "./homeCarInspection";
 import home from "./home";
@@ -42,9 +42,13 @@ import BasicInfoListItForYou from "./basicInfoListItForYou";
 import FilterSearchCar from "./filterSearchCar";
 import TransactionApproval from "./transactionApproval";
 import BuyNow from "./buyNow";
+import BookRent from "./bookRent";
+import Testing from "./testing";
+import SellerRentDetail from "./sellerRentDetail";
 import SyncStorage from "sync-storage";
 import { useContext } from "react";
 import { UserContext } from "../context/userContext";
+import MoreOption from "./moreOption";
 import axios from "axios";
 
 const Stack = createStackNavigator();
@@ -78,7 +82,7 @@ const AppNavigator = () => {
         }}
       />
       <Stack.Screen name="homeCarInspection" component={homeCarInspection} />
-      <Stack.Screen name="more" component={More} />
+      {/* <Stack.Screen name="more" component={More} /> */}
       <Stack.Screen name="profile" component={Profile} />
       <Stack.Screen name="welcome" component={Welcome} />
       <Stack.Screen name="emailSignin" component={EmailSignin} />
@@ -119,6 +123,7 @@ const AppNavigator = () => {
       <Stack.Screen name="rentPostService" component={RentPostService} />
       <Stack.Screen name="filterSearch" component={FilterSearch} />
       <Stack.Screen name="filterSearchCar" component={FilterSearchCar} />
+      <Stack.Screen name="moreOption" component={MoreOption} />
       <Stack.Screen
         name="transactionApproval"
         component={TransactionApproval}
@@ -132,6 +137,9 @@ const AppNavigator = () => {
         component={BasicInfoListItForYou}
       />
       <Stack.Screen name="buyNow" component={BuyNow} />
+      <Stack.Screen name="bookRent" component={BookRent} />
+      <Stack.Screen name="sellerRentDetail" component={SellerRentDetail} />
+      <Stack.Screen name="testing" component={Testing} />
     </Stack.Navigator>
   );
 };

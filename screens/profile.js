@@ -2,7 +2,6 @@
 //packages to be installed..dependencies in this screens
 //npm i @react-native-community/datetimepicker
 
-import React from 'react';
 import {
   View,
   Text,
@@ -13,13 +12,16 @@ import {
   Alert,
   ScrollView,
   Modal,
-} from 'react-native';
-import {useState} from 'react';
-import {useEffect} from 'react';
-import DateTimePicker from '@react-native-community/datetimepicker';
-import {useNavigation} from '@react-navigation/native';
+  StatusBar,
+} from "react-native";
+import { useState } from "react";
+import { useEffect } from "react";
+import DateTimePicker from "@react-native-community/datetimepicker";
+import { useNavigation } from "@react-navigation/native";
+import { UserContext } from "../context/userContext";
+import { useContext } from "react";
 
-const CustomAlert = ({visible, message, onClose}) => {
+const CustomAlert = ({ visible, message, onClose }) => {
   if (!visible) {
     return null;
   }
@@ -28,14 +30,15 @@ const CustomAlert = ({visible, message, onClose}) => {
       transparent
       animationType="fade"
       visible={visible}
-      onRequestClose={onClose}>
+      onRequestClose={onClose}
+    >
       <View style={styles.modalBackground}>
         <View style={styles.modalContainer}>
           <View style={styles.modalContent}>
             <Text style={styles.messageText}>{message}</Text>
             <TouchableOpacity style={styles.closeButton} onPress={onClose}>
               <Image
-                source={require('../assets/updatedIcon.png')}
+                source={require("../assets/updatedIcon.png")}
                 style={styles.closeIcon}
                 resizeMode="contain"
               />
@@ -47,85 +50,99 @@ const CustomAlert = ({visible, message, onClose}) => {
   );
 };
 
-const Profile = ({navigation}) => {
-  useEffect(() => {
-    setShowSuccessModal(false); // Reset showSuccessModal state when the component mounts or unmounts
-  }, []);
+const Profile = ({ navigation }) => {
+  const { user } = useContext(UserContext);
+  // useEffect(() => {
+  //   setShowSuccessModal(false); // Reset showSuccessModal state when the component mounts or unmounts
+  // }, []);
 
   const [isEditable, setIsEditable] = useState(false);
-  const [editButtonText, setEditButtonText] = useState('Edit Profile');
-  const [showDatePicker, setShowDatePicker] = useState(false);
-  const [selectedDate, setSelectedDate] = useState('');
-  const [showSuccessModal, setShowSuccessModal] = useState(false);
-  const [isSaveButtonClicked, setIsSaveButtonClicked] = useState(false);
+  // const [editButtonText, setEditButtonText] = useState("Edit Profile");
+  // const [showDatePicker, setShowDatePicker] = useState(false);
+  // const [selectedDate, setSelectedDate] = useState("");
+  // const [showSuccessModal, setShowSuccessModal] = useState(false);
+  // const [isSaveButtonClicked, setIsSaveButtonClicked] = useState(false);
 
-  useEffect(() => {
-    if (isSaveButtonClicked) {
-      const timer = setTimeout(() => {
-        setShowSuccessModal(false);
-        setIsEditable(false);
-        setEditButtonText('Edit Profile');
-      }, 2000);
+  // useEffect(() => {
+  //   if (isSaveButtonClicked) {
+  //     const timer = setTimeout(() => {
+  //       setShowSuccessModal(false);
+  //       setIsEditable(false);
+  //       setEditButtonText("Edit Profile");
+  //     }, 2000);
 
-      return () => clearTimeout(timer);
-    }
-  }, [isSaveButtonClicked]);
+  //     return () => clearTimeout(timer);
+  //   }
+  // }, [isSaveButtonClicked]);
 
-  const handleLocationPress = () => {
-    Alert.alert('Location Pressed');
-  };
+  // const handleLocationPress = () => {
+  //   Alert.alert("Location Pressed");
+  // };
   const handlerBack = () => {
-    navigation.navigate('more')
+    navigation.navigate("more");
   };
 
-  const handleGenderPress = () => {
-    Alert.alert('Gender Pressed');
-  };
+  // const handleGenderPress = () => {
+  //   Alert.alert("Gender Pressed");
+  // };
 
-  const handleBirthdayPress = () => {
-    if (isEditable) {
-      setShowDatePicker(true);
-    }
-  };
-  const handleDateChange = (event, selected) => {
-    setShowDatePicker(false);
-    if (selected) {
-      const selectedDateString = selected.toLocaleDateString(); // Customize date format if needed
-      setSelectedDate(selectedDateString);
-    }
-  };
+  // const handleBirthdayPress = () => {
+  //   if (isEditable) {
+  //     setShowDatePicker(true);
+  //   }
+  // };
+  // const handleDateChange = (event, selected) => {
+  //   setShowDatePicker(false);
+  //   if (selected) {
+  //     const selectedDateString = selected.toLocaleDateString(); // Customize date format if needed
+  //     setSelectedDate(selectedDateString);
+  //   }
+  // };
 
-  const handleEditSaveChanges = () => {
-    if (!isEditable) {
-      setIsEditable(true);
-      setEditButtonText('Save Changes');
-    } else {
-      setIsEditable(false);
-      setEditButtonText('Edit Profile');
-      // Perform logic to save changes here
-      setShowSuccessModal(true);
-      setIsSaveButtonClicked(true);
-    }
-  };
+  // const handleEditSaveChanges = () => {
+  //   if (!isEditable) {
+  //     setIsEditable(true);
+  //     setEditButtonText("Save Changes");
+  //   } else {
+  //     setIsEditable(false);
+  //     setEditButtonText("Edit Profile");
+  //     // Perform logic to save changes here
+  //     setShowSuccessModal(true);
+  //     setIsSaveButtonClicked(true);
+  //   }
+  // };
 
-  const handleCloseSuccessModal = () => {
-    setShowSuccessModal(false); // Close the success modal
-    setIsEditable(false); // Set isEditable state to false after closing modal
-    setEditButtonText('Edit Profile'); // Reset button text after closing modal
-  };
+  // const handleCloseSuccessModal = () => {
+  //   setShowSuccessModal(false); // Close the success modal
+  //   setIsEditable(false); // Set isEditable state to false after closing modal
+  //   setEditButtonText("Edit Profile"); // Reset button text after closing modal
+  // };
   return (
     <View style={styles.container}>
       {/* Header */}
 
-      <View style={styles.header}>
+      {/* <View style={styles.header}>
         <TouchableOpacity onPress={handlerBack}>
           <Image
-            source={require('../assets/back-arrow.png')}
+            source={require("../assets/back-arrow.png")}
             style={styles.backButton}
             resizeMode="contain"
           />
         </TouchableOpacity>
         <Text style={styles.title}>My Profile</Text>
+      </View> */}
+
+      <View style={styles.header}>
+        <TouchableOpacity onPress={handlerBack} style={styles.backButton}>
+          <Image
+            source={require("../assets/back-arrow.png")}
+            style={styles.backIcon}
+            resizeMode="contain"
+          />
+        </TouchableOpacity>
+        <View style={styles.titleContainer}>
+          <Text style={styles.title}>Profile</Text>
+        </View>
       </View>
 
       <ScrollView contentContainerStyle={styles.scrollViewContainer}>
@@ -139,42 +156,57 @@ const Profile = ({navigation}) => {
                   style={styles.textField}
                   placeholder="Enter full name"
                   placeholderTextColor="gray"
-                  editable={isEditable}
+                  // editable={isEditable}
+                  value={user.name ? user.name : "User"}
                 />
               </View>
             </View>
             <View style={styles.textFieldContainer}>
-              <Text style={styles.placeholder}>Your Location</Text>
+              <Text style={styles.placeholder}>Your Email Address</Text>
+              <TextInput
+                style={styles.textField}
+                // placeholder="Enter email address"
+                placeholderTextColor="gray"
+                // editable={isEditable}
+                value={user.email ? user.email : "firstname1234@gmail.com"}
+              />
+            </View>
+            <View style={styles.textFieldContainer}>
+              <Text style={styles.placeholder}>Your Phone Number</Text>
+              <TextInput
+                style={styles.textField}
+                // placeholder="Enter email address"
+                placeholderTextColor="gray"
+                // editable={isEditable}
+                value={user.phoneNumber ? user.phoneNumber : "03xxxxxxxxx"}
+              />
+            </View>
+            <View style={styles.textFieldContainer}>
+              <Text style={styles.placeholder}>Your Address</Text>
               <View style={styles.inputWithIcon}>
                 <TextInput
                   style={styles.textField}
-                  placeholder="Select location"
+                  // placeholder=""
                   placeholderTextColor="gray"
-                  editable={isEditable}
+                  // editable={isEditable}
+                  value={user.address ? user.address : "HNO # ABC, - - -"}
                 />
-                <TouchableOpacity onPress={handleLocationPress}>
-                  <Image
-                    source={require('../assets/right-arrow.png')}
-                    style={styles.arrowIcon}
-                    resizeMode="contain"
-                  />
-                </TouchableOpacity>
               </View>
             </View>
-            <View style={styles.textFieldContainer}>
+            {/* <View style={styles.textFieldContainer}>
               <Text style={styles.placeholder}>Your Birthday</Text>
               <View style={styles.inputWithIcon}>
                 <TextInput
                   style={[
                     styles.textField,
                     {
-                      color: selectedDate ? 'black' : 'gray',
+                      color: selectedDate ? "black" : "gray",
                     },
                   ]}
                   placeholder={
                     isEditable
-                      ? 'Select birthday'
-                      : selectedDate || 'Select birthday'
+                      ? "Select birthday"
+                      : selectedDate || "Select birthday"
                   }
                   placeholderTextColor="gray"
                   value={selectedDate}
@@ -183,7 +215,7 @@ const Profile = ({navigation}) => {
                 />
                 <TouchableOpacity onPress={handleBirthdayPress}>
                   <Image
-                    source={require('../assets/right-arrow.png')}
+                    source={require("../assets/right-arrow.png")}
                     style={styles.arrowIcon}
                     resizeMode="contain"
                   />
@@ -197,16 +229,8 @@ const Profile = ({navigation}) => {
                   onChange={handleDateChange} // Event handler for date change
                 />
               )}
-            </View>
-            <View style={styles.textFieldContainer}>
-              <Text style={styles.placeholder}>Your Email Address</Text>
-              <TextInput
-                style={styles.textField}
-                placeholder="Enter email address"
-                placeholderTextColor="gray"
-                editable={isEditable}
-              />
-            </View>
+            </View> */}
+            {/* 
             <View style={styles.textFieldContainer}>
               <Text style={styles.placeholder}>Please Choose a Gender</Text>
               <View style={styles.inputWithIcon}>
@@ -218,26 +242,27 @@ const Profile = ({navigation}) => {
                 />
                 <TouchableOpacity onPress={handleGenderPress}>
                   <Image
-                    source={require('../assets/down-arrow.png')}
+                    source={require("../assets/down-arrow.png")}
                     style={styles.arrowIcon}
                     resizeMode="contain"
                   />
                 </TouchableOpacity>
               </View>
-            </View>
+            </View> */}
           </View>
-          <TouchableOpacity
+          {/* <TouchableOpacity
             style={styles.editProfileButton}
-            onPress={handleEditSaveChanges}>
+            onPress={handleEditSaveChanges}
+          >
             <Text style={styles.editProfileButtonText}>{editButtonText}</Text>
-          </TouchableOpacity>
+          </TouchableOpacity> */}
         </View>
       </ScrollView>
-      <CustomAlert
+      {/* <CustomAlert
         visible={showSuccessModal}
         message="Update Successful!"
         onClose={handleCloseSuccessModal} // Close the modal when onClose is triggered
-      />
+      /> */}
     </View>
   );
 };
@@ -248,88 +273,94 @@ const styles = StyleSheet.create({
   },
   container: {
     flex: 1,
-    backgroundColor: '#fff',
+    backgroundColor: "#fff",
   },
   header: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    backgroundColor: 'darkred',
-    padding: 15,
-    zIndex: 1,
+    flexDirection: "row",
+    alignItems: "center",
+    backgroundColor: "#fc6f03",
+    paddingTop: StatusBar.currentHeight,
+    // zIndex: 1,
   },
   backButton: {
-    width: 24,
-    height: 24,
-    tintColor: 'white',
-    marginRight: 10,
+    // paddingRight: 20,
+    tintColor: "white",
+  },
+  backIcon: {
+    width: 25,
+    height: 25,
+    tintColor: "white",
+    marginLeft: 15,
   },
   title: {
+    color: "white",
     fontSize: 18,
-    fontWeight: 'bold',
-    color: 'white',
+    fontWeight: "bold",
+    alignSelf: "center",
+    marginLeft: 20,
   },
   background: {
     flex: 1,
-    backgroundColor: 'ghostwhite',
-    justifyContent: 'center',
-    alignItems: 'center',
+    backgroundColor: "ghostwhite",
+    justifyContent: "center",
+    alignItems: "center",
   },
   textFieldsContainer: {
-    width: '80%',
+    width: "80%",
   },
   textFieldContainer: {
     marginBottom: 20,
   },
   placeholder: {
-    color: 'darkred',
-    fontWeight: 'bold',
+    color: "#fc6f03",
+    fontWeight: "bold",
     marginBottom: 5,
   },
   textField: {
-    backgroundColor: 'white',
+    backgroundColor: "white",
     borderRadius: 5,
     padding: 12,
     paddingRight: 40,
   },
   inputWithIcon: {
-    position: 'relative',
+    position: "relative",
   },
   arrowIcon: {
-    position: 'absolute',
+    position: "absolute",
     right: 10,
-    top: '50%',
+    top: "50%",
     marginTop: -35,
     width: 20,
     height: 20,
-    tintColor: 'darkred',
+    tintColor: "darkred",
   },
   editProfileButton: {
-    position: 'absolute',
+    position: "absolute",
     bottom: 20,
     left: 40,
     right: 40,
-    backgroundColor: 'white',
+    backgroundColor: "white",
     borderWidth: 1,
-    borderColor: 'darkred',
+    borderColor: "darkred",
     borderRadius: 5,
     padding: 15,
-    alignItems: 'center',
+    alignItems: "center",
   },
   editProfileButtonText: {
-    color: 'darkred',
-    fontWeight: 'bold',
+    color: "darkred",
+    fontWeight: "bold",
   },
   modalBackground: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: 'rgba(0, 0, 0, 0.5)',
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: "rgba(0, 0, 0, 0.5)",
   },
   modalContainer: {
-    width: '60%',
-    backgroundColor: 'white',
+    width: "60%",
+    backgroundColor: "white",
     borderRadius: 10,
-    alignItems: 'center',
+    alignItems: "center",
     padding: 20,
   },
   modalContent: {
@@ -344,7 +375,7 @@ const styles = StyleSheet.create({
   closeIcon: {
     height: 30,
     width: 30,
-    alignSelf: 'center', // Align the icon in the center horizontally
+    alignSelf: "center", // Align the icon in the center horizontally
     marginTop: 20, // Adjust the top margin to create space between the text and the icon
   },
 });

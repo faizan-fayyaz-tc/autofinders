@@ -7,6 +7,7 @@ import {
   Text,
   ScrollView,
   StatusBar,
+  Animated,
 } from "react-native";
 import { useState } from "react";
 import { useNavigation } from "@react-navigation/native"; // Import navigation hook from react-navigation
@@ -14,10 +15,22 @@ import HorizontalScrollItem from "./horizontallScrollItems";
 import ManagedByAutoFinder from "../components/managedByAutoFinder";
 import FeaturedAd from "../components/featuredAd";
 import AutoFinderServices from "../components/autoFinderServices";
+import AdvertisementCard from "../components/advertisementCard";
+import { useEffect, useRef } from "react";
 
 const HomePremiumAds = () => {
   const navigation = useNavigation();
   const [selectedPackage, setSelectedPackage] = useState(null);
+
+  const fadeAnim = useRef(new Animated.Value(0)).current;
+
+  useEffect(() => {
+    Animated.timing(fadeAnim, {
+      toValue: 1,
+      duration: 1000,
+      useNativeDriver: true,
+    }).start();
+  }, [fadeAnim]);
 
   const FeatureLine = ({ imageSource, text }) => (
     <View style={styles.featureLine}>
@@ -49,10 +62,10 @@ const HomePremiumAds = () => {
     navigation.navigate("premiumAdsPostService");
   };
 
-  const handleCarInspectionPress = () => {
-    // Handle Managed Ads press
-    console.log("Managed Ads pressed");
-  };
+  // const handleCarInspectionPress = () => {
+  //   // Handle Managed Ads press
+  //   console.log("Managed Ads pressed");
+  // };
 
   const handleBoostAdsPress = () => {
     // Handle Car Inspection press
@@ -60,6 +73,10 @@ const HomePremiumAds = () => {
   };
   const handlerPostAdRightAway = () => {
     navigation.navigate("sellNowChoosePlan");
+  };
+
+  const bookInspection = () => {
+    navigation.navigate("basicInfoCarInspection");
   };
 
   return (
@@ -81,27 +98,32 @@ const HomePremiumAds = () => {
           style={styles.image}
         />
         <Text style={styles.addText}>AutoFinder Premium Ads Service</Text>
-        <TouchableOpacity style={styles.button} onPress={handlePremiumAdsPress}>
-          <Text style={styles.buttonText}>Post Premium Ad</Text>
-        </TouchableOpacity>
+        <Animated.View style={[styles.container, { opacity: fadeAnim }]}>
+          <TouchableOpacity
+            style={styles.button}
+            onPress={handlePremiumAdsPress}
+          >
+            <Text style={styles.buttonText}>Post Premium Ad</Text>
+          </TouchableOpacity>
+        </Animated.View>
 
         <Text style={styles.sellWorkText}>
           How AutoFinder Premium Ads Service works?
         </Text>
         <WorksellForItForMe
-          imageSource={require("../assets/number-1.png")}
+          imageSource={require("../assets/one.png")}
           text="Sign Up for Premium ad services."
         />
         <WorksellForItForMe
-          imageSource={require("../assets/number-2.png")}
+          imageSource={require("../assets/two.png")}
           text="Providing details about vehicle you want to sell."
         />
         <WorksellForItForMe
-          imageSource={require("../assets/number-3.png")}
+          imageSource={require("../assets/three.png")}
           text="Your free ad will be displayed in the Premium ads section."
         />
         <WorksellForItForMe
-          imageSource={require("../assets/number-3.png")}
+          imageSource={require("../assets/four.png")}
           text="Interested buyers can contact the seller as well."
         />
 
@@ -118,13 +140,21 @@ const HomePremiumAds = () => {
           onPremiumAdsPress={handleListItForYouPress}
           onFreeAdsPress={handlePremiumAdsPress}
           onManagedAdsPress={handleBoostAdsPress}
-          onCarInspectionPress={handleCarInspectionPress}
+          // onCarInspectionPress={handleCarInspectionPress}
         />
 
         {/* <Text style={styles.sellWorkText}>Managed By AutoFinder</Text> */}
         <View>
           <ManagedByAutoFinder />
         </View>
+
+        <AdvertisementCard
+          title="Professional Car Inspection"
+          description="Ensure your car's safety with our comprehensive inspection services."
+          imageSource={require("../assets/carinspected.png")}
+          buttonText="Book Inspection Now !"
+          onPress={bookInspection}
+        />
 
         {/* <Text style={styles.sellWorkText}>Feature ad</Text> */}
         <View>
@@ -152,6 +182,7 @@ const HomePremiumAds = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    backgroundColor: "white",
   },
   header: {
     backgroundColor: "#fc6f03",
@@ -259,7 +290,7 @@ const styles = StyleSheet.create({
     width: 20,
     height: 20,
     marginRight: 10,
-    tintColor: "#fc6f03",
+    // tintColor: "#fc6f03",
   },
   worksellForItForMeText: {
     fontSize: 14,

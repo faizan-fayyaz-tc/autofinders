@@ -14,7 +14,7 @@ import Footercontact from "../components/footerContact";
 import { useRoute } from "@react-navigation/native";
 import axios from "axios";
 
-const SellerCarDetail = () => {
+const SellerRentDetail = () => {
   const navigation = useNavigation();
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
 
@@ -170,6 +170,10 @@ const SellerCarDetail = () => {
     // Add your logic here
   };
 
+  const handleRentACar = () => {
+    navigation.navigate("rentPostService");
+  };
+
   if (isLoading) {
     return <ActivityIndicator size="large" />;
   } else {
@@ -183,7 +187,7 @@ const SellerCarDetail = () => {
             />
           </TouchableOpacity>
           <View style={styles.titleContainer}>
-            <Text style={styles.title}>Seller Details</Text>
+            <Text style={styles.title}>Seller Rent Detail</Text>
           </View>
         </View>
         <ScrollView>
@@ -240,7 +244,7 @@ const SellerCarDetail = () => {
           <Text style={styles.carNameText}>Name of Car</Text>
 
           <Text style={styles.priceText}>
-            PKR {carDetails && carDetails.price}
+            Rs. {carDetails && carDetails.price}/day
           </Text>
 
           <Text style={styles.locationText}>
@@ -258,13 +262,63 @@ const SellerCarDetail = () => {
 
           <View style={styles.carDetailContainer}>
             <View style={styles.carDetailRow}>
-              <Text style={styles.carDetailHeading}>Location</Text>
+              <Text style={styles.carDetailHeading}>Driver Availability</Text>
               <Text style={styles.carDetailName}>
                 {carDetails && carDetails.location}
               </Text>
             </View>
             <View style={styles.carDetailRow}>
-              <Text style={styles.carDetailHeading}>Registered IN</Text>
+              <Text style={styles.carDetailHeading}>Days Availability</Text>
+              <Text style={styles.carDetailName}>
+                {carDetails && carDetails.location}
+              </Text>
+            </View>
+            <View style={styles.carDetailRow}>
+              <Text style={styles.carDetailHeading}>Car Type</Text>
+              <Text style={styles.carDetailName}>
+                {carDetails && carDetails.location}
+              </Text>
+            </View>
+
+            <View style={styles.carDetailRow}>
+              <Text style={styles.carDetailHeading}>Seating Capacity</Text>
+              <Text style={styles.carDetailName}>
+                {carDetails && carDetails.location}
+              </Text>
+            </View>
+
+            <View style={styles.carDetailRow}>
+              <Text style={styles.carDetailHeading}>Between Cities</Text>
+              <Text style={styles.carDetailName}>
+                {carDetails && carDetails.location}
+              </Text>
+            </View>
+            <View style={styles.carDetailRow}>
+              <Text style={styles.carDetailHeading}>Assembly Integrated</Text>
+              <Text style={styles.carDetailName}>
+                {carDetails && carDetails.location}
+              </Text>
+            </View>
+            <View style={styles.carDetailRow}>
+              <Text style={styles.carDetailHeading}>Body Color</Text>
+              <Text style={styles.carDetailName}>
+                {carDetails && carDetails.location}
+              </Text>
+            </View>
+            <View style={styles.carDetailRow}>
+              <Text style={styles.carDetailHeading}>Mileage Range</Text>
+              <Text style={styles.carDetailName}>
+                {carDetails && carDetails.location}
+              </Text>
+            </View>
+            <View style={styles.carDetailRow}>
+              <Text style={styles.carDetailHeading}>Payment Type</Text>
+              <Text style={styles.carDetailName}>
+                {carDetails && carDetails.location}
+              </Text>
+            </View>
+            <View style={styles.carDetailRow}>
+              <Text style={styles.carDetailHeading}>Document Requirement</Text>
               <Text style={styles.carDetailName}>
                 {carDetails && carDetails.location}
               </Text>
@@ -289,7 +343,7 @@ const SellerCarDetail = () => {
             {renderFeatureTable(carFeatures)}
           </View>
 
-          <Text style={styles.sellerDetailTitle}>Seller Detail</Text>
+          <Text style={styles.sellerDetailTitle}>Renter Detail</Text>
           <TouchableOpacity
             onPress={handleSellerDetailsPress}
             style={styles.sellerDetailButton}
@@ -298,15 +352,19 @@ const SellerCarDetail = () => {
           </TouchableOpacity>
           <Text style={styles.sellerMemberText}>Member since Feb 24, 2019</Text>
 
-          <Text style={styles.sellerDetailTitle}>Seller Comments</Text>
+          {/* <Text style={styles.sellerDetailTitle}>Seller Comments</Text> */}
         </ScrollView>
 
-        <Footercontact
+        {/* <Footercontact
           onCallPress={handleCallPress}
           onSMSPress={handleSMSPress}
           onChatPress={handleChatPress}
           onWhatsappPress={handleWhatsappPress}
-        />
+        /> */}
+
+        <TouchableOpacity style={styles.button} onPress={handleRentACar}>
+          <Text style={styles.buttonText}>Contact Renter</Text>
+        </TouchableOpacity>
       </View>
     );
   }
@@ -549,6 +607,18 @@ const styles = StyleSheet.create({
     marginLeft: 20,
     fontWeight: "bold",
   },
+  button: {
+    backgroundColor: "#fc6f03",
+    padding: 15,
+    margin: 20,
+    borderRadius: 5,
+  },
+  buttonText: {
+    color: "white",
+    fontSize: 16,
+    textAlign: "center",
+    fontWeight: "bold",
+  },
 });
 
-export default SellerCarDetail;
+export default SellerRentDetail;

@@ -7,6 +7,7 @@ import {
   Text,
   ScrollView,
   StatusBar,
+  Animated,
 } from "react-native";
 import { useState } from "react";
 import { useNavigation } from "@react-navigation/native"; // Import navigation hook from react-navigation
@@ -17,9 +18,21 @@ import ManagedByAutoFinder from "../components/managedByAutoFinder";
 import FeaturedAd from "../components/featuredAd";
 // import { CommonActions } from '@react-navigation/native';
 
+import { useEffect, useRef } from "react";
+
 const homeListItForYou = () => {
   const navigation = useNavigation();
   const [selectedPackage, setSelectedPackage] = useState(null);
+
+  const fadeAnim = useRef(new Animated.Value(0)).current;
+
+  useEffect(() => {
+    Animated.timing(fadeAnim, {
+      toValue: 1,
+      duration: 1000,
+      useNativeDriver: true,
+    }).start();
+  }, [fadeAnim]);
 
   const FeatureLine = ({ imageSource, text }) => (
     <View style={styles.featureLine}>
@@ -109,48 +122,51 @@ const homeListItForYou = () => {
           style={styles.image}
         />
         <Text style={styles.addText}>AutoFinder List It For You</Text>
-        <TouchableOpacity
-          style={styles.button}
-          onPress={handleScheduleListItforYou}
-        >
-          <Text style={styles.buttonText}>Schedule List It For You</Text>
-        </TouchableOpacity>
+
+        <Animated.View style={[styles.container, { opacity: fadeAnim }]}>
+          <TouchableOpacity
+            style={styles.button}
+            onPress={handleScheduleListItforYou}
+          >
+            <Text style={styles.buttonText}>Schedule List It For You</Text>
+          </TouchableOpacity>
+        </Animated.View>
 
         <Text style={styles.addTextChoose}>
           Why AutoFinder is best for List It For You?
         </Text>
         <FeatureLine
-          imageSource={require("../assets/reports.png")}
+          imageSource={require("../assets/tensionfree.png")}
           text="Tension Free Service"
         />
         <FeatureLine
-          imageSource={require("../assets/staff.png")}
+          imageSource={require("../assets/saleman.png")}
           text="Professional Sales Executive"
         />
         <FeatureLine
-          imageSource={require("../assets/inspection.png")}
+          imageSource={require("../assets/carPrice.png")}
           text="Your Car Your Price"
         />
         <FeatureLine
-          imageSource={require("../assets/inspection.png")}
+          imageSource={require("../assets/peaceMoney.png")}
           text="Peaceful Transaction of your money"
         />
 
         <Text style={styles.sellWorkText}>How this will happen?</Text>
         <WorksellForItForMe
-          imageSource={require("../assets/number-1.png")}
+          imageSource={require("../assets/one.png")}
           text="Sign Up for List it for you service"
         />
         <WorksellForItForMe
-          imageSource={require("../assets/number-2.png")}
+          imageSource={require("../assets/two.png")}
           text="Book a time and location for the listing service"
         />
         <WorksellForItForMe
-          imageSource={require("../assets/number-3.png")}
+          imageSource={require("../assets/three.png")}
           text="Team of Experts will visit the vehicle owner and conduct the inpections and create a car listing on your behalf"
         />
         <WorksellForItForMe
-          imageSource={require("../assets/number-3.png")}
+          imageSource={require("../assets/four.png")}
           text="Your advertisement is prominently and promoted throughout the AutoFinder's website mobile app"
         />
 
@@ -277,6 +293,7 @@ const homeListItForYou = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    backgroundColor: "white",
   },
   header: {
     backgroundColor: "#fc6f03",
@@ -331,7 +348,7 @@ const styles = StyleSheet.create({
   addTextChoose: {
     marginLeft: 10,
     padding: 10,
-    color: "firebrick",
+    color: "#fc6f03",
     fontSize: 18,
     fontWeight: "bold",
     marginTop: 10,
@@ -346,7 +363,7 @@ const styles = StyleSheet.create({
     width: 20,
     height: 20,
     marginRight: 10,
-    tintColor: "#fc6f03",
+    // tintColor: "#fc6f03",
   },
   featureText: {
     fontSize: 14,
@@ -382,7 +399,7 @@ const styles = StyleSheet.create({
     width: 20,
     height: 20,
     marginRight: 10,
-    tintColor: "#fc6f03",
+    // tintColor: "#fc6f03",
   },
   worksellForItForMeText: {
     fontSize: 14,

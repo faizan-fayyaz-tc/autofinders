@@ -7,24 +7,37 @@ import {
   Text,
   ScrollView,
   StatusBar,
+  Animated,
 } from "react-native";
-import { useState } from "react";
+
 import { useNavigation } from "@react-navigation/native"; // Import navigation hook from react-navigation
 import HorizontalScrollItem from "./horizontallScrollItems";
 import ManagedByAutoFinder from "../components/managedByAutoFinder";
 import FeaturedAd from "../components/featuredAd";
 import AutoFinderServices from "../components/autoFinderServices";
+import AdvertisementCard from "../components/advertisementCard";
+import { useState } from "react";
+import { useEffect, useRef } from "react";
 
 import backArrow from "../assets/back-arrow.png";
 import carInspection from "../assets/CarInspection.jpg";
-import numberOne from "../assets/number-1.png";
-import numberTwo from "../assets/number-2.png";
-import numberThree from "../assets/number-3.png";
-import numberFour from "../assets/number-3.png";
+import numberOne from "../assets/one.png";
+import numberTwo from "../assets/two.png";
+import numberThree from "../assets/three.png";
+import numberFour from "../assets/four.png";
 
 const HomeFreeAds = () => {
   const navigation = useNavigation();
   const [selectedPackage, setSelectedPackage] = useState(null);
+  const fadeAnim = useRef(new Animated.Value(0)).current;
+
+  useEffect(() => {
+    Animated.timing(fadeAnim, {
+      toValue: 1,
+      duration: 1000,
+      useNativeDriver: true,
+    }).start();
+  }, [fadeAnim]);
 
   const FeatureLine = ({ imageSource, text }) => (
     <View style={styles.featureLine}>
@@ -56,10 +69,10 @@ const HomeFreeAds = () => {
     console.log("Free Ads pressed");
   };
 
-  const handleCarInspectionPress = () => {
-    // Handle Managed Ads press
-    console.log("Managed Ads pressed");
-  };
+  // const handleCarInspectionPress = () => {
+  //   // Handle Managed Ads press
+  //   console.log("Managed Ads pressed");
+  // };
 
   const handleBoostAdsPress = () => {
     // Handle Car Inspection press
@@ -69,22 +82,28 @@ const HomeFreeAds = () => {
     navigation.navigate("sellNowChoosePlan");
   };
 
+  const inspectionAd = () => {
+    navigation.navigate("basicInfoCarInspection");
+  };
+
   return (
     <View style={styles.container}>
-      <ScrollView>
-        <View style={styles.header}>
-          <TouchableOpacity onPress={handleBack} style={styles.backButton}>
-            <Image source={backArrow} style={styles.backIcon} />
-          </TouchableOpacity>
-          <View style={styles.titleContainer}>
-            <Text style={styles.title}>Free Ads Service</Text>
-          </View>
+      <View style={styles.header}>
+        <TouchableOpacity onPress={handleBack} style={styles.backButton}>
+          <Image source={backArrow} style={styles.backIcon} />
+        </TouchableOpacity>
+        <View style={styles.titleContainer}>
+          <Text style={styles.title}>Free Ads Service</Text>
         </View>
+      </View>
+      <ScrollView>
         <Image source={carInspection} style={styles.image} />
         <Text style={styles.addText}>AutoFinder Free Ads Service</Text>
-        <TouchableOpacity style={styles.button} onPress={handlePostAd}>
-          <Text style={styles.buttonText}>Post Ad</Text>
-        </TouchableOpacity>
+        <Animated.View style={[styles.container, { opacity: fadeAnim }]}>
+          <TouchableOpacity style={styles.button} onPress={handlePostAd}>
+            <Text style={styles.buttonText}>Post Ad</Text>
+          </TouchableOpacity>
+        </Animated.View>
 
         <Text style={styles.sellWorkText}>
           How AutoFinder Free Ad Service Works?
@@ -119,13 +138,21 @@ const HomeFreeAds = () => {
           onPremiumAdsPress={handleListItForYouPress}
           onFreeAdsPress={handlePremiumAdsPress}
           onManagedAdsPress={handleBoostAdsPress}
-          onCarInspectionPress={handleCarInspectionPress}
+          // onCarInspectionPress={handleCarInspectionPress}
         />
 
         {/* <Text style={styles.sellWorkText}>Managed By AutoFinder</Text> */}
         <View>
           <ManagedByAutoFinder />
         </View>
+
+        <AdvertisementCard
+          title="Car Inspection"
+          description="Get Your Car Inspected By Our Experts."
+          imageSource={require("../assets/inspectionCar.png")}
+          buttonText="Get My Car Inspected"
+          onPress={inspectionAd}
+        />
 
         {/* <Text style={styles.sellWorkText}>Feature ad</Text> */}
         <View>
@@ -153,6 +180,7 @@ const HomeFreeAds = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    backgroundColor: "white",
   },
   header: {
     backgroundColor: "#fc6f03",
@@ -262,7 +290,7 @@ const styles = StyleSheet.create({
     width: 20,
     height: 20,
     marginRight: 5,
-    tintColor: "#fc6f03",
+    // tintColor: "#fc6f03",
   },
   worksellForItForMeText: {
     fontSize: 14,

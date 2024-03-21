@@ -1,935 +1,548 @@
-import React from 'react';
-import { View, Image, StyleSheet, TouchableOpacity, Text, ScrollView, TextInput } from 'react-native';
-import { useState } from 'react';
-import { useNavigation } from '@react-navigation/native';
-import LocationPicker from '../components/locationPicker';
-import CarModelPicker from '../components/carModelPicker';
-import RegisteredPicker from '../components/registeredPicker';
-import BodyColorPicker from '../components/bodyColor';
-import DescribeYourCar from '../components/describeYourCar';
-import FuelTypePicker from '../components/fuelTypePicker';
-// import MarqueeText from 'react-native-marquee';
-import AvailabilityPicker from '../components/avalabilityPicker';
+import React, { useState } from "react";
+import {
+  View,
+  Image,
+  StyleSheet,
+  TouchableOpacity,
+  Text,
+  ScrollView,
+  StatusBar,
+} from "react-native";
+import { Picker } from "@react-native-picker/picker";
+import { useNavigation } from "@react-navigation/native";
+import ImagePickerComponent from "../components/imagePicker";
+import CarAvailabilityModel from "../components/carAvailabilityModal";
+import PaymentType from "../components/paymentType";
+import DocumentationRequirements from "../components/documentationRequirements";
+import CarModelPicker from "../components/carModelPicker";
+import AddressInput from "../components/addressInput";
+import { TextInput } from "react-native-gesture-handler";
 
 const RentPostService = () => {
-    // let A = '';
-    const navigation = useNavigation();
-    const [locationModalVisible, setLocationModalVisible] = useState(false);
-    const [selectedLocation, setSelectedLocation] = useState('');
-    const [carModelModalVisible, setCarModelModalVisible] = useState(false);
-    const [selectedYear, setSelectedYear] = useState('');
-    const [selectedBrand, setSelectedBrand] = useState('');
-    const [selectedVariant, setSelectedVariant] = useState('');
-    const [registeredModalVisible, setRegisteredModalVisible] = useState(false);
-    const [selectedRegisteredLocation, setSelectedRegisteredLocation] = useState('');
-    const [bodyColorModalVisible, setBodyColorModalVisible] = useState(false);
-    const [selectedBodyColor, setSelectedBodyColor] = useState('');
-    const [selectedKmDriven, setSelectedKmDriven] = useState('');
-    const [selectedPrice, setSelectedPrice] = useState('');
-    const [selectedDescription, setSelectedDescription] = useState('');
-    const [describeYourCarModalVisible, setDescribeYourCarModalVisible] = useState(false);
-    const [selectedSuggestions, setSelectedSuggestions] = useState([]);
-    const [fuelTypeModalVisible, setFuelTypeModalVisible] = useState(false);
-    const [selectedFuelType, setSelectedFuelType] = useState('');
-    const [selectedTransmission, setSelectedTransmission] = useState('');
-    const [selectedAssembly, setSelectedAssembly] = useState('');
-    const [isFeaturePickerVisible, setIsFeaturePickerVisible] = useState(false);
-    const [selectedFeatures, setSelectedFeatures] = useState([]);
-    const [selectedDriveOption, setSelectedDriveOption] = useState('');
-    const [subLocation, setSubLocation] = useState('');
-    const [area, setArea] = useState('');
-    const [selectedAvailability, setSelectedAvailability] = useState(null);
-
-
-
-
-
-    const handleBack = () => {
-        navigation.goBack();
-    };
-
-    const handleSelectImage = () => {
-        // Handle the image selection (to be implemented later)
-        console.log('Image selected');
-    };
-
-    const handleOpenLocationPicker = () => {
-        setLocationModalVisible(true);
-    };
-
-    const handleCloseLocationPicker = () => {
-        setLocationModalVisible(false);
-    };
-
-    const handleLocationSelect = (location) => {
-        setSelectedLocation(location);
-        // A = location;
-        handleCloseLocationPicker();
-        // console.log(A);
-    };
-
-    const handleOpenCarModelPicker = () => {
-        setCarModelModalVisible(true);
-    };
-
-    const handleCloseCarModelPicker = () => {
-        setCarModelModalVisible(false);
-    };
-
-    const handleYearSelect = (year) => {
-        setSelectedYear(year);
-        handleCloseCarModelPicker();
-        // Implement logic to open brand picker
-    };
-
-    const handleBrandSelect = (brand) => {
-        setSelectedBrand(brand);
-        handleCloseCarModelPicker();
-        // Implement logic to open variant picker
-    };
-
-    const handleVariantSelect = (variant) => {
-        setSelectedVariant(variant);
-        handleCloseCarModelPicker();
-    };
-
-    const handleOpenRegisteredPicker = () => {
-        setRegisteredModalVisible(true);
-    };
-
-    const handleCloseRegisteredPicker = () => {
-        setRegisteredModalVisible(false);
-    };
-
-    const handleRegisteredSelect = (location) => {
-        setSelectedRegisteredLocation(location);
-        handleCloseRegisteredPicker();
-    };
-
-    const handleOpenBodyColorPicker = () => {
-        setBodyColorModalVisible(true);
-    };
-
-    const handleCloseBodyColorPicker = () => {
-        setBodyColorModalVisible(false);
-    };
-
-    const handleBodyColorSelect = (color) => {
-        setSelectedBodyColor(color);
-        handleCloseBodyColorPicker();
-    };
-
-    const handleViewSuggestions = () => {
-        setDescribeYourCarModalVisible(true);
-    };
-
-    const handleDescribeYourCarDone = (selectedOptions) => {
-        setSelectedDescription(selectedOptions.join(', '));
-        setDescribeYourCarModalVisible(false);
-    };
-
-    const handleOpenFuelTypePicker = () => {
-        setFuelTypeModalVisible(true);
-    };
-
-    const handleCloseFuelTypePicker = () => {
-        setFuelTypeModalVisible(false);
-    };
-
-    const handleFuelTypeSelect = (fuelType) => {
-        setSelectedFuelType(fuelType);
-        handleCloseFuelTypePicker();
-    };
-
-    const handleFeaturePickerDone = (selectedFeatures) => {
-        setSelectedFeatures(selectedFeatures);
-        setIsFeaturePickerVisible(false);
-    };
-    const handlePostYourAd = () => {
-        // Handle the logic for posting the ad
-        console.log('Ad posted!');
-        // Add any additional logic you need for posting the ad
-    };
-
-    const handlePremiumAdService = () => {
-        // Handle the logic for navigating to Premium Ad Service or any other action
-        console.log('Navigate to Premium Ad Service');
-    };
-
-    const handleTransmissionSelect = (transmissionType) => {
-        setSelectedTransmission(transmissionType);
-    };
-
-    const handleDriveOptionSelect = (driveOption) => {
-        setSelectedDriveOption(driveOption);
-    };
-
-    const handleAssemblySelect = (assemblyType) => {
-        setSelectedAssembly(assemblyType);
-    };
-
-    const handleSelectAvailability = (availability) => {
-        setSelectedAvailability(availability);
-    };
-
-
-
-    return (
-        <View style={styles.container}>
-            <View style={styles.header}>
-                <TouchableOpacity onPress={handleBack} style={styles.backButton}>
-                    <Image source={require('../assets/back-arrow.png')} style={styles.backIcon} />
-                </TouchableOpacity>
-                <View style={styles.titleContainer}>
-                    <Text style={styles.title}>Post Your Ad</Text>
-                </View>
-            </View>
-            {/* <View style={styles.MarqueeContainer}>
-                <MarqueeText
-                    style={styles.marqueeText}
-                    speed={1}
-                    marqueeOnStart={true}
-                    loop={true}
-                    delay={1200}
-                >
-                    The first two ads are free of charge, but starting from the third ad, there will be a fee of PKR 525.00 per ad in ''free Ads Service''.
-                </MarqueeText>
-            </View> */}
-            <ScrollView contentContainerStyle={styles.scrollViewContent}>
-
-                <TouchableOpacity style={styles.selectImageButton} onPress={handleSelectImage}>
-                    <Image source={require('../assets/cameraIcon.png')} style={styles.imageIcon} />
-                    <Text style={styles.selectImageText}>Select Image</Text>
-                </TouchableOpacity>
-
-
-                <TouchableOpacity style={styles.selectLocationButton} onPress={handleOpenLocationPicker}>
-                    <Image source={require('../assets/locationIcon.png')} style={styles.locationIcon} />
-                    <Text style={styles.selectLocationText}>{selectedLocation || 'Location'}</Text>
-                </TouchableOpacity>
-                <LocationPicker
-                    isVisible={locationModalVisible}
-                    onClose={handleCloseLocationPicker}
-                    onSelectLocation={handleLocationSelect}
-                />
-
-                <View style={styles.rowContainer}>
-                    {/* Sub-location input */}
-                    <TextInput
-                        style={[styles.input, styles.subLocationInput]}
-                        placeholder="Enter Sub-location"
-                        value={subLocation}
-                        onChangeText={setSubLocation}
-                    />
-                    {/* Area input */}
-                    <TextInput
-                        style={[styles.input, styles.areaInput]}
-                        placeholder="Enter Area"
-                        value={area}
-                        onChangeText={setArea}
-                    />
-                </View>
-
-                <TouchableOpacity style={styles.selectCarModelButton} onPress={handleOpenCarModelPicker}>
-                    <Image source={require('../assets/carFrontIcon.png')} style={styles.carModelIcon} />
-                    <Text style={styles.selectCarModelText}>
-                        {selectedYear ? `${selectedYear} ` : ''}
-                        {selectedBrand ? `${selectedBrand} ` : ''}
-                        {selectedVariant || 'Car Model'}
-                    </Text>
-                </TouchableOpacity>
-
-                <CarModelPicker
-                    isVisible={carModelModalVisible}
-                    onClose={handleCloseCarModelPicker}
-                    onSelectYear={handleYearSelect}
-                    onSelectBrand={handleBrandSelect}
-                    onSelectVariant={handleVariantSelect}
-                />
-
-                <TouchableOpacity style={styles.selectRegisteredButton} onPress={handleOpenRegisteredPicker}>
-                    <Image source={require('../assets/reegisteredIn.png')} style={styles.locationIcon} />
-                    <Text style={styles.selectLocationText}>{selectedRegisteredLocation || 'Registered In'}</Text>
-                </TouchableOpacity>
-                <RegisteredPicker
-                    isVisible={registeredModalVisible}
-                    onClose={handleCloseRegisteredPicker}
-                    onSelectCity={handleRegisteredSelect}
-                />
-
-                <TouchableOpacity style={styles.selectBodyColorButton} onPress={handleOpenBodyColorPicker}>
-                    <Image source={require('../assets/bodyColor.png')} style={styles.bodyColorIcon} />
-                    <Text style={styles.selectBodyColorText}>{selectedBodyColor || 'Body Color'}</Text>
-                </TouchableOpacity>
-
-                <BodyColorPicker
-                    isVisible={bodyColorModalVisible}
-                    onClose={handleCloseBodyColorPicker}
-                    onSelectColor={handleBodyColorSelect}
-                />
-
-                <View style={styles.selectKmDrivenButton}>
-                    <Image source={require('../assets/carMeter.png')} style={styles.kmIcon} />
-                    <TextInput
-                        style={styles.textInput}
-                        placeholder="KM's Driven"
-                        value={selectedKmDriven}
-                        onChangeText={(text) => {
-                            const numericValue = text.replace(/[^0-9]/g, '');
-                            const formattedValue = parseInt(numericValue, 10).toLocaleString('en-IN');
-                            setSelectedKmDriven(formattedValue);
-                        }}
-                        keyboardType="numeric"
-                    />
-                </View>
-                <View style={styles.selectPriceButton}>
-                    <Image source={require('../assets/priceTag.png')} style={styles.priceIcon} />
-                    <TextInput
-                        style={styles.textInput}
-                        placeholder="Price (PKR)"
-                        value={selectedPrice}
-                        onChangeText={(text) => {
-                            const numericValue = text.replace(/[^0-9]/g, '');
-                            const formattedValue = parseInt(numericValue, 10).toLocaleString('en-IN');
-                            setSelectedPrice(formattedValue);
-                        }}
-                        keyboardType="numeric"
-                    />
-                </View>
-
-                <View style={styles.selectDescriptionButton}>
-                    <Image source={require('../assets/descriptionIcon.png')} style={styles.descriptionIcon} />
-                    <TextInput
-                        style={styles.textInput}
-                        placeholder="For example: Alloy Rims, First Owner, etc."
-                        value={selectedDescription}
-                        onChangeText={(text) => setSelectedDescription(text)}
-                    />
-                </View>
-
-                <TouchableOpacity style={styles.viewSuggestionsButton} onPress={handleViewSuggestions}>
-                    <Text style={styles.viewSuggestionsText}>View All Suggestions</Text>
-                </TouchableOpacity>
-
-                {/* ... (previous code) */}
-
-                <DescribeYourCar
-                    isVisible={describeYourCarModalVisible}
-                    onClose={() => setDescribeYourCarModalVisible(false)}
-                    onDone={handleDescribeYourCarDone}
-                />
-
-                <TouchableOpacity style={styles.selectFuelTypeButton} onPress={handleOpenFuelTypePicker}>
-                    <Image source={require('../assets/fuelIcon.png')} style={styles.fuelTypeIcon} />
-                    <Text style={styles.selectFuelTypeText}>{selectedFuelType || 'Fuel Type'}</Text>
-                </TouchableOpacity>
-
-                <FuelTypePicker
-                    isVisible={fuelTypeModalVisible}
-                    onClose={handleCloseFuelTypePicker}
-                    onSelectFuelType={handleFuelTypeSelect}
-                />
-
-                <View style={styles.selectPriceButton}>
-                    <Image source={require('../assets/powerIcon.png')} style={styles.priceIcon} />
-                    <TextInput
-                        style={styles.textInput}
-                        placeholder="Engine Capacity"
-                        value={selectedPrice ? `${selectedPrice} CC` : ''} // Include "CC" after the entered value if not empty
-                        onChangeText={(text) => {
-                            const numericValue = text.replace(/[^0-9]/g, '');
-                            const formattedValue = parseInt(numericValue, 10).toLocaleString('en-IN');
-                            setSelectedPrice(formattedValue);
-                        }}
-                        keyboardType="numeric"
-                    />
-                </View>
-
-
-
-                <View style={styles.selectDriveOptionContainer}>
-                    <Text style={styles.selectDriveOptionText}>Drive options :</Text>
-                    <View style={styles.toggleButtonContainer}>
-                        <TouchableOpacity
-                            style={[styles.toggleButton, selectedDriveOption === 'Driver' && styles.selectedButton]}
-                            onPress={() => setSelectedDriveOption('Driver')}
-                        >
-                            <Text style={[styles.toggleButtonText, selectedDriveOption === 'Driver' && styles.selectedButtonText]}>
-                                Driver
-                            </Text>
-                        </TouchableOpacity>
-                        <TouchableOpacity
-                            style={[styles.toggleButton, selectedDriveOption === 'Self-drive' && styles.selectedButton]}
-                            onPress={() => setSelectedDriveOption('Self-drive')}
-                        >
-                            <Text style={[styles.toggleButtonText, selectedDriveOption === 'Self-drive' && styles.selectedButtonText]}>
-                                Self-drive
-                            </Text>
-                        </TouchableOpacity>
-                    </View>
-                </View>
-
-
-                {/* here i have to add textfields rent post service  */}
-
-
-                <View style={styles.selectTransmissionContainer}>
-                    <Text style={styles.selectTransmissionText}>Transmission :</Text>
-                    <View style={styles.toggleButtonContainer}>
-                        <TouchableOpacity
-                            style={[styles.toggleButton, selectedTransmission === 'Automatic' && styles.selectedButton]}
-                            onPress={() => setSelectedTransmission('Automatic')}
-                        >
-                            <Text style={[styles.toggleButtonText, selectedTransmission === 'Automatic' && styles.selectedButtonText]}>
-                                Automatic
-                            </Text>
-                        </TouchableOpacity>
-                        <TouchableOpacity
-                            style={[styles.toggleButton, selectedTransmission === 'Manual' && styles.selectedButton]}
-                            onPress={() => setSelectedTransmission('Manual')}
-                        >
-                            <Text style={[styles.toggleButtonText, selectedTransmission === 'Manual' && styles.selectedButtonText]}>
-                                Manual
-                            </Text>
-                        </TouchableOpacity>
-                    </View>
-                </View>
-
-                <View style={styles.selectAssemblyContainer}>
-                    <Text style={styles.selectAssemblyText}>Assembly :</Text>
-                    <View style={styles.toggleButtonContainer}>
-                        <TouchableOpacity
-                            style={[styles.toggleButton, selectedAssembly === 'Imported' && styles.selectedButton]}
-                            onPress={() => handleAssemblySelect('Imported')}
-                        >
-                            <Text style={[styles.toggleButtonText, selectedAssembly === 'Imported' && styles.selectedButtonText]}>
-                                Imported
-                            </Text>
-                        </TouchableOpacity>
-                        <TouchableOpacity
-                            style={[styles.toggleButton, selectedAssembly === 'Local' && styles.selectedButton]}
-                            onPress={() => handleAssemblySelect('Local')}
-                        >
-                            <Text style={[styles.toggleButtonText, selectedAssembly === 'Local' && styles.selectedButtonText]}>
-                                Local
-                            </Text>
-                        </TouchableOpacity>
-                    </View>
-                </View>
-
-
-                <View style={styles.container}>
-                    <AvailabilityPicker onSelectAvailability={handleSelectAvailability} />
-                    {/* You can use selectedAvailability here as needed */}
-                </View>
-
-                
-
-                {/* "Contact Info" section */}
-                <View style={styles.contactInfoContainer}>
-                    <Text style={styles.contactInfoText}>Contact Info</Text>
-                    {/* Add two text fields below "Contact Info" */}
-                    <TextInput
-                        style={styles.contactInput}
-                        placeholder="Enter your name"
-                    // Add any necessary props or event handlers
-                    />
-                    <TextInput
-                        style={styles.contactInput}
-                        placeholder="Enter your phone number"
-                        keyboardType="numeric"
-                    // Add any necessary props or event handlers
-                    />
-                </View>
-
-                <TouchableOpacity
-                    style={styles.Postbutton}
-                    onPress={handlePostYourAd}
-                >
-                    <Text style={styles.PostbuttonText}>Post Ad</Text>
-                </TouchableOpacity>
-
-                {/* <View style={styles.noteContainer}>
-          <Text style={styles.noteHeading}>Note</Text>
-          <Text style={styles.noteText}>
-            If you will buy 3rd standard free ad, and then willing to buy Premium ad service, your paid 525/-
-            amount will be adjusted in Premium ad service.
-          </Text>
-        </View> */}
-
-                {/* <TouchableOpacity
-          style={styles.PremiumAdButton}
-          onPress={handlePremiumAdService}
-        >
-          <Text style={styles.PremiumAdButtonText}>Click to go for Premium Ad Service</Text>
-        </TouchableOpacity> */}
-
-            </ScrollView>
+  const navigation = useNavigation();
+  const [carType, setCarType] = useState("");
+  const [carTransmission, setCarTransmission] = useState("");
+  const [engineCapacity, setEngineCapacity] = useState("");
+  const [seatingCapacity, setSeatingCapacity] = useState("");
+  const [driverAvailability, setDriverAvailability] = useState("");
+  const [betweenCities, setBetweenCities] = useState("");
+  const [mileage, setMileage] = useState("");
+  const [carAssembly, setCarAssembly] = useState("");
+  const [bodyColor, setBodyColor] = useState("");
+  const [engineType, setEngineType] = useState("");
+  const [imagesBase64, setImagesBase64] = useState([]);
+
+  const [isModelVisible, setIsModelVisible] = useState(false);
+  const [selectedDays, setSelectedDays] = useState([]);
+  const [
+    selectedDocumentationRequirements,
+    setSelectedDocumentationRequirements,
+  ] = useState([]);
+  const [city, setCity] = useState("");
+  const [sublocation, setSubLocation] = useState("");
+  const [other, setOther] = useState("");
+
+  const [carModelModalVisible, setCarModelModalVisible] = useState(false);
+  const [selectedYear, setSelectedYear] = useState("");
+  const [selectedBrand, setSelectedBrand] = useState("");
+  const [selectedVariant, setSelectedVariant] = useState("");
+  const [selectedModel, setSelectedModel] = useState("");
+
+  const carTypes = ["Select", "Hatchback", "Sedan", "SUVs", "Luxury", "Exotic"];
+  const transmissionOptions = ["Select", "Automatic", "Manual"];
+  const engineCapacities = ["Select", "1000cc", "1500cc", "2000cc"];
+  const seatingCapacities = [
+    "Select",
+    "2-seater",
+    "4-seater",
+    "5-seater",
+    "7-seater",
+  ];
+  const driverAvailabilities = ["Select", "With Driver", "Without Driver"];
+  const betweenCitiesOptions = ["Select", "Yes", "No"];
+  const mileageOptions = [
+    "Select",
+    "Less than 10,000 km",
+    "10,000 - 50,000 km",
+    "50,000 - 100,000 km",
+    "More than 100,000 km",
+  ];
+  const carAssemblyOptions = ["Select", "Local", "Imported"];
+  const bodyColorOptions = [
+    "Select",
+    "Red",
+    "Blue",
+    "Black",
+    "White",
+    "Silver",
+  ];
+  const engineTypeOptions = ["Select", "Petrol", "Hybrid", "CNG", "Diesel"]; // New options for Engine Type
+
+  const handleBack = () => {
+    navigation.goBack();
+  };
+
+  const handleSaveDays = (days) => {
+    setSelectedDays(days);
+  };
+
+  const handlePaymentType = (selectedOptions) => {
+    console.log("Selected Payment Options:", selectedOptions);
+    // You can handle the selected payment options as needed
+  };
+
+  const handleDocumentationRequirements = (selectedOptions) => {
+    console.log("Selected Documentation Requirements:", selectedOptions);
+    setSelectedDocumentationRequirements(selectedOptions);
+  };
+
+  const handleOpenCarModelPicker = () => {
+    setCarModelModalVisible(true);
+  };
+
+  const handleCloseCarModelPicker = () => {
+    setCarModelModalVisible(false);
+  };
+
+  const handleYearSelect = (year) => {
+    setSelectedYear(year);
+    handleCloseCarModelPicker();
+    // Implement logic to open brand picker
+  };
+
+  const handleBrandSelect = (brand) => {
+    setSelectedBrand(brand);
+    handleCloseCarModelPicker();
+    // Implement logic to open variant picker
+  };
+
+  const handleVariantSelect = (variant) => {
+    setSelectedVariant(variant);
+    handleCloseCarModelPicker();
+  };
+  const handleModelSelect = (model) => {
+    setSelectedModel(model);
+    handleCloseCarModelPicker();
+  };
+  const handleChangeCity = (inputCity) => {
+    setCity(inputCity);
+  };
+  const handleChangeSubLocation = (inputCity) => {
+    setSubLocation(inputCity);
+  };
+  const handleChangeOther = (inputCity) => {
+    setOther(inputCity);
+  };
+
+  const handlePostAd = () => {
+    console.log("Ad Posted");
+  };
+
+  return (
+    <View style={styles.container}>
+      <View style={styles.header}>
+        <TouchableOpacity onPress={handleBack} style={styles.backButton}>
+          <Image
+            source={require("../assets/back-arrow.png")}
+            style={styles.backIcon}
+          />
+        </TouchableOpacity>
+        <View style={styles.titleContainer}>
+          <Text style={styles.title}>Rent Your Car</Text>
         </View>
-    );
+      </View>
+
+      <ScrollView contentContainerStyle={styles.scrollViewContent}>
+        <View style={styles.Imageborder}>
+          <ImagePickerComponent
+            onSelectedImagesBase64Change={setImagesBase64}
+          />
+        </View>
+        {/* Feature Rows */}
+
+        <TouchableOpacity
+          style={styles.selectCarModelButton}
+          onPress={handleOpenCarModelPicker}
+        >
+          <Image
+            source={require("../assets/carFrontIcon.png")}
+            style={styles.carModelIcon}
+          />
+          <Text style={styles.selectCarModelText} placeholder="Car Model">
+            {selectedYear ? `${selectedYear} ` : ""}
+            {selectedBrand ? `${selectedBrand} ` : ""}
+            {selectedModel ? `${selectedModel}` : ""}
+            {selectedVariant ? `${selectedVariant}` : ""}
+          </Text>
+        </TouchableOpacity>
+
+        <CarModelPicker
+          isVisible={carModelModalVisible}
+          onClose={handleCloseCarModelPicker}
+          onSelectYear={handleYearSelect}
+          onSelectBrand={handleBrandSelect}
+          onSelectVariant={handleVariantSelect}
+          onSelectModel={handleModelSelect}
+        />
+
+        <View style={styles.featureRow}>
+          <View style={[styles.featureContainer, styles.lightGreyBackground]}>
+            <Text style={styles.label}>Car Type</Text>
+            <Picker
+              selectedValue={carType}
+              onValueChange={(itemValue) => setCarType(itemValue)}
+              style={styles.dropdown}
+            >
+              {carTypes.map((type, index) => (
+                <Picker.Item label={type} value={type} key={index} />
+              ))}
+            </Picker>
+          </View>
+          <View style={[styles.featureContainer, styles.whiteBackground]}>
+            <Text style={styles.label}>Car Transmission</Text>
+            {/* Car Transmission */}
+            <Picker
+              selectedValue={carTransmission}
+              onValueChange={(itemValue) => setCarTransmission(itemValue)}
+              style={styles.dropdown}
+            >
+              {transmissionOptions.map((transmission, index) => (
+                <Picker.Item
+                  label={transmission}
+                  value={transmission}
+                  key={index}
+                />
+              ))}
+            </Picker>
+          </View>
+        </View>
+
+        <View style={styles.featureRow}>
+          <View style={[styles.featureContainer, styles.lightGreyBackground]}>
+            <Text style={styles.label}>Engine Capacity</Text>
+            <Picker
+              selectedValue={engineCapacity}
+              onValueChange={(itemValue) => setEngineCapacity(itemValue)}
+              style={styles.dropdown}
+            >
+              {engineCapacities.map((capacity, index) => (
+                <Picker.Item label={capacity} value={capacity} key={index} />
+              ))}
+            </Picker>
+          </View>
+          <View style={[styles.featureContainer, styles.whiteBackground]}>
+            <Text style={styles.label}>Seating Capacity</Text>
+            <Picker
+              selectedValue={seatingCapacity}
+              onValueChange={(itemValue) => setSeatingCapacity(itemValue)}
+              style={styles.dropdown}
+            >
+              {seatingCapacities.map((capacity, index) => (
+                <Picker.Item label={capacity} value={capacity} key={index} />
+              ))}
+            </Picker>
+          </View>
+        </View>
+
+        <View style={styles.featureRow}>
+          <View style={[styles.featureContainer, styles.lightGreyBackground]}>
+            <Text style={styles.label}>Driver Availability</Text>
+            <Picker
+              selectedValue={driverAvailability}
+              onValueChange={(itemValue) => setDriverAvailability(itemValue)}
+              style={styles.dropdown}
+            >
+              {driverAvailabilities.map((availability, index) => (
+                <Picker.Item
+                  label={availability}
+                  value={availability}
+                  key={index}
+                />
+              ))}
+            </Picker>
+          </View>
+          <View style={[styles.featureContainer, styles.whiteBackground]}>
+            <Text style={styles.label}>Between Cities</Text>
+            <Picker
+              selectedValue={betweenCities}
+              onValueChange={(itemValue) => setBetweenCities(itemValue)}
+              style={styles.dropdown}
+            >
+              {betweenCitiesOptions.map((option, index) => (
+                <Picker.Item label={option} value={option} key={index} />
+              ))}
+            </Picker>
+          </View>
+        </View>
+
+        <View style={styles.featureRow}>
+          <View style={[styles.featureContainer, styles.lightGreyBackground]}>
+            <Text style={styles.label}>Mileage (km)</Text>
+            <Picker
+              selectedValue={mileage}
+              onValueChange={(itemValue) => setMileage(itemValue)}
+              style={styles.dropdown}
+            >
+              {mileageOptions.map((option, index) => (
+                <Picker.Item label={option} value={option} key={index} />
+              ))}
+            </Picker>
+          </View>
+          <View style={[styles.featureContainer, styles.whiteBackground]}>
+            <Text style={styles.label}>Car Assembly</Text>
+            <Picker
+              selectedValue={carAssembly}
+              onValueChange={(itemValue) => setCarAssembly(itemValue)}
+              style={styles.dropdown}
+            >
+              {carAssemblyOptions.map((option, index) => (
+                <Picker.Item label={option} value={option} key={index} />
+              ))}
+            </Picker>
+          </View>
+        </View>
+
+        <View style={styles.featureRow}>
+          <View style={[styles.featureContainer, styles.lightGreyBackground]}>
+            <Text style={styles.label}>Body Color</Text>
+            <Picker
+              selectedValue={bodyColor}
+              onValueChange={(itemValue) => setBodyColor(itemValue)}
+              style={styles.dropdown}
+            >
+              {bodyColorOptions.map((color, index) => (
+                <Picker.Item label={color} value={color} key={index} />
+              ))}
+            </Picker>
+          </View>
+          <View style={[styles.featureContainer, styles.whiteBackground]}>
+            <Text style={styles.label}>Engine Type</Text>
+            <Picker
+              selectedValue={engineType}
+              onValueChange={(itemValue) => setEngineType(itemValue)}
+              style={styles.dropdown}
+            >
+              {engineTypeOptions.map((type, index) => (
+                <Picker.Item label={type} value={type} key={index} />
+              ))}
+            </Picker>
+          </View>
+        </View>
+
+        <Text style={styles.labelChooseCarAvailable}>
+          Choose Your Car Availability
+        </Text>
+
+        <TouchableOpacity
+          style={styles.selectButton}
+          onPress={() => setIsModelVisible(true)}
+        >
+          <Text style={styles.selectButtonText}>Select Available Days</Text>
+        </TouchableOpacity>
+        {selectedDays.length > 0 && (
+          <Text style={styles.selectedDays}>
+            Selected Days: {selectedDays.join(", ")}
+          </Text>
+        )}
+        <CarAvailabilityModel
+          isVisible={isModelVisible}
+          onClose={() => setIsModelVisible(false)}
+          onSave={handleSaveDays}
+        />
+
+        <Text style={styles.labelChooseCarAvailable}>
+          Assign Charges Per Day
+        </Text>
+        <TextInput
+          style={styles.Input}
+          onChangeText={handleChangeCity}
+          value={city}
+          placeholder="Rent Charges per Day"
+        />
+
+        <Text style={styles.labelChooseCarAvailable}>Payment Type</Text>
+        <PaymentType onSelect={handlePaymentType} />
+
+        <Text style={styles.labelChooseCarAvailable}>
+          Documentation Requirement
+        </Text>
+        <DocumentationRequirements onSelect={handleDocumentationRequirements} />
+
+        <Text style={styles.labelChooseCarAvailable}>
+          Enter Your Complete Address
+        </Text>
+        <TextInput
+          style={styles.Input}
+          onChangeText={handleChangeCity}
+          value={city}
+          placeholder="Type your City"
+        />
+        <TextInput
+          style={styles.Input}
+          onChangeText={handleChangeSubLocation}
+          value={sublocation}
+          placeholder="Type your sub-location"
+        />
+        <TextInput
+          style={styles.Input}
+          onChangeText={handleChangeOther}
+          value={other}
+          placeholder="Other options"
+        />
+        <TouchableOpacity style={styles.button} onPress={handlePostAd}>
+          <Text style={styles.buttonText}>Post Add</Text>
+        </TouchableOpacity>
+
+        <Text style={styles.labelChooseCarAvailable}>
+          Enter Your Complete Address
+        </Text>
+      </ScrollView>
+    </View>
+  );
 };
 
 const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        // alignItems: 'center',
-        backgroundColor: 'white'
-    },
-    header: {
-        backgroundColor: '#Ac3803',
-        flexDirection: 'row',
-        alignItems: 'center',
-        padding: 15,
-    },
-    backButton: {
-        paddingRight: 20,
-        tintColor: 'white',
-    },
-    backIcon: {
-        width: 20,
-        height: 20,
-        tintColor: 'white',
-    },
-    titleContainer: {
-        flex: 1,
-    },
-    title: {
-        color: 'white',
-        fontSize: 18,
-        fontWeight: 'bold',
-    },
-    scrollViewContent: {
-        flexGrow: 1,
-        alignItems: 'center',
-    },
-
-    MarqueeContainer: {
-        // marginBottom: 20, // Increased margin for better spacing
-        marginTop: 20,
-    },
-    marqueeText: {
-        fontSize: 16,
-        color: '#2884ec',
-        fontWeight: '500'
-    },
-
-    selectImageButton: {
-        alignItems: 'center',
-        height: 200,
-        width: 320,
-        borderColor: '#Ac3803',
-        borderWidth: 1,
-        borderRadius: 10,
-        marginTop: 20
-    },
-    imageIcon: {
-        width: 50,
-        height: 50,
-        marginTop: 30,
-        tintColor: '#Ac3803',
-    },
-    selectImageText: {
-        fontSize: 14,
-        color: 'grey',
-    },
-    selectLocationButton: {
-        flexDirection: 'row',
-        height: 50,
-        width: 300,
-        borderColor: '#Ac3803',
-        borderWidth: 1,
-        borderRadius: 5,
-        marginTop: 40,
-
-    },
-    locationIcon: {
-        width: 20,
-        height: 20,
-        marginLeft: 10,
-        marginTop: 15,
-        tintColor: '#Ac3803',
-    },
-    selectLocationText: {
-        fontSize: 14,
-        color: 'grey',
-        marginLeft: 15,
-        marginTop: 13,
-    },
-    rowContainer: {
-        flexDirection: 'row',
-        // marginBottom: 5,
-    },
-    input: {
-        flex: 1,
-        height: 50,
-        backgroundColor: 'white',
-        borderColor: '#AC3803',
-        borderWidth: 1,
-        borderRadius: 5,
-        paddingLeft: 10,
-        marginRight: 10,
-    },
-    subLocationInput: {
-        marginLeft: 30,
-        marginRight: 10,
-        marginTop: 10,
-    },
-    areaInput: {
-        marginLeft: 10,
-        marginRight: 30,
-        marginTop: 10,
-    },
-    selectCarModelButton: {
-        flexDirection: 'row',
-        height: 50,
-        width: 300,
-        borderColor: '#Ac3803',
-        borderWidth: 1,
-        borderRadius: 5,
-        marginTop: 10,
-        alignItems: 'center',
-    },
-    carModelIcon: {
-        width: 20,
-        height: 20,
-        marginLeft: 10,
-        tintColor: '#Ac3803',
-    },
-    selectCarModelText: {
-        fontSize: 13,
-        color: 'grey',
-        marginLeft: 15,
-        // Other text styles
-    },
-    selectRegisteredButton: {
-        flexDirection: 'row',
-        height: 50,
-        width: 300,
-        borderColor: '#Ac3803',
-        borderWidth: 1,
-        borderRadius: 5,
-        marginTop: 10,
-        // justifyContent: 'center',
-    },
-    selectBodyColorButton: {
-        flexDirection: 'row',
-        height: 50,
-        width: 300,
-        borderColor: '#Ac3803',
-        borderWidth: 1,
-        borderRadius: 5,
-        marginTop: 10,
-        alignItems: 'center',
-    },
-    bodyColorIcon: {
-        width: 20,
-        height: 20,
-        marginLeft: 10,
-        tintColor: '#Ac3803',
-    },
-    selectBodyColorText: {
-        fontSize: 14,
-        color: 'grey',
-        marginLeft: 15,
-    },
-    selectKmDrivenButton: {
-        flexDirection: 'row',
-        height: 50,
-        width: 300,
-        borderColor: '#Ac3803',
-        borderWidth: 1,
-        borderRadius: 5,
-        marginTop: 10,
-        alignItems: 'center',
-    },
-    kmIcon: {
-        width: 30,
-        height: 30,
-        marginLeft: 5,
-        justifyContent: 'center',
-        tintColor: '#Ac3803',
-    },
-    textInput: {
-        flex: 1,
-        height: '100%',
-        borderColor: 'white',
-        borderWidth: 1, // Remove the border to make it look like other fields
-        borderRadius: 5,
-        paddingLeft: 10,
-        fontSize: 14,
-    },
-    selectPriceButton: {
-        flexDirection: 'row',
-        height: 50,
-        width: 300,
-        borderColor: '#Ac3803',
-        borderWidth: 1,
-        borderRadius: 5,
-        marginTop: 10,
-        alignItems: 'center',
-    },
-    priceIcon: {
-        width: 25,
-        height: 25,
-        marginLeft: 5,
-        justifyContent: 'center',
-        tintColor: '#Ac3803',
-    },
-
-    selectDescriptionButton: {
-        flexDirection: 'row',
-        height: 50,
-        width: 300,
-        borderColor: '#Ac3803',
-        borderWidth: 1,
-        borderRadius: 5,
-        marginTop: 10,
-        alignItems: 'center',
-    },
-    descriptionIcon: {
-        width: 20,
-        height: 20,
-        marginLeft: 5,
-        justifyContent: 'center',
-        tintColor: '#Ac3803',
-    },
-    viewSuggestionsText: {
-        color: '#2884ec',
-        fontWeight: 'bold',
-        fontSize: 16,
-        marginTop: 20,
-        textAlign: 'center',
-    },
-    selectDriveOptionContainer: {
-        flexDirection: 'row',
-        alignItems: 'center',
-        marginTop: 20,
-    },
-    selectDriveOptionText: {
-        fontSize: 16,
-        marginRight: 30,
-        fontWeight: 'bold',
-        color: 'black',
-    },
-    selectFuelTypeButton: {
-        flexDirection: 'row',
-        height: 50,
-        width: 300,
-        borderColor: '#Ac3803',
-        borderWidth: 1,
-        borderRadius: 5,
-        marginTop: 10,
-        alignItems: 'center',
-    },
-    fuelTypeIcon: {
-        width: 20,
-        height: 20,
-        marginLeft: 5,
-        justifyContent: 'center',
-        tintColor: '#Ac3803',
-    },
-    selectFuelTypeText: {
-        fontSize: 14,
-        color: 'grey',
-        marginLeft: 15,
-        // marginTop: 13,
-    },
-    selectTransmissionContainer: {
-        flexDirection: 'row',
-        alignItems: 'center',
-        marginTop: 20,
-    },
-    selectTransmissionText: {
-        fontSize: 16,
-        marginRight: 30,
-        fontWeight: 'bold',
-        color: 'black'
-    },
-
-    toggleButtonContainer: {
-        flexDirection: 'column',
-    },
-    toggleButton: {
-        backgroundColor: 'white',
-        borderColor: '#Ac3803',
-        borderWidth: 1,
-        borderRadius: 20,
-        paddingVertical: 5,
-        paddingHorizontal: 10,
-        marginRight: 20,
-    },
-    toggleButtonText: {
-        fontSize: 14,
-        color: '#Ac3803',
-        textAlign: 'center'
-    },
-    selectedButton: {
-        backgroundColor: '#Ac3803',
-    },
-    selectedButtonText: {
-        color: 'white',
-    },
-    selectAssemblyContainer: {
-        flexDirection: 'row',
-        alignItems: 'center',
-        marginTop: 20,
-        marginLeft: 20
-    },
-    selectAssemblyText: {
-        fontSize: 16,
-        marginRight: 30,
-        fontWeight: 'bold',
-        color: 'black',
-    },
-    toggleButtonContainer: {
-        flexDirection: 'column',
-    },
-    toggleButton: {
-        backgroundColor: 'white',
-        borderColor: '#Ac3803',
-        borderWidth: 1,
-        borderRadius: 30,
-        paddingVertical: 5,
-        paddingHorizontal: 15,
-        marginRight: 20,
-        marginTop: 10
-    },
-    toggleButtonText: {
-        fontSize: 14,
-        color: '#Ac3803',
-        textAlign: 'center'
-    },
-    selectedButton: {
-        backgroundColor: '#Ac3803',
-    },
-    selectedButtonText: {
-        color: 'white',
-    },
-
-    selectFeatureButton: {
-        flexDirection: 'row',
-        height: 50,
-        width: 370,
-        borderColor: '#Ac3803',
-        borderWidth: 1,
-        borderRadius: 5,
-        marginTop: 10,
-        alignItems: 'center',
-    },
-    featureIcon: {
-        width: 20,
-        height: 20,
-        marginLeft: 10,
-        tintColor: '#Ac3803',
-    },
-    selectFeatureText: {
-        fontSize: 14,
-        color: 'grey',
-        marginLeft: 15,
-    },
-
-    contactInfoContainer: {
-        backgroundColor: 'ghostwhite', // Set your desired background color
-        padding: 10,
-        borderRadius: 5,
-        width: '100%', // Ensure it spans the full width
-        marginBottom: 10, // Add margin at the bottom
-        marginTop: 20
-    },
-    contactInfoText: {
-        fontSize: 16,
-        fontWeight: 'bold',
-        marginLeft: 10,
-        color: 'black'
-    },
-    contactInput: {
-        height: 40,
-        borderBottomColor: 'black', // Set the bottom border color
-        borderBottomWidth: 1, // Set the bottom border width
-        borderRadius: 5,
-        marginTop: 5,
-        paddingLeft: 15,
-    },
-    Postbutton: {
-        backgroundColor: '#Ac3803',
-        width: 300,
-        padding: 15,
-        margin: 5,
-        borderRadius: 5,
-        marginTop: 10
-    },
-    PostbuttonText: {
-        color: 'white',
-        fontSize: 16,
-        textAlign: 'center',
-        fontWeight: 'bold',
-    },
-    noteContainer: {
-        backgroundColor: 'white',
-        padding: 10,
-        marginTop: 10,
-    },
-    noteHeading: {
-        color: 'black',
-        fontSize: 16,
-        marginLeft: 10,
-        fontWeight: 'bold',
-    },
-    noteText: {
-        color: 'grey',
-        fontSize: 14,
-        marginLeft: 10
-    },
-    PremiumAdButton: {
-        backgroundColor: '#Ac3803',
-        width: 300,
-        padding: 15,
-        margin: 5,
-        borderRadius: 5,
-        marginTop: 10,
-    },
-    PremiumAdButtonText: {
-        color: 'white',
-        fontSize: 16,
-        textAlign: 'center',
-        fontWeight: 'bold',
-    },
-    selectDriveOptionContainer: {
-        flexDirection: 'row',
-        alignItems: 'center',
-        marginTop: 20,
-    },
-    selectAvailabilityContainer: {
-        marginTop: 20,
-    },
-    selectAvailabilityText: {
-        fontSize: 16,
-        fontWeight: 'bold',
-        color: 'black',
-    },
-    availabilityOptions: {
-        flexDirection: 'row',
-        marginTop: 10,
-    },
-    availabilityOptionButton: {
-        backgroundColor: 'white',
-        borderColor: '#Ac3803',
-        borderWidth: 1,
-        borderRadius: 5,
-        paddingVertical: 5,
-        paddingHorizontal: 10,
-        marginRight: 10,
-    },
-    selectedAvailabilityOptionButton: {
-        backgroundColor: '#Ac3803',
-    },
-    availabilityOptionButtonText: {
-        color: '#Ac3803',
-        fontSize: 14,
-    },
-    selectedAvailabilityOptionButtonText: {
-        color: 'white',
-    },
+  container: {
+    flex: 1,
+    backgroundColor: "white",
+  },
+  header: {
+    backgroundColor: "#fc6f03",
+    flexDirection: "row",
+    alignItems: "center",
+    paddingTop: StatusBar.currentHeight,
+  },
+  backButton: {
+    tintColor: "white",
+  },
+  backIcon: {
+    width: 25,
+    height: 25,
+    tintColor: "white",
+    marginLeft: 5,
+  },
+  titleContainer: {
+    flex: 1,
+  },
+  title: {
+    color: "white",
+    fontSize: 18,
+    fontWeight: "bold",
+    alignSelf: "center",
+  },
+  Imageborder: {
+    // borderWidth: 1,
+    // borderColor: 'black',
+    borderRadius: 10,
+    padding: 20,
+  },
+  scrollViewContent: {
+    flexGrow: 1,
+    alignItems: "center",
+  },
+  featureRow: {
+    flexDirection: "row",
+    marginBottom: 5,
+    // marginTop: 10,
+  },
+  featureContainer: {
+    flex: 1,
+    padding: 5,
+    // borderRadius: 5,
+    // marginHorizontal: 5,
+  },
+  lightGreyBackground: {
+    backgroundColor: "#f0f0f0",
+  },
+  whiteBackground: {
+    backgroundColor: "#fff",
+  },
+  label: {
+    fontWeight: "bold",
+    marginBottom: 5,
+  },
+  dropdown: {
+    borderWidth: 1,
+    borderColor: "#ccc",
+    padding: 8,
+    borderRadius: 5,
+    width: 190,
+  },
+  labelChooseCarAvailable: {
+    marginTop: 20,
+    marginLeft: 20,
+    fontSize: 16,
+    fontWeight: "bold",
+    alignSelf: "flex-start",
+  },
+  selectButton: {
+    padding: 10,
+    paddingHorizontal: 90,
+    borderColor: "#fc6f03",
+    borderWidth: 1,
+    borderRadius: 5,
+    marginTop: 20,
+  },
+  selectButtonText: {
+    color: "#fc6f03",
+    fontWeight: "bold",
+  },
+  selectedDays: {
+    fontSize: 12,
+    color: "green",
+  },
+  selectCarModelButton: {
+    flexDirection: "row",
+    height: 50,
+    width: 300,
+    borderColor: "grey",
+    borderWidth: 1,
+    borderRadius: 5,
+    borderColor: "#fc6f03",
+    borderBottomWidth: 1,
+    marginTop: 10,
+    alignItems: "center",
+    marginBottom: 30,
+  },
+  carModelIcon: {
+    width: 20,
+    height: 20,
+    marginLeft: 10,
+    tintColor: "lightgrey",
+  },
+  selectCarModelText: {
+    fontSize: 13,
+    color: "grey",
+    marginLeft: 15,
+    // Other text styles
+  },
+  Input: {
+    flexDirection: "row",
+    height: 50,
+    width: 320,
+    borderColor: "grey",
+    borderWidth: 1,
+    borderRadius: 5,
+    borderColor: "#fc6f03",
+    borderBottomWidth: 1,
+    marginTop: 10,
+    alignItems: "center",
+    marginBottom: 1,
+    paddingLeft: 10,
+  },
+  button: {
+    backgroundColor: "#fc6f03",
+    padding: 15,
+    borderRadius: 5,
+    alignItems: "center",
+    marginTop: 60,
+    // height: 50,
+    width: 300,
+  },
+  buttonText: {
+    color: "white",
+    fontWeight: "bold",
+  },
 });
 
 export default RentPostService;

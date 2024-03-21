@@ -5,7 +5,10 @@ import {
   TouchableOpacity,
   StyleSheet,
   StatusBar,
+  Animated,
 } from "react-native";
+import { useState } from "react";
+import { useEffect, useRef } from "react";
 import { useNavigation } from "@react-navigation/native";
 import SellNowPopup from "../screens/sellNowPopup";
 import { useContext } from "react";
@@ -21,6 +24,14 @@ const MainHeader = ({
 }) => {
   const { user } = useContext(UserContext);
   const navigation = useNavigation();
+  const [fadeAnim] = useState(new Animated.Value(0));
+  useEffect(() => {
+    Animated.timing(fadeAnim, {
+      toValue: 1,
+      duration: 1000,
+      useNativeDriver: true,
+    }).start();
+  }, []);
   const handleHomePress = () => {
     // Replace this with your actual logic for the Home button press
     // console.log('Home button pressed');
@@ -28,7 +39,7 @@ const MainHeader = ({
 
   const handleMyAdsPress = () => {
     // Replace this with your actual logic for the My Ads button press
-    navigation.navigate("myAds");
+    navigation.navigate("testing");
     // navigation.navigate('sellItMyself');
     console.log("presed");
   };
@@ -45,17 +56,17 @@ const MainHeader = ({
   const handleMorePress = () => {
     // Replace this with your actual logic for the More button press
     console.log("More button pressed");
-    navigation.navigate("more");
+    // navigation.navigate("more");
+    navigation.navigate("moreOption");
   };
 
   const handleBuyNowPress = () => {
     navigation.navigate("buyNow");
   };
 
-  // const handleFilterPress = () => {
-  //   console.log(SyncStorage.get("token"));
-  //   navigation.navigate("filterSearchCar");
-  // };
+  const handleRentPress = () => {
+    navigation.navigate("homeRentACar");
+  };
 
   // return (
   //   <View style={styles.headerContainer}>
@@ -107,20 +118,22 @@ const MainHeader = ({
           <Icon name="dots-three-vertical" size={24} color="white" />
         </TouchableOpacity>
       </View>
-      <View style={styles.buttonHolder}>
-        <TouchableOpacity style={styles.buttons} onPress={handleMyAdsPress}>
-          <Text style={styles.buttonText}>My ads</Text>
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.buttons} onPress={handleSellNowPress}>
-          <Text style={styles.buttonText}>Sell Now</Text>
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.buttons} onPress={handleBuyNowPress}>
-          <Text style={styles.buttonText}>Buy Now</Text>
-        </TouchableOpacity>
-        {/* <TouchableOpacity style={styles.buttons} onPress={handleFilterPress}>
-          <Text style={styles.buttonText}>Filter</Text>
-        </TouchableOpacity> */}
-      </View>
+      <Animated.View style={[styles.container, { opacity: fadeAnim }]}>
+        <View style={styles.buttonHolder}>
+          <TouchableOpacity style={styles.buttons} onPress={handleMyAdsPress}>
+            <Text style={styles.buttonText}>My ads</Text>
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.buttons} onPress={handleSellNowPress}>
+            <Text style={styles.buttonText}>Sell Now</Text>
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.buttons} onPress={handleBuyNowPress}>
+            <Text style={styles.buttonText}>Buy Now</Text>
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.buttons} onPress={handleRentPress}>
+            <Text style={styles.buttonText}>Rent</Text>
+          </TouchableOpacity>
+        </View>
+      </Animated.View>
       <SellNowPopup
         visible={sellNowPopupVisible}
         onClose={() => setSellNowPopupVisible(false)}
@@ -169,13 +182,14 @@ const styles = StyleSheet.create({
   },
   buttons: {
     backgroundColor: "white",
-    width: "30%",
+    width: "23%",
     height: 40,
     justifyContent: "center",
     alignItems: "center",
     padding: 5,
     borderRadius: 110,
     elevation: 5,
+    marginHorizontal: 2,
   },
   buttonText: {
     textAlign: "center",

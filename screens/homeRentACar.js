@@ -7,6 +7,7 @@ import {
   Text,
   ScrollView,
   StatusBar,
+  Animated,
 } from "react-native";
 import { useState } from "react";
 import { useNavigation } from "@react-navigation/native"; // Import navigation hook from react-navigation
@@ -15,10 +16,21 @@ import ManagedByAutoFinder from "../components/managedByAutoFinder";
 import FeaturedAd from "../components/featuredAd";
 import AutoFinderServices from "../components/autoFinderServices";
 import Advantage from "../components/advantage";
+import { useEffect, useRef } from "react";
 
 const HomeRentACar = () => {
   const navigation = useNavigation();
   const [selectedPackage, setSelectedPackage] = useState(null);
+
+  const fadeAnim = useRef(new Animated.Value(0)).current;
+
+  useEffect(() => {
+    Animated.timing(fadeAnim, {
+      toValue: 1,
+      duration: 1000,
+      useNativeDriver: true,
+    }).start();
+  }, [fadeAnim]);
 
   const FeatureLine = ({ imageSource, text }) => (
     <View style={styles.featureLine}>
@@ -42,7 +54,7 @@ const HomeRentACar = () => {
   };
   const handleBookACar = () => {
     // navigation.navigate('filterSearch');
-    navigation.navigate("filterSearchCar");
+    navigation.navigate("bookRent");
   };
   const handleListItForYouPress = () => {
     // Handle Premium Ads press
@@ -54,10 +66,10 @@ const HomeRentACar = () => {
     console.log("Free Ads pressed");
   };
 
-  const handleCarInspectionPress = () => {
-    // Handle Managed Ads press
-    console.log("Managed Ads pressed");
-  };
+  // const handleCarInspectionPress = () => {
+  //   // Handle Managed Ads press
+  //   console.log("Managed Ads pressed");
+  // };
 
   const handleBoostAdsPress = () => {
     // Handle Car Inspection press
@@ -77,7 +89,7 @@ const HomeRentACar = () => {
           />
         </TouchableOpacity>
         <View style={styles.titleContainer}>
-          <Text style={styles.title}>Rent A Car Service</Text>
+          <Text style={styles.title}>Rent Service</Text>
         </View>
       </View>
       <ScrollView>
@@ -86,27 +98,29 @@ const HomeRentACar = () => {
           style={styles.image}
         />
         <Text style={styles.addText}>AutoFinder Rent A Car Service</Text>
-        <TouchableOpacity style={styles.button} onPress={handleRentACar}>
-          <Text style={styles.buttonText}>Rent a Car</Text>
-        </TouchableOpacity>
+        <Animated.View style={[styles.container, { opacity: fadeAnim }]}>
+          <TouchableOpacity style={styles.button} onPress={handleRentACar}>
+            <Text style={styles.buttonText}>Rent Your Car</Text>
+          </TouchableOpacity>
+        </Animated.View>
 
         <Text style={styles.sellWorkText}>
           How AutoFinder Rent a Car Service Works?
         </Text>
         <WorksellForItForMe
-          imageSource={require("../assets/number-1.png")}
+          imageSource={require("../assets/one.png")}
           text="Sign Up for Rent a Car Services."
         />
         <WorksellForItForMe
-          imageSource={require("../assets/number-2.png")}
+          imageSource={require("../assets/two.png")}
           text="Providing details about vehicle you want to rent."
         />
         <WorksellForItForMe
-          imageSource={require("../assets/number-3.png")}
+          imageSource={require("../assets/three.png")}
           text="Your rent a car ad will be displayed in rent section."
         />
         <WorksellForItForMe
-          imageSource={require("../assets/number-3.png")}
+          imageSource={require("../assets/four.png")}
           text="Interested customers will contact you as soon as possible."
         />
 
@@ -121,16 +135,18 @@ const HomeRentACar = () => {
           ]}
         />
 
-        <TouchableOpacity style={styles.button} onPress={handleBookACar}>
-          <Text style={styles.buttonText}>Book a Car</Text>
-        </TouchableOpacity>
+        <Animated.View style={[styles.container, { opacity: fadeAnim }]}>
+          <TouchableOpacity style={styles.button} onPress={handleBookACar}>
+            <Text style={styles.buttonText}>Book Your Car</Text>
+          </TouchableOpacity>
+        </Animated.View>
 
         <Text style={styles.sellWorkText}>AutoFinder Services</Text>
         <AutoFinderServices
           onPremiumAdsPress={handleListItForYouPress}
           onFreeAdsPress={handlePremiumAdsPress}
           onManagedAdsPress={handleBoostAdsPress}
-          onCarInspectionPress={handleCarInspectionPress}
+          // onCarInspectionPress={handleCarInspectionPress}
         />
 
         {/* <Text style={styles.sellWorkText}>Managed By AutoFinder</Text> */}
@@ -164,6 +180,7 @@ const HomeRentACar = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    backgroundColor: "white",
   },
   header: {
     backgroundColor: "#fc6f03",
@@ -271,7 +288,7 @@ const styles = StyleSheet.create({
     width: 20,
     height: 20,
     marginRight: 10,
-    tintColor: "#fc6f03",
+    // tintColor: "#fc6f03",
   },
   worksellForItForMeText: {
     fontSize: 14,

@@ -1,28 +1,69 @@
 // /* eslint-disable prettier/prettier */
 // /* eslint-disable no-dupe-keys */
 // /* eslint-disable prettier/prettier */
-import React from 'react';
-import { View, Text, TouchableOpacity, Image, StyleSheet } from 'react-native';
-import { useNavigation } from '@react-navigation/native';
+import React from "react";
+import {
+  View,
+  Text,
+  TouchableOpacity,
+  Image,
+  StyleSheet,
+  Animated,
+} from "react-native";
+import { useNavigation } from "@react-navigation/native";
 // import home_AutoFinderOffer_CarInspection from './stack/home_AutoFinderOffer_CarInspection';
-import freeAds from '../assets/images/free_ads.png';
-import premiumAds from '../assets/images/premium_ads.png';
-import listItForYou from '../assets/images/list_it_for_you.png';
-import carInspection from '../assets/images/car_inspection.png';
-import buyCarForMe from '../assets/images/buy_car_for_me.png';
-import rentCar from '../assets/images/rent_car.png';
+import freeAds from "../assets/images/free_ads.png";
+import premiumAds from "../assets/images/premium_ads.png";
+import listItForYou from "../assets/images/list_it_for_you.png";
+import carInspection from "../assets/images/car_inspection.png";
+import buyCarForMe from "../assets/images/buy_car_for_me.png";
+import rentCar from "../assets/images/rent_car.png";
+import { useEffect, useRef } from "react";
 
 const AutoFindersOffering = () => {
+  const fadeAnim = useRef(new Animated.Value(0)).current;
+  useEffect(() => {
+    Animated.timing(fadeAnim, {
+      toValue: 1,
+      duration: 1000,
+      useNativeDriver: true,
+    }).start();
+  }, [fadeAnim]);
 
   const navigation = useNavigation();
 
   const data = [
-    { id: 1, label: 'Autofinder Services', label2: 'Free Ads', image: freeAds },
-    { id: 2, label: 'Autofinder Services', label2: 'Premium Ads', image: premiumAds },
-    { id: 3, label: 'Autofinder Services', label2: 'List It For You', image: listItForYou},
-    { id: 4, label: 'Autofinder Services', label2: 'Car Inspection', image: carInspection },
-    { id: 5, label: 'Autofinder Services', label2: 'Buy Car For Me', image: buyCarForMe },
-    { id: 6, label: 'Autofinder Services', label2: 'Rent A Car', image: rentCar},
+    { id: 1, label: "Autofinder Services", label2: "Free Ads", image: freeAds },
+    {
+      id: 2,
+      label: "Autofinder Services",
+      label2: "Premium Ads",
+      image: premiumAds,
+    },
+    {
+      id: 3,
+      label: "Autofinder Services",
+      label2: "List It For You",
+      image: listItForYou,
+    },
+    {
+      id: 4,
+      label: "Autofinder Services",
+      label2: "Car Inspection",
+      image: carInspection,
+    },
+    {
+      id: 5,
+      label: "Autofinder Services",
+      label2: "Buy Car For Me",
+      image: buyCarForMe,
+    },
+    {
+      id: 6,
+      label: "Autofinder Services",
+      label2: "Rent A Car",
+      image: rentCar,
+    },
   ];
   const renderTouchableOpacities = () => {
     const touchableOpacities = [];
@@ -59,27 +100,27 @@ const AutoFindersOffering = () => {
     switch (item.id) {
       case 1:
         // Navigate to screen for id-1
-        navigation.navigate('homeFreeAds');
+        navigation.navigate("homeFreeAds");
         break;
       case 2:
         // Navigate to screen for id-2
-        navigation.navigate('homePremiumAds');
+        navigation.navigate("homePremiumAds");
         break;
       case 3:
         // Navigate to screen for id-3
-        navigation.navigate('homeListItForYou');
+        navigation.navigate("homeListItForYou");
         break;
       case 4:
         // Navigate to car inspections screen for id-4
-        navigation.navigate('homeCarInspection');
+        navigation.navigate("homeCarInspection");
         break;
       case 5:
         // Navigate to screen for id-5
-        navigation.navigate('homeBuyCarForMe');
+        navigation.navigate("homeBuyCarForMe");
         break;
       case 6:
         // Navigate to screen for id-6
-        navigation.navigate('homeRentACar');
+        navigation.navigate("homeRentACar");
         break;
       default:
         // Handle press for other items if needed
@@ -94,7 +135,9 @@ const AutoFindersOffering = () => {
         <Text style={styles.headerText}>AutoFinders Offering Services </Text>
         {/* <View style={styles.line} /> */}
       </View>
-      {renderTouchableOpacities()}
+      <Animated.View style={[styles.container, { opacity: fadeAnim }]}>
+        {renderTouchableOpacities()}
+      </Animated.View>
     </View>
   );
 };
@@ -104,7 +147,7 @@ const styles = StyleSheet.create({
     padding: 20,
     flex: 1,
     // justifyContent: 'center',
-    alignItems: 'center',
+    alignItems: "center",
     // marginBottom: 40,
   },
   headerContainer: {
@@ -112,29 +155,29 @@ const styles = StyleSheet.create({
   },
   headerText: {
     fontSize: 20,
-    fontWeight: 'bold',
-    color: 'black',
+    fontWeight: "bold",
+    color: "black",
   },
   line: {
     borderBottomWidth: 1,
-    borderBottomColor: 'black', 
+    borderBottomColor: "black",
     marginTop: 5,
     width: 370,
   },
   row: {
-    flexDirection: 'row',
+    flexDirection: "row",
   },
   touchableOpacity: {
     width: 170,
     height: 170,
     margin: 5,
-    backgroundColor: 'white',
-    justifyContent: 'center',
-    alignItems: 'center',
+    backgroundColor: "white",
+    justifyContent: "center",
+    alignItems: "center",
     borderRadius: 10,
     // borderColor: 'black',
     // borderWidth: 1
-    shadowColor: '#000',
+    shadowColor: "#000",
     shadowOffset: {
       width: 0,
       height: 2,
@@ -147,20 +190,20 @@ const styles = StyleSheet.create({
   image: {
     width: 50,
     height: 50,
-    resizeMode: 'contain',
+    resizeMode: "contain",
   },
   label: {
     marginTop: 5,
     fontSize: 12,
     //fontWeight: 'bold',
-    color: '#000000',
+    color: "#000000",
   },
   label2: {
     marginTop: 2,
     fontSize: 20,
-    color: 'gray',
-    fontWeight: 'bold',
-    color: '#fc6f03',
+    color: "gray",
+    fontWeight: "bold",
+    color: "#fc6f03",
   },
 });
 
@@ -172,5 +215,4 @@ export default AutoFindersOffering;
 //color: '#2884ec' blue,
 // #ebedf2 light greey
 
-  //  secure color #9aedd7
-
+//  secure color #9aedd7

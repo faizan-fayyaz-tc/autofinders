@@ -7,6 +7,7 @@ import {
   Text,
   ScrollView,
   StatusBar,
+  Animated,
 } from "react-native";
 import { useState } from "react";
 import { useNavigation } from "@react-navigation/native"; // Import navigation hook from react-navigation
@@ -15,10 +16,21 @@ import InspectionIncludedComponentt from "./InspectionIncludedComponent";
 import HorizontalScrollPackagee from "./horizontalScrollPackage";
 import ManagedByAutoFinder from "../components/managedByAutoFinder";
 // import { CommonActions } from '@react-navigation/native';
+import { useEffect, useRef } from "react";
 
 const homeCarInspection = () => {
   const navigation = useNavigation();
   const [selectedPackage, setSelectedPackage] = useState(null);
+
+  const fadeAnim = useRef(new Animated.Value(0)).current;
+
+  useEffect(() => {
+    Animated.timing(fadeAnim, {
+      toValue: 1,
+      duration: 1000,
+      useNativeDriver: true,
+    }).start();
+  }, [fadeAnim]);
 
   const FeatureLine = ({ imageSource, text }) => (
     <View style={styles.featureLine}>
@@ -108,26 +120,29 @@ const homeCarInspection = () => {
           style={styles.image}
         />
         <Text style={styles.addText}>AutoFinder Car Inspection</Text>
-        <TouchableOpacity
-          style={styles.button}
-          onPress={handleScheduleInspeection}
-        >
-          <Text style={styles.buttonText}>Schedule Inspection</Text>
-        </TouchableOpacity>
+
+        <Animated.View style={[styles.container, { opacity: fadeAnim }]}>
+          <TouchableOpacity
+            style={styles.button}
+            onPress={handleScheduleInspeection}
+          >
+            <Text style={styles.buttonText}>Schedule Inspection</Text>
+          </TouchableOpacity>
+        </Animated.View>
 
         <Text style={styles.addTextChoose}>
           Why AutoFinder is more credible for Car Inspection?
         </Text>
         <FeatureLine
-          imageSource={require("../assets/reports.png")}
+          imageSource={require("../assets/reportsCar.png")}
           text="Extensive reports of vehicles"
         />
         <FeatureLine
-          imageSource={require("../assets/staff.png")}
+          imageSource={require("../assets/qualification.png")}
           text="Skilled and certified staff"
         />
         <FeatureLine
-          imageSource={require("../assets/inspection.png")}
+          imageSource={require("../assets/carInspect.png")}
           text="Satisfied inspection"
         />
 
@@ -135,19 +150,19 @@ const homeCarInspection = () => {
           How AutoFinder Car Inpection Works?
         </Text>
         <WorksellForItForMe
-          imageSource={require("../assets/number-1.png")}
+          imageSource={require("../assets/one.png")}
           text="Sign Up for car inpection services"
         />
         <WorksellForItForMe
-          imageSource={require("../assets/number-2.png")}
+          imageSource={require("../assets/two.png")}
           text="Book a time and location for the car inspection"
         />
         <WorksellForItForMe
-          imageSource={require("../assets/number-3.png")}
+          imageSource={require("../assets/three.png")}
           text="Team of Experts will visit the vehicle owner and conduct the inpections"
         />
         <WorksellForItForMe
-          imageSource={require("../assets/number-3.png")}
+          imageSource={require("../assets/four.png")}
           text="Get your detailed inspection report in an hour via WhatsApp or email"
         />
 
@@ -281,6 +296,7 @@ const homeCarInspection = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    backgroundColor: "white",
   },
   header: {
     backgroundColor: "#fc6f03",
@@ -350,7 +366,7 @@ const styles = StyleSheet.create({
     width: 20,
     height: 20,
     marginRight: 10,
-    tintColor: "#fc6f03",
+    // tintColor: "#fc6f03",
   },
   featureText: {
     fontSize: 14,
@@ -387,7 +403,7 @@ const styles = StyleSheet.create({
     width: 20,
     height: 20,
     marginRight: 10,
-    tintColor: "#fc6f03",
+    // tintColor: "#fc6f03",
   },
   worksellForItForMeText: {
     fontSize: 14,

@@ -12,10 +12,10 @@ import Header from "../components/header"; // Corrected import with PascalCase
 import { useNavigation } from "@react-navigation/core";
 import { AntDesign } from "@expo/vector-icons"; // Importing AntDesign icons
 import SearchBar from "../components/searchBar";
-import BuyNowCard from "../components/buyNowCards";
+import BookRentCards from "../components/bookRentCards";
 import backArrow from "../assets/back-arrow.png";
 import axios from "axios";
-const BuyNow = () => {
+const BookRent = () => {
   const navigation = useNavigation();
   const [filterOptions, setFilterOptions] = useState({});
   const [isLoading, setIsloading] = useState(true);
@@ -25,7 +25,7 @@ const BuyNow = () => {
   };
 
   const handleCardPress = (itemId) => {
-    navigation.navigate("sellerCarDetail", { itemId: itemId });
+    navigation.navigate("sellerRentDetail", { itemId: itemId });
   };
 
   const handleFilterPress = () => {
@@ -96,7 +96,7 @@ const BuyNow = () => {
               key={item._id}
               onPress={() => handleCardPress(item._id)}
             >
-              <BuyNowCard
+              <BookRentCards
                 key={item._id}
                 carImage={item.images[0]}
                 name={item.brand}
@@ -161,4 +161,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default BuyNow;
+export default BookRent;
